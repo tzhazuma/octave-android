@@ -261,10 +261,111 @@ EXIT_RC=0
 > **意义**：Octave 需要的数值内核（BLAS + LAPACK + FFTW）**已经在 Android 上全部跑通**，
 > 且**不需要 Fortran 编译器**。
 
-#### 模式 `fortran`（`NOFORTRAN=0 FC=flang-new`）—— 已定位障碍，非必需
-OpenBLAS 的 `f_check` 脚本会**编译并运行**探针程序来推断编译器 ABI，
-交叉编译时无法运行（表现为 `f_check: line 254: objs[@]: unbound variable`）。
-由于 `clapack` 模式已覆盖 LAPACK，**此模式对本项目不再是必需路径**。
+#### 模式 `fortran`（`NOFORTRAN=0 FC=<flang 交叉驱动>`）—— **也已打通（并发 agent 补充，见 §3.5）**
+
+> 本条原先记为「已定位障碍，非必需」。并发推进的另一路 agent **把它做通了**，
+> 且这条路对 **ARPACK-ng / qrupdate-ng（无 f2c 版本）是必需的**。详见 §3.5。
+
+### 3.5 全 Fortran 路线：把 flang 变成可用的交叉驱动（并发 agent 补充）
+
+§3.3 证明了「flang 能编出 aarch64 目标文件」，但**目标文件能编 ≠ 整条链能编**。
+本节把它推进到「**能替代 gfortran 跑完真实构建系统**」，这是 ARPACK-ng / qrupdate-ng /
+Octave 本体（都没有 f2c C 替代）的前提。
+
+#### 3.5.1 可复用的交叉驱动：`scripts/toolbin/aarch64-linux-android24-flang-new`
+
+一个 Termux 风格的 wrapper，**编译走 flang、链接走 NDK clang**：
+
+| 调用形态 | 行为 |
+|---|---|
+| `-v` / `--version` / `-dumpversion` / `-print-*` | → 主机 `flang-new`（**关键**：让 `f_check`/autoconf 正确识别为 LLVM Flang） |
+| `-c` / `-S` / `-E` / `-fc1` … | → `flang-new --target=aarch64-linux-android24 --sysroot=<NDK>` |
+| 其它（链接） | → **两阶段**：先把 `.f/.f90` 源用 flang 编成临时 `.o`，再用 NDK clang+lld 链接，并补上 flang 运行时 + compiler-rt builtins |
+
+> **为什么链接不能用 flang 自己的驱动**（实测）：flang 驱动为
+> `aarch64-unknown-linux-android24` 这个 triple 去找**只存在于宿主**的运行时：
+> ```
+> ld.lld: error: unable to find library -lflang_rt.runtime
+> ld.lld: error: cannot open .../lib/clang/23/lib/aarch64-unknown-linux-android24/libclang_rt.builtins.a
+> ld.lld: error: unable to find library -l:libunwind.a
+> ```
+> 而 NDK clang+lld 能正确链 bionic，我们再显式补 flang 运行时即可。
+
+#### 3.5.2 四个链接错误与修法（全部实测）
+
+| # | 错误 | 根因 | 修法 |
+|---|---|---|---|
+| a | `unable to find library -lflang_rt.runtime` / `libclang_rt.builtins.a` / `-l:libunwind.a` | flang 驱动按宿主 triple 找运行时 | 链接交给 NDK clang |
+| b | `undefined symbol: stderr` / `__gnu_strerror_r` / `__write_chk` | bionic **API 21** 不导出这些 | 用 **API ≥ 24** + `-D_FORTIFY_SOURCE=2`（API 21 静态链接也能过） |
+| c | `duplicate symbol: second_ / dsecnd_` | `-Wl,--whole-archive` 把 LAPACK `INSTALL/` 里多个**互斥**的 `second/dsecnd` 变体（`_NONE` / `_INT_ETIME` …）全拉进来 | `-Wl,--allow-multiple-definition` |
+| d | `relocation R_AARCH64_ADR_PREL_PG_HI21 cannot be used against symbol 'Fortran::runtime::UTF8FirstByteTable'; recompile with -fPIC` | **Termux 的 aarch64 flang runtime 未用 `-fPIC` 编译**（`utf.cpp.o`、`numeric.cpp.o` 实测都是非 PIC） | **`-Wl,-Bsymbolic`**：把库内引用绑定为本地、不再可抢占，非 PIC 重定位即合法（`-Bsymbolic-functions` 不够，必须全量 `-Bsymbolic`） |
+
+> ⚠️ **卡点 d 是路线 B 共享库阶段的关键发现**：Termux 的运行时**只能用于静态可执行文件**，
+> 不能直接进 `.so`。`-Bsymbolic` 是可用绕过，但**长期正解是自建 `-fPIC` 的 `flang-rt`**——
+> Octave 自身的 `.so`（liboctinterp 等）同样会撞上这个问题。
+> 附带语义影响：`-Bsymbolic` 会关闭符号抢占（对数学库通常是好事，但需知晓）。
+
+#### 3.5.3 规模验证：2197 个真实 Fortran 源文件，零失败
+
+| 目标 | 文件数 | 结果 | 耗时 |
+|---|---|---|---|
+| `lapack-netlib/BLAS/SRC/*.f`（参考 BLAS） | **151** | ✅ **151/151** | 47 s |
+| `lapack-netlib/SRC/*.f`（完整 LAPACK） | **2046** | ✅ **2046/2046** | 667 s |
+
+全部产出 `ELF 64-bit LSB relocatable, ARM aarch64`。这比单个 gate 程序强得多：
+它证明 flang 能吃下 LAPACK 的全部语法面（`COMPLEX*16`、`EQUIVALENCE`、`ENTRY`、
+`COMMON`、`DATA`、老式定格式、`INTRINSIC`、格式化 I/O 等）。
+
+#### 3.5.4 OpenBLAS 全 Fortran 构建（`NOFORTRAN=0`）
+
+```sh
+make TARGET=ARMV8 BINARY=64 DYNAMIC_ARCH=0 CROSS=1 F_COMPILER=FLANGNEW \
+  CC=<NDK aarch64-linux-android24-clang> \
+  FC=$HOME/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new \
+  HOSTCC=cc AR=<llvm-ar> RANLIB=<llvm-ranlib> \
+  NOFORTRAN=0 USE_OPENMP=0 NUM_THREADS=64 PREFIX=$PREFIX/arm64-v8a/openblas shared
+```
+
+- `F_COMPILER=FLANGNEW` **必须显式给**：`f_check` 若解析版本失败会退回
+  `FLANG`（那是**经典 PGI/NVIDIA flang**），进而注入 `-Mrecursive -Kieee`
+  这两个 LLVM Flang 不认的编译选项。wrapper 已保证 `-v` 正确输出，显式指定更稳。
+- 结果：`OPENBLAS_MAKE_RC=0`（shared）→ `libopenblas.a` **26 MB**、
+  `libopenblas_armv8p-r0.3.34.so` **12.6 MB**（`ELF64/AArch64/DYN`）；
+  `make install` 亦 `RC=0`。
+
+**真机验证**（`spike/blas-test/blas_test.c`，vivo PA2573 / Android 16 / arm64-v8a）：
+```
+-- STATIC 归档 + 动态 bionic --
+DGESV info=0 x=(2.000000, 3.000000)        # 3x+y=9, x+2y=8  -> (2,3) 正确
+DGEMM C=(23.0 34.0; 31.0 46.0)             # 与手算一致
+OPENBLAS_DEVICE_OK
+-- 共享库 libopenblas.so --
+DGESV info=0 x=(2.000000, 3.000000)
+DGEMM C=(23.0 34.0; 31.0 46.0)
+OPENBLAS_DEVICE_OK
+```
+- ✅ **共享库可用**（`-Bsymbolic` 绕过非 PIC 运行时后）
+- ⚠️ **完全 `-static` 链接会 SIGSEGV（exit 139）**；但「归档 + 动态 bionic(PIE)」正常。
+  Android 交付形态本就是 `.so`/PIE，**不阻塞**。
+
+#### 3.5.5 与 `clapack` 模式的关系（两路互补，不是二选一）
+
+| | `clapack`（`C_LAPACK=1`）| `fortran`（本节） |
+|---|---|---|
+| LAPACK 来源 | OpenBLAS 自带 f2c C 源码 | netlib `.f` 原版 |
+| 需要 Fortran 编译器 | **否** | 是（flang） |
+| 覆盖 ARPACK / qrupdate | **不能**（无 f2c 版） | **能** |
+| 用途 | 交付 OpenBLAS 的更简路径 | **ARPACK-ng / qrupdate-ng / Octave 本体的唯一路径** |
+
+> 结论：**两条都要保留**。OpenBLAS 走 `clapack` 更省事；但 §3.5 的 flang 驱动是
+> 后续 ARPACK/qrupdate/Octave 的必经之路。
+
+#### 3.5.6 并发构建冲突的澄清（重要）
+
+§5 #30 记录「`second_NONE.o` 是另一个并发构建用 flang 编出来的」——
+**那个「另一个并发构建」就是本节**。两个 agent 同时在 `src/OpenBLAS-0.3.34/` 里构建：
+flang 侧产出 `second_NONE.o`，C 侧产出 `second_INT_ETIME.o`，`--whole-archive` 下撞名。
+→ 与 §7.1 的结论一致：**必须用隔离源码树**。本节后续构建已改到隔离路径。
 
 ---
 
@@ -282,6 +383,9 @@ OpenBLAS 的 `f_check` 脚本会**编译并运行**探针程序来推断编译�
 | **`fortran_gate_run.txt`** | **Fortran 闸门三步全记录**（flang 交叉编译 → NDK 链接 → 真机运行） |
 | **`fortran_gate_binary`** | 真机跑通的 aarch64 可执行文件本体（6.6 KB） |
 | **`openblas_lapack_gate_run.txt`** | **纯 C BLAS+LAPACK 记录**：纯度证明 + ELF/依赖/对齐 + 真机 `dgesv`/`dpotrf` |
+| **`fortran_gate.log`** | **可复现 Fortran 闸门全记录**（§3.5）：工具链身份、纯计算目标文件、运行时 ABI 面、API21 失败 vs API24+fortify 成功、与宿主 gfortran 数值对照 |
+| **`fortran_gate_device.log`** | **真机运行记录**：`FORTRAN_GATE_OK`（static+PIE）、`RT_GATE_OK`（matmul/内建/complex/write） |
+| **`openblas_device.log`** | **全 Fortran OpenBLAS 真机数值验证**：`DGESV`/`DGEMM` 与手算一致（静态归档 + 共享库两种链接） |
 
 配套源码/测试在 `~/octave-android/spike/`：
 - `spike/fortran-gate/`：`fscale.f90`、`driver.c`、`gate`（+ 产物 `fscale.o`）
@@ -336,6 +440,26 @@ OpenBLAS 的 `f_check` 脚本会**编译并运行**探针程序来推断编译�
 | 31 | 快照静态库 + `llvm-ar d` 掉 flang 重复成员 + 手工链 `.so` | ✅ 12.3 MB，真机 `dgesv`/`dpotrf` 数值正确 | 临时验证 |
 | 32 | **隔离目录干净重建**（`OPENBLAS_SRC=src/OpenBLAS-0.3.34-clapack`） | ✅ **`OPENBLAS_MAKE_RC=0`，0 error，约 2 分钟**；`_FortranA*` 未定义 = **0**；真机数值正确 | **最终交付路径** |
 
+### 路线 B · 全 Fortran 分支（2026-10-16，并发 agent；详见 §3.5）
+
+| # | 尝试 | 结果/错误 | 修法 |
+|---|---|---|---|
+| 33 | 宿主找 Fortran 编译器 | `/opt/homebrew/bin/flang-new` **已存在**（flang 23.1.3）、`gfortran` 16.2.0（仅 Darwin target） | **flang-new 是 target-agnostic 的**，直接加 `--target=` 即可 |
+| 34 | `flang-new --target=aarch64-linux-android21 --sysroot=<NDK> -c fscale.f90` | ✅ `ELF 64-bit LSB relocatable, ARM aarch64`；导出 `fscale_`/`fdot_`；**undefined = 0** | 纯计算 Fortran **不需要运行时** |
+| 35 | NDK clang 链接 + 真机跑 | ✅ `FORTRAN_GATE_OK fscale -> 2.5 5.0 7.5 10.0  fdot=25.0` | 闸门开 |
+| 36 | 更硬的门：`matmul` 内建 + `sqrt/sin/cos` + `COMPLEX*16` + 格式化 `WRITE` | 需 12 个未定义符号：`_FortranAAssign`/`_FortranAMatmulReal8Real8`/`_FortranAio*`/`__divdc3`/`sin`/`cos`… | 需 flang 运行时 + compiler-rt builtins |
+| 37 | 用 Termux `libflang_rt.runtime.a` + NDK `libclang_rt.builtins-aarch64-android.a` 链接 | ✅ 两者齐备：运行时 DEFINED 全部 `_FortranA*`，NDK 提供 `__divdc3` | — |
+| 38 | **API 21 动态链接** | ❌ `undefined symbol: stderr` / `__gnu_strerror_r` / `__write_chk` | **改 API ≥ 24 + `-D_FORTIFY_SOURCE=2`** |
+| 39 | API 24/28/30/34 动态链接 | ✅ 全部成功；真机 `RT_GATE_OK s=26.316947 …` | 静态链接在 API 21 也能过 |
+| 40 | **数值交叉验证** | ✅ 宿主 `gfortran` 参考实现给出**完全相同的** `s=26.316947` | 交叉编译产物数值可信 |
+| 41 | `flang-new` 作为链接驱动（OpenBLAS `.so`） | ❌ `-lflang_rt.runtime` / `libclang_rt.builtins.a` / `-l:libunwind.a` 找不到 | 写 wrapper：链接交给 NDK clang |
+| 42 | wrapper 处理 `-v` | ❌ 旧 wrapper 把 `-v` 当链接、触发 bash 3.2 `objs[@]: unbound variable` → `f_check` 解析失败 | **后果**：OpenBLAS 判成 `F_COMPILER=FLANG`（经典 PGI flang）→ 注入 `-Mrecursive -Kieee`。修 wrapper 的 info-flag 分支 |
+| 43 | `--whole-archive` 链 `.so` | ❌ `duplicate symbol: second_ / dsecnd_`（LAPACK `INSTALL/` 多个互斥变体） | `-Wl,--allow-multiple-definition` |
+| 44 | 补 flang 运行时后链 `.so` | ❌ `relocation R_AARCH64_ADR_PREL_PG_HI21 cannot be used against 'Fortran::runtime::UTF8FirstByteTable'; recompile with -fPIC` | **Termux 运行时非 PIC** → **`-Wl,-Bsymbolic`**（`-Bsymbolic-functions` 不够） |
+| 45 | `OPENBLAS_MAKE_RC`（`NOFORTRAN=0 F_COMPILER=FLANGNEW shared`） | ✅ **RC=0**：`.a` 26 MB + `.so` 12.6 MB；`make install` RC=0 | — |
+| 46 | 真机 `dgesv`/`dgemm`（共享库） | ✅ `x=(2,3)`、`C=(23 34 31 46)` 与手算一致 | 完成 |
+| 47 | 真机 **`-static`** 链接 | ❌ **SIGSEGV（exit 139）**；同代码「归档 + 动态 bionic(PIE)」正常 | Android 交付用 `.so`/PIE，**不阻塞** |
+
 ---
 
 ## 6. 下一步（优先级序）
@@ -343,8 +467,12 @@ OpenBLAS 的 `f_check` 脚本会**编译并运行**探针程序来推断编译�
 数值内核（FFTW + BLAS + LAPACK）已在真机跑通，剩下的都是**工程量而非壁垒**：
 
 1. **ARPACK-ng / qrupdate-ng**（Octave 的特征值/秩更新依赖，Fortran 源码，无 f2c 版本）
-   → 用已验证的 **flang 路线**：`flang-new --target=aarch64-linux-android24` + `libflang_rt.runtime.a`。
-   注意 ARPACK 的 `configure` 同样有"能否运行测试程序"的交叉编译问题，需准备 `ac_cv_*` 缓存。
+   → **基础设施已就绪**：直接用 §3.5.1 的 `scripts/toolbin/aarch64-linux-android24-flang-new`
+   作为 `FC`，`source scripts/ndk-flang-env.sh` 拿环境变量。
+   注意 ARPACK 的 `configure` 同样有"能否运行测试程序"的交叉编译问题，需准备 `ac_cv_*` 缓存；
+   `ac_cv_f77_libs` 已由 `ndk-flang-env.sh` 预置为
+   `-L<flang-runtime> -lFortranRuntime -lFortranDecimal`。
+   ⚠️ 若目标产物是 `.so`，务必带上 `-Wl,-Bsymbolic`（§3.5.2 卡点 d）。
 2. **其余纯 C 依赖**：`qhull`、`suitesparse`(CXSparse/COLAMD)、`glpk`、`hdf5`、`zlib`/`bzip2`、
    `readline`、`pcre2`、`curl`、`fftw`(已好)、`sundials`。
 3. **Octave 本体**（最后一步）：
@@ -359,6 +487,13 @@ OpenBLAS 的 `f_check` 脚本会**编译并运行**探针程序来推断编译�
    `-Wl,-z,max-page-size=16384`（本仓库所有产物已满足）。
 6. **性能后续**：`TARGET=ARMV8` 是通用基线；真机是 **MediaTek MT8799（Cortex-X4 + Cortex-A720，
    带 SVE2/i8mm/bf16）**，后续可换 `NEOVERSEV1`/`CORTEXA76` 或开 `DYNAMIC_ARCH`。
+7. **【新增·技术债】自建 `-fPIC` 的 `flang-rt` 运行时**（§3.5.2 卡点 d）。
+   Termux 预编译的 `libflang_rt.runtime.a` **非 PIC**，只能进静态可执行文件；
+   目前靠 `-Wl,-Bsymbolic` 绕过。Octave 自身的共享库（`liboctinterp.so` 等）会持续撞上
+   这个问题，且 `-Bsymbolic` 有语义副作用（关闭符号抢占）。
+   正解：按 Termux 的 `packages/flang/build.sh` 里 `__flang_build_runtime` 的做法，
+   用 `LLVM_ENABLE_RUNTIMES=flang-rt` + `-DLLVM_ENABLE_PIC=ON` 自建一份 aarch64 运行时。
+   **建议在 ARPACK 之后、Octave 本体之前做**，避免后面反复绕。
 
 ---
 
@@ -398,5 +533,9 @@ OpenBLAS 的构建**在原树内写 `.o`**。本轮实测：两个进程在同�
 | `scripts/build_fftw.sh` | 交叉编译 FFTW3（逐字复现成功构建的 configure 调用） |
 | `scripts/build_openblas.sh` | 交叉编译 OpenBLAS，三模式 `blas` / `clapack` / `fortran`；支持 `OPENBLAS_SRC` 隔离 |
 | `scripts/fortran_gate_test.sh` | 复现 Fortran 闸门三步（编译 → 链接 → 真机运行） |
+| **`scripts/toolbin/aarch64-linux-android24-flang-new`** | **可复用的 flang 交叉驱动**（§3.5.1）：编译走 flang、链接走 NDK clang；已内含 `--allow-multiple-definition` + `-Bsymbolic` + `-D_FORTIFY_SOURCE=2`。**ARPACK/qrupdate/Octave 直接用 `FC=<此脚本>`** |
+| **`scripts/ndk-flang-env.sh`** | 一键导出整套 NDK+flang 交叉环境变量（`CC/CXX/FC/F77/ac_cv_f77_libs/LIBS` 等），供 autoconf 类构建 `source` |
+| **`scripts/fortran-gate.sh`** | 生成 `evidence/fortran_gate.log`（含 API21 失败与 API24 成功的对照，可复现） |
+| **`scripts/build-openblas.sh`** | **全 Fortran** OpenBLAS 构建（`NOFORTRAN=0 F_COMPILER=FLANGNEW`），与 `build_openblas.sh` 的 `clapack` 模式互补 |
 | `scripts/device_run.sh` | 设备端脚本：驱动 Termux `RunCommandService`（路线 A 归档用） |
 | `scripts/probe_octave.sh` | 设备端脚本：探查 Termux 环境（路线 A 归档用） |
