@@ -20,6 +20,7 @@
 | **OpenBLAS 0.3.34（+ 完整 LAPACK）** | 同名 .so **12.3M，100% 纯 C** | `dgesv` → `x=[0.090909, 0.636364]` = 精确 `[1/11, 7/11]`；`dpotrf` Cholesky 校验通过，RC=0 |
 | **Fortran 闸门**（决定性） | flang 编译的 `.o` + NDK 链接 | `FORTRAN_GATE_OK fscale -> 2.5 5.0 7.5 10.0  fdot=25.0`，RC=0 |
 | **ARPACK-ng 3.9.1**（Fortran-only） | `libarpack.so` 848K，16 KiB 对齐 | `dsdrv1` 2D Laplacian：**4/4 Ritz 值收敛**，残差 ~1e-14，与独立计算 `19.60540/48.21935/48.21935/76.83329` **精确一致** |
+| **qrupdate-ng 1.3.1**（Fortran-only） | `libqrupdate.so.1.3.1` 225K | **自带验证套件真机 `10/10 PASS`**（Cholesky/QR/LU 更新全覆盖） |
 
 **关键突破两条**：
 
@@ -445,6 +446,58 @@ checking for Fortran 77 name-mangling scheme... lower case, underscore, no extra
 > **数值正确**。这是「Fortran 闸门」从「能编译」到「能算出对的答案」的完整闭环。
 > 证据：`evidence/arpack_device.log`。
 
+### 3.7 qrupdate-ng 打通记录（**最后一个 Fortran-only 依赖，自带测试套件 10/10 通过**）
+
+源码 `qrupdate-ng 1.3.1`，**sha256 `6013533…e6c55ea` 与 Termux 配方 pin 值完全一致** ✓。
+
+#### 3.7.1 CMake 交叉配置（与 §3.6 的 autoconf 路线并列的第二条验证）
+
+```sh
+cmake <src> -DCMAKE_SYSTEM_NAME=Linux \      # 按 Termux 的做法：对 CMake 冒充 Linux，
+  -DCMAKE_C_COMPILER=<ndk aarch64-linux-android28-clang> \   # 绕开 CMake 自带 NDK 集成
+  -DCMAKE_Fortran_COMPILER=<scripts/toolbin/aarch64-linux-android24-flang-new> \
+  -DCMAKE_AR=<llvm-ar> -DCMAKE_RANLIB=<llvm-ranlib> \
+  -DCMAKE_EXE_LINKER_FLAGS="-L<flang-runtime> -lFortranRuntime -lFortranDecimal <builtins> -Wl,--allow-shlib-undefined -lm" \
+  -DCMAKE_SHARED_LINKER_FLAGS="-Wl,-Bsymbolic -Wl,--allow-multiple-definition -Wl,--allow-shlib-undefined" \
+  -DLAPACK_LIBRARIES=<openblas.so> -DBLAS_LIBRARIES=<openblas.so> \
+  -DCMAKE_INSTALL_PREFIX=<prefix>/qrupdate -DBUILD_SHARED_LIBS=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+```
+结果：`CMAKE_RC=0`；`-- The Fortran compiler identification is LLVMFlang 23.1.3`、
+`Check for working Fortran compiler ... - works`、`Found BLAS` / `Found LAPACK`。
+
+#### 3.7.2 两个新踩到的坑
+
+| 现象 | 根因 | 修法 |
+|---|---|---|
+| `FortranCInterface_VERIFY` 链接失败：`undefined symbol: _FortranAioBeginExternalListOutput / _FortranAioOutputAscii / _FortranAioEndIoStatement` | CMake 的**混合 C/Fortran 测试用 C 驱动链接**，我们补的 flang 运行时只在 `FC` 那条线上 | 把 flang 运行时 + builtins 也加到 **`CMAKE_EXE_LINKER_FLAGS`** |
+| 测试二进制链接失败：`undefined symbol: aligned_alloc` | **bionic 从 API 28 才提供 `aligned_alloc`**，而基线是 API 24 | wrapper 支持 `ANDROID_API_LEVEL` 覆盖（默认 24）→ 测试用 **28**。**库本身在 24 也能建** |
+
+> wrapper 已改为 **API 等级可通过 `ANDROID_API_LEVEL` 环境变量覆盖**（默认 24，向后兼容）。
+
+#### 3.7.3 构建与真机验证
+
+- `make -j8` → **`MAKE_RC=0`，零 error**（451 个 Fortran 源，含 `lapack-missing/`）
+- `libqrupdate.so.1.3.1`（225 KB），`SONAME=libqrupdate.so.1`；另有 `libqrupdate.a`（325 KB）
+- **qrupdate 自带验证套件在真机上 `10/10 PASS`**：
+  ```
+  PASS tch1up  PASS tch1dn  PASS tchdex  PASS tchinx  PASS tchshx
+  PASS tqr1up  PASS tqrinc  PASS tqrinr  PASS tqrshc  PASS tlu1up
+  QRUPDATE_TESTS pass=10 fail=0
+  ```
+  覆盖 Cholesky 更新/降级（`ch1up`/`ch1dn`/`chdex`/`chinx`/`chshx`）、
+  QR 更新/插入/删除/位移（`qr1up`/`qrinc`/`qrinr`/`qrshc`）、LU 更新（`lu1up`）。
+- 证据：`evidence/qrupdate_device.log`
+
+#### 3.7.4 外部佐证：Termux 用了**和我们一样**的 `-Bsymbolic`
+
+Termux 自己的 `packages/qrupdate-ng/build.sh` 里有：
+```sh
+termux_setup_flang                                        # LLVM Flang，与我们一致
+-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-Bsymbolic                # 与 §3.5.2 卡点 d 的修法完全一致
+```
+→ **独立佐证**：非 PIC 的 flang 运行时进 `.so` 确实需要 `-Bsymbolic`，这不是我们的误判，
+而是这条技术路线的固有特征（也说明 Termux 并未自建 PIC 运行时，而是同样绕过）。
+
 ---
 
 ## 4. 已验证到哪一步（证据索引）
@@ -465,6 +518,7 @@ checking for Fortran 77 name-mangling scheme... lower case, underscore, no extra
 | **`fortran_gate_device.log`** | **真机运行记录**：`FORTRAN_GATE_OK`（static+PIE）、`RT_GATE_OK`（matmul/内建/complex/write） |
 | **`openblas_device.log`** | **全 Fortran OpenBLAS 真机数值验证**：`DGESV`/`DGEMM` 与手算一致（静态归档 + 共享库两种链接） |
 | **`arpack_device.log`** | **ARPACK-ng 真机验证**（§3.6）：autoconf 交叉检测、320 个 `.f` 零错误、`.so` 属性、`dsdrv1` 特征值与独立计算精确一致 |
+| **`qrupdate_device.log`** | **qrupdate-ng 真机验证**（§3.7）：CMake 交叉配置、451 个 Fortran 源零错误、**自带测试套件 10/10 PASS**、Termux `-Bsymbolic` 佐证 |
 
 配套源码/测试在 `~/octave-android/spike/`：
 - `spike/fortran-gate/`：`fscale.f90`、`driver.c`、`gate`（+ 产物 `fscale.o`）
@@ -543,20 +597,24 @@ checking for Fortran 77 name-mangling scheme... lower case, underscore, no extra
 | 50 | `make -j8`（320 个 `.f`） | ✅ **`RC=0`，零 error**；`libarpack.so` 848 KB、16 KiB 对齐、导出 `dsaupd_/dseupd_/…` | — |
 | 51 | 链接示例时报 `undefined symbol: dmout_/ivout_/arscnd_/svout_` | ❌ **`UTIL/.libs/libarpackutil.a` 是空的（96 字节，0 成员）**，且 UTIL 例程未折进 `libarpack.so` | 显式把 `UTIL/.libs/*.o` 加进链接；可执行文件加 `-Wl,--allow-shlib-undefined` |
 | 52 | 真机跑 `EXAMPLES/SYM/dsdrv1.f` | ✅ **4/4 Ritz 值收敛，残差 ~1e-14**；与独立计算的 `19.60540 / 48.21935 / 48.21935 / 76.83329` **精确一致** | **ARPACK 打通（Fortran-only 依赖闭环）** |
+| 53 | qrupdate-ng `cmake -DCMAKE_SYSTEM_NAME=Linux` | ✅ `CMAKE_RC=0`；`Fortran compiler identification is LLVMFlang 23.1.3`、`works`、`Found BLAS/LAPACK` | 对 CMake 冒充 Linux 可绕开其 NDK 集成 |
+| 54 | `FortranCInterface_VERIFY` 链接 | ❌ `undefined symbol: _FortranAioBeginExternalListOutput / _FortranAioOutputAscii / _FortranAioEndIoStatement`（混合 C/Fortran 测试走 **C 驱动**链接，没有 flang 运行时） | 把 flang 运行时 + builtins 加进 **`CMAKE_EXE_LINKER_FLAGS`** |
+| 55 | 测试二进制链接 | ❌ `undefined symbol: aligned_alloc`（**bionic 从 API 28 才有**） | wrapper 支持 `ANDROID_API_LEVEL` 覆盖（默认 24）→ 测试用 28；库本身 24 也能建 |
+| 56 | `make -j8`（451 个 Fortran 源） | ✅ **`MAKE_RC=0`，零 error**；`libqrupdate.so.1.3.1` 225 KB、`SONAME=libqrupdate.so.1` | — |
+| 57 | 真机跑 qrupdate **自带验证套件** | ✅ **`10/10 PASS`**（`tch1up tch1dn tchdex tchinx tchshx tqr1up tqrinc tqrinr tqrshc tlu1up`） | **最后一个 Fortran-only 依赖打通** |
 
 ---
 
 ## 6. 下一步（优先级序）
 
-数值内核（FFTW + BLAS + LAPACK）已在真机跑通，剩下的都是**工程量而非壁垒**：
+数值内核（FFTW + BLAS + LAPACK + ARPACK + qrupdate）已在真机跑通，剩下的都是**工程量而非壁垒**：
 
 1. ~~**ARPACK-ng**~~ ✅ **已完成**（§3.6，真机特征值精确验证）。
-   剩下 **qrupdate-ng**（Fortran，无 f2c 版）—— 按 §3.6.1 的 configure 模式照搬即可：
-   `FC=scripts/toolbin/aarch64-linux-android24-flang-new` +
-   `ac_cv_f77_libs="-L<flang-runtime> -lFortranRuntime -lFortranDecimal"` +
-   链接带 `-Wl,-Bsymbolic`（`.so`）与 `-Wl,--allow-shlib-undefined`（可执行文件）。
-   **已验证的关键事实：autoconf 交叉检测出的 ABI 是 `lower case, underscore, no extra underscore`，
-   与既有 LAPACK/BLAS/Octave 生态天然一致**，不需要为 ABI 做任何妥协。
+   ~~**qrupdate-ng**~~ ✅ **已完成**（§3.7，**自带测试套件真机 10/10 PASS**）。
+   → **Fortran-only 依赖已全部清零**；Fortran 侧不再有任何未知点。
+   已验证的关键事实：autoconf 交叉检测出的 ABI 是
+   `lower case, underscore, no extra underscore`，与既有 LAPACK/BLAS/Octave 生态天然一致，
+   不需要为 ABI 做任何妥协。
 2. **其余纯 C 依赖**：`qhull`、`suitesparse`(CXSparse/COLAMD)、`glpk`、`hdf5`、`zlib`/`bzip2`、
    `readline`、`pcre2`、`curl`、`fftw`(已好)、`sundials`。
 3. **Octave 本体**（最后一步）：

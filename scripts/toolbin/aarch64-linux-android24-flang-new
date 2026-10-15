@@ -32,7 +32,10 @@ TC="$HOME/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-
 RT="$HOME/octave-android/prefix/arm64-v8a/flang-runtime"
 BUILTINS="$TC/lib/clang/19/lib/linux/libclang_rt.builtins-aarch64-android.a"
 FLANG=/opt/homebrew/bin/flang-new
-TGT="--target=aarch64-linux-android24 -D__ANDROID_API__=24 --sysroot=$TC/sysroot -D_FORTIFY_SOURCE=2"
+# API level is overridable: API 24 is the baseline, but some code needs 28+
+# (e.g. bionic only provides aligned_alloc from API 28).
+API="${ANDROID_API_LEVEL:-24}"
+TGT="--target=aarch64-linux-android${API} -D__ANDROID_API__=${API} --sysroot=$TC/sysroot -D_FORTIFY_SOURCE=2"
 
 # info-only queries -> flang, so vendor detection is stable
 if [ $# -ge 1 ]; then
@@ -76,4 +79,4 @@ case "$args" in
     extra="-Wl,--allow-multiple-definition -Wl,-Bsymbolic" ;;
 esac
 
-eval exec "\"$TC/bin/aarch64-linux-android24-clang\" -D_FORTIFY_SOURCE=2 $extra $args $objs -L\"$RT\" -lFortranRuntime -lFortranDecimal \"$BUILTINS\" -lm"
+eval exec "\"$TC/bin/aarch64-linux-android${API}-clang\" -D_FORTIFY_SOURCE=2 $extra $args $objs -L\"$RT\" -lFortranRuntime -lFortranDecimal \"$BUILTINS\" -lm"
