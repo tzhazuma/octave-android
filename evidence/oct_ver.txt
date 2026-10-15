@@ -1,0 +1,29 @@
+WARNING: linker: normalize_path - invalid input: "11.3.0", the input path should be absolute
+WARNING: linker: Warning: unable to normalize "11.3.0" (ignoring)
+octave: no graphical display found
+octave: disabling GUI features
+WARNING: linker: normalize_path - invalid input: "11.3.0", the input path should be absolute
+WARNING: linker: Warning: unable to normalize "11.3.0" (ignoring)
+WARNING: linker: normalize_path - invalid input: "11.3.0", the input path should be absolute
+WARNING: linker: Warning: unable to normalize "11.3.0" (ignoring)
+WARNING: linker: normalize_path - invalid input: "11.3.0", the input path should be absolute
+WARNING: linker: Warning: unable to normalize "11.3.0" (ignoring)
+WARNING: linker: normalize_path - invalid input: "11.3.0", the input path should be absolute
+WARNING: linker: Warning: unable to normalize "11.3.0" (ignoring)
+WARNING: linker: normalize_path - invalid input: "11.3.0", the input path should be absolute
+WARNING: linker: Warning: unable to normalize "11.3.0" (ignoring)
+WARNING: linker: normalize_path - invalid input: "11.3.0", the input path should be absolute
+WARNING: linker: Warning: unable to normalize "11.3.0" (ignoring)
+WARNING: linker: normalize_path - invalid input: "11.3.0", the input path should be absolute
+WARNING: linker: Warning: unable to normalize "11.3.0" (ignoring)
+GNU Octave (aarch64-unknown-linux-android) version 11.3.0
+Copyright (C) 1993-2026 The Octave Project Developers.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
+
+This is free software; see the source code for copying conditions.
+There is NO WARRANTY, to the extent permitted by law.
+
+Home page:            <https://octave.org>
+Support resources:    <https://octave.org/support>
+Improve Octave:       <https://octave.org/get-involved>
+

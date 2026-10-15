@@ -1,0 +1,12 @@
+### OpenBLAS cross-compiled for aarch64-linux-android -- ON-DEVICE VERIFICATION
+device: PA2573 / Android 16 / arm64-v8a
+
+-- STATIC link (libopenblas.a, Fortran LAPACK via flang) --
+Segmentation fault 
+
+-- SHARED link (libopenblas.so, -Bsymbolic over non-PIC flang runtime) --
+DGESV info=0 x=(2.000000, 3.000000)
+DGEMM C=(23.0 34.0; 31.0 46.0)
+OPENBLAS_DEVICE_OK
+
+-- expected: x=(2,3) ; C=(23 34 31 46) --

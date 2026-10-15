@@ -1,0 +1,12 @@
+### DEVICE: vivo PA2573 / Android 16 / arm64-v8a
+PA2573
+16
+arm64-v8a
+
+### gate binaries pushed + executed ON DEVICE
+-- pure-computation gate (static):
+FORTRAN_GATE_OK fscale -> 2.5 5.0 7.5 10.0  fdot=25.0
+-- runtime gate (static, matmul/intrinsics/complex/write):
+RT_GATE_OK s=26.316947 c00=1.000000 c11=2.000000 c22=3.000000
+-- runtime gate (dynamic PIE, API24+fortify):
+RT_GATE_OK s=26.316947 c00=1.000000 c11=2.000000 c22=3.000000

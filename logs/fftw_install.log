@@ -1,0 +1,203 @@
+Making install in support
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in kernel
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in simd-support
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in dft
+Making install in scalar
+Making install in codelets
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+make[4]: Nothing to be done for `install-exec-am'.
+make[4]: Nothing to be done for `install-data-am'.
+Making install in simd
+Making install in common
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in sse2
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx-128-fma
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx2
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx2-128
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx512
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in kcvi
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in altivec
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in vsx
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in neon
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in generic-simd128
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in generic-simd256
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+make[4]: Nothing to be done for `install-exec-am'.
+make[4]: Nothing to be done for `install-data-am'.
+make[3]: Nothing to be done for `install-exec-am'.
+make[3]: Nothing to be done for `install-data-am'.
+Making install in rdft
+Making install in scalar
+Making install in r2cf
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in r2cb
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in r2r
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+make[4]: Nothing to be done for `install-exec-am'.
+make[4]: Nothing to be done for `install-data-am'.
+Making install in simd
+Making install in common
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in sse2
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx-128-fma
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx2
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx2-128
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in avx512
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in kcvi
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in altivec
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in vsx
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in neon
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in generic-simd128
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+Making install in generic-simd256
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[5]: Nothing to be done for `install-exec-am'.
+make[5]: Nothing to be done for `install-data-am'.
+make[4]: Nothing to be done for `install-exec-am'.
+make[4]: Nothing to be done for `install-data-am'.
+make[3]: Nothing to be done for `install-exec-am'.
+make[3]: Nothing to be done for `install-data-am'.
+Making install in reodft
+make[3]: Nothing to be done for `install-exec-am'.
+make[3]: Nothing to be done for `install-data-am'.
+Making install in api
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+make[3]: Nothing to be done for `install-exec-am'.
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/include'
+ /usr/bin/install -c -m 644 fftw3.h fftw3.f fftw3l.f03 fftw3q.f03 '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/include'
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/include'
+ /usr/bin/install -c -m 644 fftw3.f03 '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/include'
+Making install in libbench2
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in .
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib'
+ /bin/sh ./libtool   --mode=install /usr/bin/install -c   libfftw3.la '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib'
+libtool: install: /usr/bin/install -c .libs/libfftw3.so /Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib/libfftw3.so
+libtool: install: /usr/bin/install -c .libs/libfftw3.lai /Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib/libfftw3.la
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib/cmake/fftw3'
+ /usr/bin/install -c -m 644 FFTW3Config.cmake FFTW3ConfigVersion.cmake '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib/cmake/fftw3'
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib/pkgconfig'
+ /usr/bin/install -c -m 644 fftw3.pc '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib/pkgconfig'
+Making install in threads
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib'
+ /bin/sh ../libtool   --mode=install /usr/bin/install -c   libfftw3_threads.la '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib'
+libtool: warning: relinking 'libfftw3_threads.la'
+libtool: install: (cd /Users/azuma/octave-android/src/fftw-3.3.10/threads; /bin/sh "/Users/azuma/octave-android/src/fftw-3.3.10/libtool"  --tag CC --mode=relink /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -O2 -fPIC -version-info 9:10:6 -Wl,-z,max-page-size=16384 -o libfftw3_threads.la -rpath /Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib libfftw3_threads_la-api.lo libfftw3_threads_la-conf.lo libfftw3_threads_la-threads.lo libfftw3_threads_la-dft-vrank-geq1.lo libfftw3_threads_la-ct.lo libfftw3_threads_la-rdft-vrank-geq1.lo libfftw3_threads_la-hc2hc.lo libfftw3_threads_la-vrank-geq1-rdft2.lo libfftw3_threads_la-f77api.lo ../libfftw3.la -lm )
+libtool: relink: /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -shared  -fPIC -DPIC  .libs/libfftw3_threads_la-api.o .libs/libfftw3_threads_la-conf.o .libs/libfftw3_threads_la-threads.o .libs/libfftw3_threads_la-dft-vrank-geq1.o .libs/libfftw3_threads_la-ct.o .libs/libfftw3_threads_la-rdft-vrank-geq1.o .libs/libfftw3_threads_la-hc2hc.o .libs/libfftw3_threads_la-vrank-geq1-rdft2.o .libs/libfftw3_threads_la-f77api.o   -L/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib -L/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib -lfftw3 -lm  -O2 -Wl,-z -Wl,max-page-size=16384   -Wl,-soname -Wl,libfftw3_threads.so -o .libs/libfftw3_threads.so
+libtool: install: /usr/bin/install -c .libs/libfftw3_threads.soT /Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib/libfftw3_threads.so
+libtool: install: /usr/bin/install -c .libs/libfftw3_threads.lai /Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib/libfftw3_threads.la
+make[2]: Nothing to be done for `install-data-am'.
+Making install in tests
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in mpi
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+Making install in doc
+Making install in FAQ
+make[3]: Nothing to be done for `install-exec-am'.
+make[3]: Nothing to be done for `install-data-am'.
+make[3]: Nothing to be done for `install-exec-am'.
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/share/info'
+ /usr/bin/install -c -m 644 ./fftw3.info ./fftw3.info-1 ./fftw3.info-2 '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/share/info'
+ install-info --info-dir='/Users/azuma/octave-android/prefix/arm64-v8a/fftw/share/info' '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/share/info/fftw3.info'
+Making install in tools
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-am
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/bin'
+  /bin/sh ../libtool   --mode=install /usr/bin/install -c fftw-wisdom '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/bin'
+libtool: install: /usr/bin/install -c .libs/fftw-wisdom /Users/azuma/octave-android/prefix/arm64-v8a/fftw/bin/fftw-wisdom
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/bin'
+ /usr/bin/install -c fftw-wisdom-to-conf '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/bin'
+ /usr/local/bin/gmkdir -p '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/share/man/man1'
+ /usr/bin/install -c -m 644 fftw-wisdom-to-conf.1 fftw-wisdom.1 '/Users/azuma/octave-android/prefix/arm64-v8a/fftw/share/man/man1'
+Making install in m4
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.

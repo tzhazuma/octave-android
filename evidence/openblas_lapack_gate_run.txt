@@ -1,0 +1,30 @@
+# OpenBLAS 0.3.34 (BLAS + full LAPACK, 100% pure C) on Android arm64  (Fri Oct 16 02:35:08 CST 2026)
+# NDK r28, TARGET=ARMV8, NOFORTRAN=1 C_LAPACK=1, OSNAME=Android
+
+## Build: gmake -j12 OSNAME=Android ARCH=arm64 TARGET=ARMV8 CROSS=1 HOSTCC=/usr/bin/clang \
+#          CC=<ndk>/aarch64-linux-android24-clang AR/RANLIB=<ndk>/llvm-ar|llvm-ranlib \
+#          NOFORTRAN=1 C_LAPACK=1 USE_OPENMP=0 BINARY=64 DYNAMIC_ARCH=0 \
+#          COMMON_OPT='-O2 -fPIC' LDFLAGS='-Wl,-z,max-page-size=16384'
+# Result: OPENBLAS_MAKE_RC=0   (0 errors in log)
+
+## Purity proof: undefined Fortran-runtime symbols in the .so
+   _FortranA* undefined count = 0
+   => 0 means the library needs NO Fortran compiler and NO Fortran runtime.
+
+## ELF / dependencies / 16 KiB page alignment
+  Class:                             ELF64
+  Type:                              DYN (Shared object file)
+  Machine:                           AArch64
+  0x0000000000000001 (NEEDED)       Shared library: [libm.so]
+  0x0000000000000001 (NEEDED)       Shared library: [libdl.so]
+  0x0000000000000001 (NEEDED)       Shared library: [libc.so]
+  0x000000000000000e (SONAME)       Library soname: [libopenblas.so]
+   LOAD alignment: 0x4000 
+
+## Device run (uid=shell, no Termux involved)
+$ adb shell /data/local/tmp/lapack_gate_clean
+LAPACK_GATE dgesv info=0  x = [0.090909 0.636364]
+LAPACK_GATE expected  x = [0.090909 0.636364]  (1/11, 7/11)
+LAPACK_GATE dpotrf info=0  L^T = [2.000000 1.000000 ; 0.500000 1.658312]
+LAPACK_GATE check L11^2 = 4.000000 (expect 4)
+EXIT_RC=0

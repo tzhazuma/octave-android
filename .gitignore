@@ -1,0 +1,35 @@
+# Build inputs / outputs that are large or regenerable -- NOT source of truth.
+src/
+prefix/
+downloads/
+backups/
+
+# Compiled test binaries (keep the .c/.f90 sources instead)
+spike/**/gate
+spike/**/blas_gate
+spike/**/lapack_gate
+spike/**/lapack_gate_clean
+spike/**/*.o
+spike/**/*.a
+
+# Bulky build logs; the small, meaningful ones are kept.
+logs/openblas_make.log
+logs/openblas_build.log
+logs/openblas_shared.log
+logs/fftw_make.log
+logs/openblas_clapack_make.log
+
+# Build artifacts: cross-compiled ELF shared objects / static archives.
+# These are regenerable with scripts/build_*.sh and are far too large for git.
+*.so
+*.so.*
+spike/**/*.a
+
+# Scratch test binaries produced while probing (the .c/.f90 sources are kept).
+spike/fortran-gate/rtgate_*
+spike/fortran-gate/fortran_gate_android*
+spike/blas-test/blas_shared
+spike/blas-test/blas_static
+
+# macOS
+.DS_Store

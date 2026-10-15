@@ -1,0 +1,41 @@
+### 0. toolchain identity
+Homebrew flang version 23.1.3
+Target: arm64-apple-darwin27.2.0
+Android (13624864, +pgo, -bolt, +lto, -mlgo, based on r530567e) clang version 19.0.1 (https://android.googlesource.com/toolchain/llvm-project 97a699bf4812a18fb657c2779f5296a4ab2694d2)
+
+### 1. pure-computation Fortran -> aarch64 (classic f77 ABI)
+fscale_android.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), not stripped
+-- exported symbols (must be fscale_ / fdot_ for LAPACK/ARPACK compat):
+000000000000009c T fdot_
+0000000000000000 T fscale_
+-- undefined symbols (none => no runtime needed):
+   [end]
+
+### 2. link with NDK clang (API 21 static + PIE)
+
+### 3. runtime-using Fortran (matmul + intrinsics + COMPLEX*16 + formatted WRITE)
+-- runtime ABI surface required:
+U _FortranAAssign
+U _FortranAMatmulReal8Real8
+U _FortranAioBeginExternalFormattedOutput
+U _FortranAioBeginExternalListOutput
+U _FortranAioEndIoStatement
+U _FortranAioOutputAscii
+U _FortranAioOutputInteger32
+U __divdc3
+U cos
+U free
+U memcpy
+U sin
+
+### 4. link runtime gate (Termux flang aarch64 runtime + NDK compiler-rt)
+-- API 21 PIE FAILS (bionic fortify gaps) -- recording the failure:
+ld.lld: error: undefined symbol: __gnu_strerror_r
+ld.lld: error: undefined symbol: __write_chk
+ld.lld: error: undefined symbol: stderr
+-- API 24 + -D_FORTIFY_SOURCE=2 FIXES it:
+   PIE link OK
+   static link OK
+
+### 5. numeric cross-validation vs host gfortran
+host gfortran : RT_GATE_OK s=26.316947 c00=1.000000 c11=2.000000 c22=3.000000

@@ -1,0 +1,14 @@
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f Makefile.install install
+make[1]: warning: -jN forced in submake: disabling jobserver mode.
+Generating openblas_config.h in /Users/azuma/octave-android/prefix/arm64-v8a/openblas/include
+Generating f77blas.h in /Users/azuma/octave-android/prefix/arm64-v8a/openblas/include
+Generating cblas.h in /Users/azuma/octave-android/prefix/arm64-v8a/openblas/include
+Copying LAPACKE header files to /Users/azuma/octave-android/prefix/arm64-v8a/openblas/include
+Copying the static library to /Users/azuma/octave-android/prefix/arm64-v8a/openblas/lib
+Copying the shared library to /Users/azuma/octave-android/prefix/arm64-v8a/openblas/lib
+Generating openblas.pc in /Users/azuma/octave-android/prefix/arm64-v8a/openblas/lib/pkgconfig
+Generating OpenBLASConfig.cmake in /Users/azuma/octave-android/prefix/arm64-v8a/openblas/lib/cmake/openblas
+add_library(OpenBLAS::OpenBLAS SHARED IMPORTED)
+target_include_directories(OpenBLAS::OpenBLAS INTERFACE ${OpenBLAS_INCLUDE_DIRS})
+Generating OpenBLASConfigVersion.cmake in /Users/azuma/octave-android/prefix/arm64-v8a/openblas/lib/cmake/openblas
+Install OK!

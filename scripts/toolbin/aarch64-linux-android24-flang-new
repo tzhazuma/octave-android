@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# Termux-style LLVM-Flang cross driver for aarch64-linux-android24.
+#
+# INFO flags (-v/--version/-dumpversion/-print-*) -> host flang-new, so build
+#   systems (OpenBLAS f_check, autoconf) identify us as LLVM Flang (FLANGNEW).
+# COMPILE (-c/-S/-E/...) -> host flang-new with --target; LLVM Flang's backend is
+#   target-agnostic so a macOS-host flang emits AArch64 ELF for Android.
+# LINK -> two-phase, because the NDK clang driver has no Fortran frontend:
+#   phase 1: each Fortran source is compiled by flang-new to a temp .o
+#   phase 2: NDK clang+lld links against bionic + target flang runtime
+#            + compiler-rt builtins.
+# Measured link problems and their fixes (recorded in STATUS.md 4):
+#  a) flang's own driver cannot link this triple:
+#       ld.lld: error: unable to find library -lflang_rt.runtime
+#       ld.lld: error: cannot open .../lib/clang/23/lib/aarch64-unknown-linux-android24/libclang_rt.builtins.a
+#       ld.lld: error: unable to find library -l:libunwind.a
+#     -> delegate linking to the NDK clang driver.
+#  b) bionic at API 21 lacks stderr/__gnu_strerror_r/__write_chk -> API >= 24
+#     plus -D_FORTIFY_SOURCE=2.
+#  c) libopenblas.a carries several mutually-exclusive LAPACK INSTALL/{second,dsecnd}_*
+#     variants; -Wl,--whole-archive turns them into duplicates:
+#       ld.lld: error: duplicate symbol: second_ / dsecnd_
+#     -> -Wl,--allow-multiple-definition.
+#  d) the Termux flang r30 aarch64 runtime archive is built WITHOUT -fPIC:
+#       ld.lld: error: relocation R_AARCH64_ADR_PREL_PG_HI21 cannot be used against
+#               symbol 'Fortran::runtime::UTF8FirstByteTable'; recompile with -fPIC
+#     -> -Wl,-Bsymbolic binds those references locally so they stop being
+#        preemptible and the non-PIC relocations become legal. Long-term fix:
+#        rebuild flang-rt with -fPIC (Octave's own shared libs will need it too).
+set -o pipefail
+TC="$HOME/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64"
+RT="$HOME/octave-android/prefix/arm64-v8a/flang-runtime"
+BUILTINS="$TC/lib/clang/19/lib/linux/libclang_rt.builtins-aarch64-android.a"
+FLANG=/opt/homebrew/bin/flang-new
+TGT="--target=aarch64-linux-android24 -D__ANDROID_API__=24 --sysroot=$TC/sysroot -D_FORTIFY_SOURCE=2"
+
+# info-only queries -> flang, so vendor detection is stable
+if [ $# -ge 1 ]; then
+  case "$1" in
+    -v|--version|-dumpversion|-dumpmachine|-print-search-dirs|-print-file-name*|-print-libgcc-file-name|-print-multiarch|--help|--target-help)
+      exec $FLANG "$@" ;;
+  esac
+fi
+
+compile=0
+for a in "$@"; do
+  case "$a" in -c|-S|-E|-cpp|-fc1|-emit-llvm|-fsyntax-only) compile=1 ;; esac
+done
+
+if [ "$compile" = 1 ]; then
+  exec $FLANG $TGT "$@"
+fi
+
+# ---- link mode: two-phase ----
+args=""; objs=""; tmpdir="$(mktemp -d)"
+trap 'rm -rf "$tmpdir"' EXIT
+n=0
+for a in "$@"; do
+  case "$a" in
+    *.f|*.for|*.f90|*.f95|*.f03|*.f08|*.F|*.FOR|*.F90|*.F95|*.F03|*.F08)
+      n=$((n+1)); o="$tmpdir/f$n.o"
+      $FLANG $TGT -c "$a" -o "$o" || { echo "flang-cross: compile failed: $a" >&2; exit 1; }
+      objs="$objs $o" ;;
+    # Fortran-only flags that clang's driver rejects at link time
+    -Mrecursive|-Kieee|-M*|-K*|-J*|-frecursive|-ffree-form|-ffixed-form|\
+    -ffixed-line-length-*|-fdefault-real-8|-fdefault-integer-8|\
+    -fno-second-underscore|-fsecond-underscore|-std=f*|-tp*|-mp|-i8|-r8) : ;;
+    *) args="$args $(printf '%q' "$a")" ;;
+  esac
+done
+extra=""
+case "$args" in
+  *-shared*)
+    # (c) duplicate LAPACK INSTALL/{second,dsecnd}_* variants under --whole-archive
+    # (d) non-PIC Termux flang runtime objects
+    extra="-Wl,--allow-multiple-definition -Wl,-Bsymbolic" ;;
+esac
+
+eval exec "\"$TC/bin/aarch64-linux-android24-clang\" -D_FORTIFY_SOURCE=2 $extra $args $objs -L\"$RT\" -lFortranRuntime -lFortranDecimal \"$BUILTINS\" -lm"
