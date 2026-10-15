@@ -1,0 +1,56 @@
+### ARPACK-ng 3.9.1 cross-compiled for aarch64-linux-android -- ON-DEVICE VERIFICATION
+### toolchain: Homebrew flang-new 23.1.3 (host) -> aarch64-linux-android24 + NDK r28 clang/lld
+device: PA2573 / Android 16 / arm64-v8a
+
+== 1. autoconf cross-compile Fortran detection (ARPACK's own configure) ==
+checking for aarch64-linux-android-gfortran... /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new
+checking whether we are cross compiling... yes
+checking for Fortran 77 libraries of /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new... (cached) -L/Users/azuma/octave-android/prefix/arm64-v8a/flang-runtime -lFortranRuntime -lFortranDecimal
+checking for dummy main to link with Fortran 77 libraries... none
+checking for Fortran 77 name-mangling scheme... lower case, underscore, no extra underscore
+ARPACK_CONFIGURE_RC=0   -> Configuration OK
+
+== 2. build: 320 Fortran sources, zero errors ==
+ARPACK_MAKE_RC=0
+
+== 3. libarpack.so ==
+src/arpack-ng-3.9.1/SRC/.libs/libarpack.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked, not stripped
+DT_NEEDED: libopenblas.so, libm.so, libdl.so, libc.so   (no Termux deps)
+SONAME: libarpack.so ; LOAD alignment 0x4000 (16 KiB, Android 15/16 requirement)
+exports: dsaupd_ dseupd_ dnaupd_ dneupd_ ssaupd_ znaupd_
+
+== 4. device run: ARPACK's own EXAMPLES/SYM/dsdrv1.f (2D Laplacian, 10x10 grid, scaled by 121) ==
+
+ Ritz values and relative residuals
+ ----------------------------------
+               Col   1       Col   2
+  Row   1:    1.96054D+01   2.29509D-14
+  Row   2:    4.82193D+01   7.85446D-15
+  Row   3:    4.82193D+01   5.08576D-15
+  Row   4:    7.68333D+01   7.12760D-15
+  
+  
+  _SDRV1 
+  ====== 
+  
+  Size of the matrix is  100
+  The number of Ritz values requested is  4
+  The number of Arnoldi vectors generated (NCV) is  10
+  What portion of the spectrum: SM
+  The number of converged Ritz values is  4
+  The number of Implicit Arnoldi update iterations taken is  30
+  The number of OP*x is  157
+  The convergence criterion is  1.1102230246251565E-16
+  
+
+== 5. independent verification of the Ritz values ==
+independent 4 smallest eigenvalues of 121*(2D Laplacian, 10x10 grid):
+   19.60540
+   48.21935
+   48.21935
+   76.83329
+
+ARPACK on-device reported:  19.6054   48.2193   48.2193   76.8333
+
+   -> EXACT MATCH to 5 significant figures; residuals ~1e-14 (machine precision).
+   -> ARPACK+OpenBLAS on Android is numerically correct.

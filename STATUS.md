@@ -19,6 +19,7 @@
 | **OpenBLAS 0.3.34（BLAS）** | `libopenblas_armv8p-r0.3.34.so` 3.2M | `dgemm` → `[19 22 ; 43 50]` 正确，RC=0 |
 | **OpenBLAS 0.3.34（+ 完整 LAPACK）** | 同名 .so **12.3M，100% 纯 C** | `dgesv` → `x=[0.090909, 0.636364]` = 精确 `[1/11, 7/11]`；`dpotrf` Cholesky 校验通过，RC=0 |
 | **Fortran 闸门**（决定性） | flang 编译的 `.o` + NDK 链接 | `FORTRAN_GATE_OK fscale -> 2.5 5.0 7.5 10.0  fdot=25.0`，RC=0 |
+| **ARPACK-ng 3.9.1**（Fortran-only） | `libarpack.so` 848K，16 KiB 对齐 | `dsdrv1` 2D Laplacian：**4/4 Ritz 值收敛**，残差 ~1e-14，与独立计算 `19.60540/48.21935/48.21935/76.83329` **精确一致** |
 
 **关键突破两条**：
 
@@ -367,6 +368,83 @@ OPENBLAS_DEVICE_OK
 flang 侧产出 `second_NONE.o`，C 侧产出 `second_INT_ETIME.o`，`--whole-archive` 下撞名。
 → 与 §7.1 的结论一致：**必须用隔离源码树**。本节后续构建已改到隔离路径。
 
+### 3.6 ARPACK-ng 打通记录（**Fortran-only 依赖的首次完整验证**）
+
+ARPACK-ng 是第一个**没有 f2c/C 替代**的 Octave 依赖 —— 它只能靠 Fortran 编译器。
+因此它是 §3.5 flang 路线的真正试金石。**已完整跑通并真机验证。**
+
+源码 `arpack-ng 3.9.1`（与 Termux 真机上的 `arpack-ng 2:3.9.1` 版本一致）。
+
+#### 3.6.1 autoconf 交叉编译下的 Fortran 检测 —— 通过（这是最大的未知点）
+
+```sh
+autoreconf -ivf                      # GitHub archive 不含 configure，需自生成
+./configure --host=aarch64-linux-android \
+  CC=<ndk aarch64-linux-android24-clang> \
+  FC=<scripts/toolbin/aarch64-linux-android24-flang-new> F77=<同上> \
+  ac_cv_f77_libs="-L$PREFIX/flang-runtime -lFortranRuntime -lFortranDecimal" \
+  --enable-shared --disable-static \
+  --with-blas="-L$PREFIX/openblas/lib -lopenblas" \
+  --with-lapack="-L$PREFIX/openblas/lib -lopenblas"
+```
+
+configure 输出（`ARPACK_CONFIGURE_RC=0`，`Configuration OK`）：
+```
+checking for aarch64-linux-android-gfortran... .../aarch64-linux-android24-flang-new
+checking whether we are cross compiling... yes
+checking for Fortran 77 libraries of <wrapper>... (cached) -L.../flang-runtime -lFortranRuntime -lFortranDecimal
+checking for Fortran 77 name-mangling scheme... lower case, underscore, no extra underscore
+```
+
+> **`lower case, underscore, no extra underscore` 是关键**：它正是 LAPACK / BLAS /
+> Octave 全生态使用的 f77 调用约定（`fscale_`、`dsaupd_`）。说明 flang 产出的
+> ABI 与既有 C 代码**天然兼容**，不需要 `--enable-fortran-calling-convention=f2c`
+> 那类妥协（f2c 只是 Octave 用来**调用** Fortran 的另一种方式，非必需）。
+> `ac_cv_f77_libs` 被 autoconf 采纳，无需再试链接探针。
+
+#### 3.6.2 构建与产物
+
+`make -j8` → **`ARPACK_MAKE_RC=0`，320 个 `.f` 全部编译，零 error**。
+
+`SRC/.libs/libarpack.so`（**848 KB**）：
+- `ELF64/AArch64/DYN`；`SONAME=libarpack.so`
+- `DT_NEEDED` 只有 **`libopenblas.so` / `libm.so` / `libdl.so` / `libc.so`**（无 Termux 依赖）
+- **LOAD 段对齐 `0x4000` = 16 KiB** ✓（Android 15/16 页大小要求）
+- 导出 `dsaupd_` `dseupd_` `dnaupd_` `dneupd_` `ssaupd_` `znaupd_` ✓
+
+> ⚠️ **构建陷阱（复现时必踩）**：`UTIL/.libs/libarpackutil.a` 是**空的（96 字节，0 个成员）**，
+> 而 `libarpack.so` 并未把 UTIL 例程折进去 → 直接链 `-larpackutil` 无效，
+> 运行时报 `cannot locate symbol "svout_"`。
+> **修法**：显式把 `UTIL/.libs/*.o`（`dmout/ivout/dvout/svout/second_NONE` 等）加进链接；
+> `arscnd_` 在 `second_NONE.o` 里。
+> 另外链接可执行文件时需 `-Wl,--allow-shlib-undefined`（`libarpack.so` 对 UTIL 符号是未定义引用）。
+
+#### 3.6.3 真机数值验证：**与独立计算精确一致**
+
+用 ARPACK 自带的 `EXAMPLES/SYM/dsdrv1.f`（**2D Laplacian，10×10 网格，N=100，
+按 1/h²=121 缩放**）跑 `dsaupd`/`dseupd` 求**最小幅值（SM）4 个特征值**：
+
+```
+  Size of the matrix is  100
+  The number of Ritz values requested is  4
+  The number of Arnoldi vectors generated (NCV) is  10
+  What portion of the spectrum: SM
+  The number of converged Ritz values is  4      <- 4/4 全部收敛
+  The number of Implicit Arnoldi update iterations taken is  30
+  The convergence criterion is  1.1102230246251565E-16
+```
+
+| Ritz 值（设备） | 相对残差 | 独立计算 `121*(4-2cos(jπ/11)-2cos(kπ/11))` |
+|---|---|---|
+| `1.96054D+01` | `2.3e-14` | **19.60540** |
+| `4.82193D+01` | `7.9e-15` | **48.21935** |
+| `4.82193D+01` | `5.1e-15` | **48.21935**（(1,2)/(2,1) 简并，符合预期） |
+| `7.68333D+01` | `7.1e-15` | **76.83329** |
+
+> **5 位有效数字精确吻合，残差 ~1e-14（机器精度）** → ARPACK + OpenBLAS 在 Android 上
+> **数值正确**。这是「Fortran 闸门」从「能编译」到「能算出对的答案」的完整闭环。
+> 证据：`evidence/arpack_device.log`。
+
 ---
 
 ## 4. 已验证到哪一步（证据索引）
@@ -386,6 +464,7 @@ flang 侧产出 `second_NONE.o`，C 侧产出 `second_INT_ETIME.o`，`--whole-ar
 | **`fortran_gate.log`** | **可复现 Fortran 闸门全记录**（§3.5）：工具链身份、纯计算目标文件、运行时 ABI 面、API21 失败 vs API24+fortify 成功、与宿主 gfortran 数值对照 |
 | **`fortran_gate_device.log`** | **真机运行记录**：`FORTRAN_GATE_OK`（static+PIE）、`RT_GATE_OK`（matmul/内建/complex/write） |
 | **`openblas_device.log`** | **全 Fortran OpenBLAS 真机数值验证**：`DGESV`/`DGEMM` 与手算一致（静态归档 + 共享库两种链接） |
+| **`arpack_device.log`** | **ARPACK-ng 真机验证**（§3.6）：autoconf 交叉检测、320 个 `.f` 零错误、`.so` 属性、`dsdrv1` 特征值与独立计算精确一致 |
 
 配套源码/测试在 `~/octave-android/spike/`：
 - `spike/fortran-gate/`：`fscale.f90`、`driver.c`、`gate`（+ 产物 `fscale.o`）
@@ -459,6 +538,11 @@ flang 侧产出 `second_NONE.o`，C 侧产出 `second_INT_ETIME.o`，`--whole-ar
 | 45 | `OPENBLAS_MAKE_RC`（`NOFORTRAN=0 F_COMPILER=FLANGNEW shared`） | ✅ **RC=0**：`.a` 26 MB + `.so` 12.6 MB；`make install` RC=0 | — |
 | 46 | 真机 `dgesv`/`dgemm`（共享库） | ✅ `x=(2,3)`、`C=(23 34 31 46)` 与手算一致 | 完成 |
 | 47 | 真机 **`-static`** 链接 | ❌ **SIGSEGV（exit 139）**；同代码「归档 + 动态 bionic(PIE)」正常 | Android 交付用 `.so`/PIE，**不阻塞** |
+| 48 | ARPACK-ng GitHub archive 解包 | ❌ **没有 `configure`**（archive tarball 不含生成文件） | `autoreconf -ivf` 自生成（需 `glibtoolize`，Homebrew libtool 提供） |
+| 49 | `./configure --host=aarch64-linux-android FC=<flang wrapper>` | ✅ `RC=0`、`Configuration OK`；`cross compiling... yes`；**`name-mangling: lower case, underscore, no extra underscore`** | autoconf Fortran 交叉检测**通过**，`ac_cv_f77_libs` 被采纳 |
+| 50 | `make -j8`（320 个 `.f`） | ✅ **`RC=0`，零 error**；`libarpack.so` 848 KB、16 KiB 对齐、导出 `dsaupd_/dseupd_/…` | — |
+| 51 | 链接示例时报 `undefined symbol: dmout_/ivout_/arscnd_/svout_` | ❌ **`UTIL/.libs/libarpackutil.a` 是空的（96 字节，0 成员）**，且 UTIL 例程未折进 `libarpack.so` | 显式把 `UTIL/.libs/*.o` 加进链接；可执行文件加 `-Wl,--allow-shlib-undefined` |
+| 52 | 真机跑 `EXAMPLES/SYM/dsdrv1.f` | ✅ **4/4 Ritz 值收敛，残差 ~1e-14**；与独立计算的 `19.60540 / 48.21935 / 48.21935 / 76.83329` **精确一致** | **ARPACK 打通（Fortran-only 依赖闭环）** |
 
 ---
 
@@ -466,13 +550,13 @@ flang 侧产出 `second_NONE.o`，C 侧产出 `second_INT_ETIME.o`，`--whole-ar
 
 数值内核（FFTW + BLAS + LAPACK）已在真机跑通，剩下的都是**工程量而非壁垒**：
 
-1. **ARPACK-ng / qrupdate-ng**（Octave 的特征值/秩更新依赖，Fortran 源码，无 f2c 版本）
-   → **基础设施已就绪**：直接用 §3.5.1 的 `scripts/toolbin/aarch64-linux-android24-flang-new`
-   作为 `FC`，`source scripts/ndk-flang-env.sh` 拿环境变量。
-   注意 ARPACK 的 `configure` 同样有"能否运行测试程序"的交叉编译问题，需准备 `ac_cv_*` 缓存；
-   `ac_cv_f77_libs` 已由 `ndk-flang-env.sh` 预置为
-   `-L<flang-runtime> -lFortranRuntime -lFortranDecimal`。
-   ⚠️ 若目标产物是 `.so`，务必带上 `-Wl,-Bsymbolic`（§3.5.2 卡点 d）。
+1. ~~**ARPACK-ng**~~ ✅ **已完成**（§3.6，真机特征值精确验证）。
+   剩下 **qrupdate-ng**（Fortran，无 f2c 版）—— 按 §3.6.1 的 configure 模式照搬即可：
+   `FC=scripts/toolbin/aarch64-linux-android24-flang-new` +
+   `ac_cv_f77_libs="-L<flang-runtime> -lFortranRuntime -lFortranDecimal"` +
+   链接带 `-Wl,-Bsymbolic`（`.so`）与 `-Wl,--allow-shlib-undefined`（可执行文件）。
+   **已验证的关键事实：autoconf 交叉检测出的 ABI 是 `lower case, underscore, no extra underscore`，
+   与既有 LAPACK/BLAS/Octave 生态天然一致**，不需要为 ABI 做任何妥协。
 2. **其余纯 C 依赖**：`qhull`、`suitesparse`(CXSparse/COLAMD)、`glpk`、`hdf5`、`zlib`/`bzip2`、
    `readline`、`pcre2`、`curl`、`fftw`(已好)、`sundials`。
 3. **Octave 本体**（最后一步）：
