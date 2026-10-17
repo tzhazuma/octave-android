@@ -1,0 +1,41 @@
+( cd build && cmake  .. && cmake --build . --config Release -j8 )
+-- Building CXSparse version: v4.4.1 (June 20, 2024)
+-- The C compiler identification is Clang 19.0.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - failed
+-- Check for working C compiler: /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang
+-- Check for working C compiler: /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang - broken
+CMake Error at /usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:67 (message):
+  The C compiler
+
+    "/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: '/Users/azuma/octave-android/src/SuiteSparse-7.8.3/CXSparse/build/CMakeFiles/CMakeScratch/TryCompile-ke7MjV'
+    
+    Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/local/bin/gmake -f Makefile cmTC_85c9c/fast
+    gmake[1]: Entering directory '/Users/azuma/octave-android/src/SuiteSparse-7.8.3/CXSparse/build/CMakeFiles/CMakeScratch/TryCompile-ke7MjV'
+    /usr/local/bin/gmake  -f CMakeFiles/cmTC_85c9c.dir/build.make CMakeFiles/cmTC_85c9c.dir/build
+    gmake[2]: Entering directory '/Users/azuma/octave-android/src/SuiteSparse-7.8.3/CXSparse/build/CMakeFiles/CMakeScratch/TryCompile-ke7MjV'
+    Building C object CMakeFiles/cmTC_85c9c.dir/testCCompiler.c.o
+    /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang   -O2 -fPIC -D_FORTIFY_SOURCE=2  -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_85c9c.dir/testCCompiler.c.o -MF CMakeFiles/cmTC_85c9c.dir/testCCompiler.c.o.d -o CMakeFiles/cmTC_85c9c.dir/testCCompiler.c.o -c /Users/azuma/octave-android/src/SuiteSparse-7.8.3/CXSparse/build/CMakeFiles/CMakeScratch/TryCompile-ke7MjV/testCCompiler.c
+    clang: error: unsupported option '-arch' for target 'aarch64-linux-android24'
+    gmake[2]: *** [CMakeFiles/cmTC_85c9c.dir/build.make:82: CMakeFiles/cmTC_85c9c.dir/testCCompiler.c.o] Error 1
+    gmake[2]: Leaving directory '/Users/azuma/octave-android/src/SuiteSparse-7.8.3/CXSparse/build/CMakeFiles/CMakeScratch/TryCompile-ke7MjV'
+    gmake[1]: *** [Makefile:134: cmTC_85c9c/fast] Error 2
+    gmake[1]: Leaving directory '/Users/azuma/octave-android/src/SuiteSparse-7.8.3/CXSparse/build/CMakeFiles/CMakeScratch/TryCompile-ke7MjV'
+    
+    
+
+
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:28 (project)
+
+
+-- Configuring incomplete, errors occurred!
+make: *** [library] Error 1

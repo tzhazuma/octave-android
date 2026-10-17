@@ -1,0 +1,181 @@
+configure: WARNING: unrecognized options: --disable-pcre2grep, --disable-pcre2test
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for aarch64-linux-android-strip... no
+checking for strip... strip
+checking for a race-free mkdir -p... /usr/local/bin/gmkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports nested variables... (cached) yes
+checking for aarch64-linux-android-gcc... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -g... yes
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang option to enable C11 features... none needed
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang... gcc3
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for wchar.h... yes
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking whether _XOPEN_SOURCE should be defined... no
+checking for aarch64-linux-android-ar... no
+checking for aarch64-linux-android-lib... no
+checking for aarch64-linux-android-link... no
+checking for ar... ar
+configure: WARNING: using cross tools not prefixed with host triplet
+checking the archiver (ar) interface... ar
+checking for int64_t... yes
+checking build system type... aarch64-apple-darwin27.2.0
+checking host system type... aarch64-unknown-linux-android
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/local/bin/gsed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld
+checking if the linker (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-nm
+checking the name lister (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-nm) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 786432
+checking how to convert aarch64-apple-darwin27.2.0 file names to aarch64-unknown-linux-android format... func_convert_file_noop
+checking how to convert aarch64-apple-darwin27.2.0 file names to toolchain format... func_convert_file_noop
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld option to reload object files... -r
+checking for file... :
+checking for aarch64-linux-android-objdump... no
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for aarch64-linux-android-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for aarch64-linux-android-ar... ar
+checking for archiver @FILE support... no
+checking for aarch64-linux-android-strip... strip
+checking for aarch64-linux-android-ranlib... no
+checking for ranlib... ranlib
+checking command to parse /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-nm output from /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang object... ok
+checking for sysroot... no
+checking for a working dd... /bin/dd
+checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+checking for aarch64-linux-android-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang supports -fno-rtti -fno-exceptions... yes
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang option to produce PIC... -fPIC -DPIC
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang PIC flag -fPIC -DPIC works... yes
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang static flag -static works... yes
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang supports -c -o file.o... yes
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang supports -c -o file.o... (cached) yes
+checking whether the /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang linker (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... Android linker
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... no
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... no
+checking whether to build static libraries... yes
+checking whether ln -s works... yes
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang option to enable large file support... none needed
+checking whether the -Werror option is usable... yes
+checking for simple visibility declarations... yes
+checking for __builtin_mul_overflow()... yes
+checking for __attribute__((uninitialized))... yes
+checking for limits.h... yes
+checking for sys/types.h... (cached) yes
+checking for sys/stat.h... (cached) yes
+checking for dirent.h... yes
+checking for windows.h... no
+checking for sys/wait.h... yes
+checking for an ANSI C-conforming const... yes
+checking for size_t... yes
+checking for bcopy... no
+checking for memfd_create... no
+checking for memmove... yes
+checking for mkostemp... yes
+checking for secure_getenv... no
+checking for strerror... yes
+checking for realpath... yes
+checking for zlib.h... yes
+checking for gzopen in -lz... yes
+checking for bzlib.h... no
+checking for libbz2... no
+checking whether Intel CET is enabled... no
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating libpcre2-8.pc
+config.status: creating libpcre2-16.pc
+config.status: creating libpcre2-32.pc
+config.status: creating libpcre2-posix.pc
+config.status: creating pcre2-config
+config.status: creating src/pcre2.h
+config.status: creating src/config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+config.status: executing script-chmod commands
+config.status: executing delete-old-chartables commands
+configure: WARNING: unrecognized options: --disable-pcre2grep, --disable-pcre2test
+
+pcre2-10.44 configuration summary:
+
+    Install prefix ..................... : /Users/azuma/octave-android/prefix/arm64-v8a/pcre2
+    C preprocessor ..................... : 
+    C compiler ......................... : /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang
+    Linker ............................. : /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld
+    C preprocessor flags ............... : 
+    C compiler flags ................... : -O2 -fPIC -D_FORTIFY_SOURCE=2 -fvisibility=hidden
+    Linker flags ....................... : -Wl,-z,max-page-size=16384
+    Extra libraries .................... : 
+
+    Build 8-bit pcre2 library .......... : yes
+    Build 16-bit pcre2 library ......... : yes
+    Build 32-bit pcre2 library ......... : yes
+    Include debugging code ............. : no
+    Enable JIT compiling support ....... : no
+    Use SELinux allocator in JIT ....... : no
+    Enable Unicode support ............. : yes
+    Newline char/sequence .............. : lf
+    \R matches only ANYCRLF ............ : no
+    \C is disabled ..................... : no
+    EBCDIC coding ...................... : no
+    EBCDIC code for NL ................. : n/a
+    Rebuild char tables ................ : no
+    Internal link size ................. : 2
+    Maximum variable lookbehind ........ : 255
+    Nested parentheses limit ........... : 250
+    Heap limit ......................... : 20000000 kibibytes
+    Match limit ........................ : 10000000
+    Match depth limit .................. : MATCH_LIMIT
+    Build shared libs .................. : no
+    Build static libs .................. : yes
+    Use JIT in pcre2grep ............... : no
+    Enable callouts in pcre2grep ....... : yes
+    Enable fork in pcre2grep callouts .. : yes
+    Initial buffer size for pcre2grep .. : 20480
+    Maximum buffer size for pcre2grep .. : 1048576
+    Link pcre2grep with libz ........... : no
+    Link pcre2grep with libbz2 ......... : no
+    Link pcre2test with libedit ........ : no
+    Link pcre2test with libreadline .... : no
+    Valgrind support ................... : no
+    Code coverage ...................... : no
+    Fuzzer support ..................... : no
+    Differential fuzzer support ........ : no
+    Use %zu and %td .................... : auto
+

@@ -1,0 +1,52 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:2:1-19:12
+INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:2:1-19:12
+INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:2:1-19:12
+INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:2:1-19:12
+	package
+		INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:3:5-18:19
+	android:extractNativeLibs
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:8:9-41
+	android:label
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:4:9-43
+	android:roundIcon
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:6:9-54
+	android:icon
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:5:9-43
+	android:allowBackup
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:7:9-36
+	android:theme
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:9:9-60
+activity#org.octave.android.MainActivity
+ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:10:9-17:20
+	android:exported
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:12:13-36
+	android:name
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:11:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:13:13-16:29
+action#android.intent.action.MAIN
+ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:14:17-69
+	android:name
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:14:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:15:17-77
+	android:name
+		ADDED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml:15:27-74
+uses-sdk
+INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml
+INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/azuma/octave-android/android-app/app/src/main/AndroidManifest.xml

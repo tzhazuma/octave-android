@@ -1,0 +1,127 @@
+[extract] octave-11.3.0
+[extract] ok
+curl: (28) Operation timed out after 60008 milliseconds with 0 bytes received
+./scripts/octave-configure.sh: line 27: /Users/azuma/octave-android/downloads/termux-octave-build.sh: No such file or directory
+[termux recipe] 0 lines
+=== configure --help (feature switches) ===
+  --disable-option-checking  ignore unrecognized --enable/--with options
+  --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
+  --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --enable-silent-rules   less verbose build output (undo: "make V=1")
+  --disable-silent-rules  verbose build output (undo: "make V=0")
+  --enable-dependency-tracking
+  --disable-dependency-tracking
+  --disable-std-pmr-polymorphic-allocator
+  --disable-largefile     omit support for large files
+  --enable-threads={isoc|posix|isoc+posix|windows}
+  --enable-fortran-calling-convention=OPTION
+  --disable-64            don't use 64-bit integers for array dimensions and
+  --disable-openmp        disable OpenMP SMP multi-threading
+  --enable-static[=PKGS]  build static libraries [default=no]
+  --enable-shared[=PKGS]  build shared libraries [default=yes]
+  --enable-pic[=PKGS]     try to use only PIC/non-PIC objects [default=use
+  --enable-fast-install[=PKGS]
+  --enable-aix-soname=aix|svr4|both
+  --disable-libtool-lock  avoid locking (might break parallel builds)
+  --enable-no-undefined   pass -no-undefined to libtool when linking Octave
+  --enable-link-all-dependencies
+  --enable-internal-checks
+  --enable-cross-tools    build cross tools (mkoctfile, octave-config) if
+  --enable-cross-guesses={conservative|risky}
+  --disable-rpath         do not hardcode runtime library paths
+  --disable-command-line-push-parser
+  --disable-rapidjson     disable RapidJSON
+  --disable-readline      do not use readline library
+  --disable-fftw-threads  disable Multi-threaded FFTW
+  --disable-java          disable Java interface
+  --disable-docs          don't build documentation files
+  --enable-relocate-all   assume that all dependencies that are installed
+  --disable-hg-id         disable embedding of hg id in libraries
+  --enable-install-build-logs
+  --disable-lib-visibility-flags
+  --disable-extra-warning-flags
+  --enable-strict-warning-flags
+  --enable-address-sanitizer-flags
+  --enable-year2038       support timestamps after 2038
+  --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
+  --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-pkgconfigdir     pkg-config installation directory
+  --with-sepchar=<char>   use <char> as the path separation character
+  --with-shell=SHELL      use SHELL as the shell interpreter (default:
+  --with-qt=VER           use the Qt major version VER
+  --without-qt            don't use Qt libraries, disable Qt GUI
+  --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
+  --with-sysroot[=DIR]    Search for dependent libraries within DIR (or the
+  --with-blas=<lib>       use BLAS library <lib>
+  --with-lapack=<lib>     use LAPACK library <lib>
+  --with-openssl[=ARG]    use libcrypto hash routines for the hash functions
+  --with-gnulib-prefix=DIR  search for gnulib's runtime data in DIR/share
+  --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
+  --with-libiconv-prefix[=DIR]  search for libiconv in DIR/include and DIR/lib
+  --without-libiconv-prefix     don't search for libiconv in includedir and libdir
+  --with-libreadline-prefix[=DIR]  search for libreadline in DIR/include and DIR/lib
+  --without-libreadline-prefix     don't search for libreadline in includedir and libdir
+  --with-pcre2-includedir=DIR
+  --with-pcre2-libdir=DIR look for PCRE2 libraries in DIR
+  --without-pcre2         don't use PCRE2 library
+  --with-pcre-includedir=DIR
+  --with-pcre-libdir=DIR  look for PCRE libraries in DIR
+  --without-pcre          don't use PCRE library
+  --with-qhull_r-includedir=DIR
+  --with-qhull_r-libdir=DIR
+  --without-qhull_r       don't use QHull library
+  --with-z-includedir=DIR look for ZLIB include files in DIR
+  --with-z-libdir=DIR     look for ZLIB libraries in DIR
+  --without-z             don't use ZLIB library
+  --with-bz2-includedir=DIR
+  --with-bz2-libdir=DIR   look for BZIP2 libraries in DIR
+  --without-bz2           don't use BZIP2 library
+  --with-hdf5-includedir=DIR
+  --with-hdf5-libdir=DIR  look for HDF5 libraries in DIR
+  --without-hdf5          don't use HDF5 library
+  --with-fftw3-includedir=DIR
+  --with-fftw3-libdir=DIR look for FFTW3 libraries in DIR
+  --without-fftw3         don't use FFTW3 library
+  --with-fftw3f-includedir=DIR
+  --with-fftw3f-libdir=DIR
+  --without-fftw3f        don't use FFTW3F library
+  --with-glpk-includedir=DIR
+  --with-glpk-libdir=DIR  look for GLPK libraries in DIR
+  --without-glpk          don't use GLPK library
+  --with-curl-includedir=DIR
+  --with-curl-libdir=DIR  look for cURL libraries in DIR
+  --without-curl          don't use cURL library
+  --with-sndfile-includedir=DIR
+  --with-sndfile-libdir=DIR
+  --without-sndfile       don't use sndfile library, disable audio file I/O
+  --with-portaudio-includedir=DIR
+  --with-portaudio-libdir=DIR
+  --without-portaudio     don't use PortAudio library, disable audio playback
+  --with-magick=LIB       select library to use for image I/O (options:
+  --without-magick        don't use Magick library, disable imread, imwrite,
+  --with-x                use the X Window System
+  --with-wayland-client-includedir=DIR
+  --with-wayland-client-libdir=DIR
+  --without-wayland-client
+  --without-framework-carbon
+  --without-opengl        don't use OpenGL libraries, disable OpenGL graphics
+  --without-framework-opengl
+  --without-freetype      don't use FreeType library, OpenGL graphics will not
+  --with-fontconfig-includedir=DIR
+  --with-fontconfig-libdir=DIR
+  --without-fontconfig    don't use fontconfig library, OpenGL graphics will
+  --without-qscintilla    disable QScintilla editor
+  --without-fltk          don't use FLTK libraries, disable OpenGL graphics
+  --with-fltk-prefix=PFX  prefix where FLTK is installed
+  --with-fltk-exec-prefix=PFX
+  --with-system-freefont=DIR
+  --with-qrupdate-includedir=DIR
+  --with-qrupdate-libdir=DIR
+  --without-qrupdate      don't use qrupdate, disable QR & Cholesky updating
+  --with-suitesparseconfig-includedir=DIR
+  --with-suitesparseconfig-libdir=DIR
+  --without-suitesparseconfig
+  --with-amd-includedir=DIR
+  --with-amd-libdir=DIR   look for AMD libraries in DIR
+  --without-amd           don't use AMD library, disable some sparse matrix
+CONFIGURE_HELP_DONE

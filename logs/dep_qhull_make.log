@@ -1,0 +1,1403 @@
+mkdir -p bin
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/rbox/rbox.o src/rbox/rbox.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/global.o src/libqhull/global.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/stat.o src/libqhull/stat.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/geom2.o src/libqhull/geom2.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/poly2.o src/libqhull/poly2.c
+mkdir -p lib
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/merge.o src/libqhull/merge.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/libqhull.o src/libqhull/libqhull.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/geom.o src/libqhull/geom.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/poly.o src/libqhull/poly.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/qset.o src/libqhull/qset.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/mem.o src/libqhull/mem.c
+if user_eg or the shared library build fails, other targets remain OK
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/random.o src/libqhull/random.c
+src/libqhull/poly2.c:103:37: warning: variable 'notgood' set but not used [-Wunused-but-set-variable]
+  103 |   int numpart= 0, facet_i, facet_n, notgood= 0, notverified= 0;
+      |                                     ^
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/usermem.o src/libqhull/usermem.c
+src/libqhull/geom.c:623:24: warning: variable 'flip' set but not used [-Wunused-but-set-variable]
+  623 |   int i, j, k, pivoti, flip=0;
+      |                        ^
+src/libqhull/merge.c:2907:17: warning: variable 'total' set but not used [-Wunused-but-set-variable]
+ 2907 |   int cycles=0, total=0, facets, nummerge, numdegen= 0;
+      |                 ^
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/userprintf.o src/libqhull/userprintf.c
+src/libqhull/merge.c:5129:34: warning: implicit conversion turns floating-point number into integer: 'double' to '_Bool' [-Wfloat-conversion]
+ 5129 |     if (maxdist < maxoutside && (-qh MAXcoplanar || (maxdist2 < maxoutside && mindist2 >= -qh MAXcoplanar)))
+      |                                  ^~~~~~~~~~~~~~~ ~~
+src/libqhull/merge.c:5360:8: warning: implicit conversion from 'unsigned long' to 'double' may lose precision [-Wimplicit-int-float-conversion]
+ 5360 |   cpu= qh_CPUclock;
+      |      ~ ^~~~~~~~~~~
+src/libqhull/user.h:235:25: note: expanded from macro 'qh_CPUclock'
+  235 | #define qh_CPUclock    ((unsigned long)clock())  /* return CPU clock, may be converted to approximate double */
+      |                         ^~~~~~~~~~~~~~~~~~~~~~
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/io.o src/libqhull/io.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/user.o src/libqhull/user.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/rboxlib.o src/libqhull/rboxlib.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic/userprintf_rbox.o src/libqhull/userprintf_rbox.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/qconvex/qconvex.o src/qconvex/qconvex.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/qdelaunay/qdelaun.o src/qdelaunay/qdelaun.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/qhalf/qhalf.o src/qhalf/qhalf.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/qvoronoi/qvoronoi.o src/qvoronoi/qvoronoi.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/qhull/unix_r.o src/qhull/unix_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/global_r.o src/libqhull_r/global_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/stat_r.o src/libqhull_r/stat_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/geom2_r.o src/libqhull_r/geom2_r.c
+1 warning generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/poly2_r.o src/libqhull_r/poly2_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/merge_r.o src/libqhull_r/merge_r.c
+src/libqhull_r/poly2_r.c:103:37: warning: variable 'notgood' set but not used [-Wunused-but-set-variable]
+  103 |   int numpart= 0, facet_i, facet_n, notgood= 0, notverified= 0;
+      |                                     ^
+src/libqhull_r/merge_r.c:2907:17: warning: variable 'total' set but not used [-Wunused-but-set-variable]
+ 2907 |   int cycles=0, total=0, facets, nummerge, numdegen= 0;
+      |                 ^
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/libqhull_r.o src/libqhull_r/libqhull_r.c
+src/libqhull_r/merge_r.c:5129:34: warning: implicit conversion turns floating-point number into integer: 'double' to '_Bool' [-Wfloat-conversion]
+ 5129 |     if (maxdist < maxoutside && (-qh->MAXcoplanar || (maxdist2 < maxoutside && mindist2 >= -qh->MAXcoplanar)))
+      |                                  ^~~~~~~~~~~~~~~~ ~~
+src/libqhull_r/merge_r.c:5360:8: warning: implicit conversion from 'unsigned long' to 'double' may lose precision [-Wimplicit-int-float-conversion]
+ 5360 |   cpu= qh_CPUclock;
+      |      ~ ^~~~~~~~~~~
+src/libqhull_r/user_r.h:234:25: note: expanded from macro 'qh_CPUclock'
+  234 | #define qh_CPUclock    ((unsigned long)clock())  /* return CPU clock, may be converted to approximate double */
+      |                         ^~~~~~~~~~~~~~~~~~~~~~
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/geom_r.o src/libqhull_r/geom_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/poly_r.o src/libqhull_r/poly_r.c
+src/libqhull_r/geom_r.c:623:24: warning: variable 'flip' set but not used [-Wunused-but-set-variable]
+  623 |   int i, j, k, pivoti, flip=0;
+      |                        ^
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/qset_r.o src/libqhull_r/qset_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/mem_r.o src/libqhull_r/mem_r.c
+3 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/random_r.o src/libqhull_r/random_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/usermem_r.o src/libqhull_r/usermem_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/userprintf_r.o src/libqhull_r/userprintf_r.c
+1 warning generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/io_r.o src/libqhull_r/io_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/user_r.o src/libqhull_r/user_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/rboxlib_r.o src/libqhull_r/rboxlib_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhullstatic_r/userprintf_rbox_r.o src/libqhull_r/userprintf_rbox_r.c
+1 warning generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/testqset/testqset.o src/testqset/testqset.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhull/qset.o src/libqhull/qset.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhull/mem.o src/libqhull/mem.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhull/usermem.o src/libqhull/usermem.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/testqset_r/testqset_r.o src/testqset_r/testqset_r.c
+src/testqset/testqset.c:786:9: warning: variable 'rangeCount' set but not used [-Wunused-but-set-variable]
+  786 |     int rangeCount=1;
+      |         ^
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhull_r/qset_r.o src/libqhull_r/qset_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhull_r/mem_r.o src/libqhull_r/mem_r.c
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/libqhull_r/usermem_r.o src/libqhull_r/usermem_r.c
+src/testqset_r/testqset_r.c:782:9: warning: variable 'rangeCount' set but not used [-Wunused-but-set-variable]
+  782 |     int rangeCount=1;
+      |         ^
+============================================
+== make qtest ==============================
+============================================
+-n == 
+Sat Oct 17 14:12:50 CST 2026
+
+============================================
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/user_eg2/user_eg2_r.o src/user_eg2/user_eg2_r.c
+== Test non-reentrant qset.c with mem.c ====
+============================================
+bin/testqset 10000
+make: bin/testqset: No such file or directory
+make: [qtest] Error 1 (ignored)
+
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/user_eg3/user_eg3_r.o src/user_eg3/user_eg3_r.cpp
+============================================
+== Test reentrant qset_r.c with mem_r.c ====
+============================================
+bin/testqset_r 10000
+make: bin/testqset_r: No such file or directory
+make: [qtest] Error 1 (ignored)
+
+============================================
+1 warning generated.
+== Run the qhull smoketest ====
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/RoadError.o src/libqhullcpp/RoadError.cpp
+============================================
+bin/rbox D4 | bin/qhull Tv
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/RoadLogEvent.o src/libqhullcpp/RoadLogEvent.cpp
+/bin/sh: bin/qhull: No such file or directory
+/bin/sh: bin/rbox: No such file or directory
+make: [qtest] Error 127 (ignored)
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/Coordinates.o src/libqhullcpp/Coordinates.cpp
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/PointCoordinates.o src/libqhullcpp/PointCoordinates.cpp
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/Qhull.o src/libqhullcpp/Qhull.cpp
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullFacet.o src/libqhullcpp/QhullFacet.cpp
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullFacetList.o src/libqhullcpp/QhullFacetList.cpp
+1 warning generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullFacetSet.o src/libqhullcpp/QhullFacetSet.cpp
+1 warning generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullHyperplane.o src/libqhullcpp/QhullHyperplane.cpp
+3 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullPoint.o src/libqhullcpp/QhullPoint.cpp
+In file included from src/libqhullcpp/PointCoordinates.cpp:9:
+In file included from src/libqhullcpp/PointCoordinates.h:13:
+In file included from src/libqhullcpp/QhullPoints.h:13:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/PointCoordinates.cpp:9:
+In file included from src/libqhullcpp/PointCoordinates.h:13:
+src/libqhullcpp/QhullPoints.h:112:89: warning: operand of ? changes signedness: 'long' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  112 |     size_t              size() const { return (point_dimension ? (point_end-point_first)/point_dimension : 0); }
+      |                                        ~~~~~~                    ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+src/libqhullcpp/PointCoordinates.cpp:301:76: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  301 |     point_coordinates.reserve(static_cast<countT>(point_coordinates.size()+newCoordinates)); // WARN64
+      |                                                                           ~^~~~~~~~~~~~~~
+In file included from src/user_eg3/user_eg3_r.cpp:3:
+In file included from src/libqhullcpp/RboxPoints.h:13:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/user_eg3/user_eg3_r.cpp:3:
+In file included from src/libqhullcpp/RboxPoints.h:14:
+In file included from src/libqhullcpp/PointCoordinates.h:13:
+src/libqhullcpp/QhullPoints.h:112:89: warning: operand of ? changes signedness: 'long' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  112 |     size_t              size() const { return (point_dimension ? (point_end-point_first)/point_dimension : 0); }
+      |                                        ~~~~~~                    ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullFacetSet.cpp:11:
+In file included from src/libqhullcpp/QhullFacetSet.h:12:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhIn file included from src/user_eg3/user_eg3_r.cpp:6:
+In file included from src/libqhullcpp/QhullFacet.h:15:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+ullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/Coordinates.cpp:9:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullFacetSet.cpp:11:
+In file included from src/libqhullcpp/QhullFacetSet.h:13:
+In file included from src/libqhullcpp/QhullFacet.h:14:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullFacetSet.cpp:11:
+In file included from src/libqhullcpp/QhullFacetSet.h:13:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+In file included from src/libqhullcpp/QhullFacetSet.cpp:15:
+In file included from src/libqhullcpp/QhullRidge.h:14:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullFacetSet.cpp:15:
+src/libqhullcpp/QhullRidge.h:88:55: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   88 |     countT              id() const { return qh_ridge->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~^~
+In file included from src/user_eg3/user_eg3_r.cpp:6:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+In file included from src/user_eg3/user_eg3_r.cpp:12:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/Qhull.cpp:12:
+In file included from src/libqhullcpp/Qhull.h:12:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/Qhull.cpp:12:
+In file included from src/libqhullcpp/Qhull.h:13:
+In file included from src/libqhullcpp/QhullVertex.h:15:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/Qhull.cpp:12:
+In file included from src/libqhullcpp/Qhull.h:13:
+src/libqhullcpp/QhullVertex.h:75:56src/user_eg3/user_eg3_r.cpp:197:46: warning: implicit conversion changes signedness: 'int' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+  197 |     s   75 |     countT              id(ize_t numRidges= numFacets)*hullDimension/2;  // only  const { return qh_vefor simplicial facets
+      |            ~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~^~
+rtex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+src/user_eg3/user_eg3_r.cpp:278:43: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  278 |         printInts(results.intsVector().at(i));
+      |                                        ~~ ^
+src/user_eg3/user_eg3_r.cpp:280:49: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  280 |         printDoubles(results.doublesVector().at(i));
+      |                                              ~~ ^
+In file included from src/libqhullcpp/Qhull.cpp:12:
+In file included from src/libqhullcpp/Qhull.h:14:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+src/user_eg3/user_eg3_r.cpp:348:32: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  348 |                 voronoiRegions[siteId]= voronoiRegion;
+      |                 ~~~~~~~~~~~~~~ ^~~~~~
+In file included from src/libqhullcpp/Qhull.cpp:15:
+In file included from src/libqhullcpp/RboxPoints.h:14:
+In file included from src/libqhullcpp/PointCoordinates.h:13:
+src/libqhullcpp/QhullPoints.h:112:89: warning: operand of ? changes signedness: 'long' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  112 |     size_t       src/user_eg3/user_eg3_r.cpp:421:32: warning: implicit conversion changes signedness: 'int' to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   421 |                 size() const { return (point_dimension ? (point_end-po      voronoiRegions[sint_first)/pointiteId]= voronoiRegion;
+      |                 ~~~~~~~~~~~~~~ ^~~~~~
+_dimension : 0); }
+      |                                        ~~~~~~                    ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullFacet.cpp:11:
+In file included from src/libqhullcpp/QhullFacet.h:14:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullPoints.o src/libqhullcpp/QhullPoints.cpp
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Qhull.cpp:329:63: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+  329 |         qh_init_B(qh_qh, newPoints, pointCount, newDimension, newIsMalloc);
+      |         ~~~~~~~~~                                             ^~~~~~~~~~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullFacetList.cpp:11:
+In file included from src/libqhullcpp/QhullFacetList.h:13:
+In file included from src/libqhullcpp/QhullFacet.h:14:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+In file included from src/libqhullcpp/QhullFacet.cpp:11:
+In file included from src/libqhullcpp/QhullFacet.h:15:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullFacet.cpp:11:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+In file included from src/libqhullcpp/QhullFacetList.cpp:11:
+In file included from src/libqhullcpp/QhullFacetList.h:13:
+In file included from src/libqhullcpp/QhullFacet.h:15:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullFacet.cpp:14:
+In file included from src/libqhullcpp/Qhull.h:13:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullFacetList.cpp:11:
+In file included from src/libqhullcpp/QhullFacetList.h:13:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+In file included from src/libqhullcpp/QhullFacet.cpp:18:
+src/libqhullcpp/QhullRidge.h:88:55: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   88 |     countT              id() const { return qh_ridge->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullFacetList.cpp:15:
+In file included from src/libqhullcpp/QhullRidge.h:14:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullFacetList.cpp:15:
+src/libqhullcpp/QhullRidge.h:88:55: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   88 |     countT              id() const { return qh_ridge->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullHyperplane.cpp:11:
+In file included from src/libqhullcpp/Qhull.h:12:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullHyperplane.cpp:11:
+In file included from src/libqhullcpp/Qhull.h:13:
+In file included from src/libqhullcpp/QhullVertex.h:15:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullHyperplane.cpp:11:
+In file included from src/libqhullcpp/Qhull.h:13:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullHyperplane.cpp:11:
+In file included from src/libqhullcpp/Qhull.h:14:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullPointSet.o src/libqhullcpp/QhullPointSet.cpp
+5 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullQh.o src/libqhullcpp/QhullQh.cpp
+10 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullRidge.o src/libqhullcpp/QhullRidge.cpp
+In file included from src/libqhullcpp/QhullPoint.cpp:9:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullPoint.cpp:12:
+In file included from src/libqhullcpp/Qhull.h:13:
+In file included from src/libqhullcpp/QhullVertex.h:15:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullSet.o src/libqhullcpp/QhullSet.cpp
+In file included from src/libqhullcpp/QhullPoint.cpp:12:
+In file included from src/libqhullcpp/Qhull.h:13:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullPoint.cpp:12:
+In file included from src/libqhullcpp/Qhull.h:14:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+9 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullStat.o src/libqhullcpp/QhullStat.cpp
+7 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullUser.o src/libqhullcpp/QhullUser.cpp
+10 warnings generated.
+11 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullVertex.o src/libqhullcpp/QhullVertex.cpp
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/QhullVertexSet.o src/libqhullcpp/QhullVertexSet.cpp
+10 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -c -std=c++98 -O3 -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wno-sign-conversion -Wshadow -Wconversion   -fpic -o src/libqhullcpp/RboxPoints.o src/libqhullcpp/RboxPoints.cpp
+9 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -c -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -o src/user_eg/user_eg_r.o src/user_eg/user_eg_r.c
+In file included from src/libqhullcpp/QhullPoints.cpp:9:
+In file included from src/libqhullcpp/QhullPoints.h:13:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullPoints.cpp:9:
+src/libqhullcpp/QhullPoints.h:112:89: warning: operand of ? changes signedness: 'long' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  112 |     size_t              size() const { return (point_dimension ? (point_end-point_first)/point_dimension : 0); }
+      |                                        ~~~~~~                    ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullPoints.cpp:11:
+In file included from src/libqhullcpp/Qhull.h:13:
+In file included from src/libqhullcpp/QhullVertex.h:15:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullPoints.cpp:11:
+In file included from src/libqhullcpp/Qhull.h:13:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullPoints.cpp:11:
+In file included from src/libqhullcpp/Qhull.h:14:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+src/libqhullcpp/QhullPoints.cpp:197:36: warning: implicit conversion changes signedness: 'long' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  197 |     size_t offset= pointCoordinates-point_first;
+      |            ~~~~~~  ~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+src/libqhullcpp/QhullPoints.cpp:198:44: warning: implicit conversion changes signedness: 'const int' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  198 |     countT idx= static_cast<countT>(offset/point_dimension);
+      |                                           ~^~~~~~~~~~~~~~~
+src/libqhullcpp/QhullPoints.cpp:199:26: warning: implicit conversion changes signedness: 'size_t' (aka 'unsigned long') to 'countT' (aka 'int') [-Wsign-conversion]
+  199 |     countT extra= offset % point_dimension;   /* must be less than point_dimension */
+      |            ~~~~~  ~~~~~~~^~~~~~~~~~~~~~~~~
+src/libqhullcpp/QhullPoints.cpp:199:28: warning: implicit conversion changes signedness: 'const int' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  199 |     countT extra= offset % point_dimension;   /* must be less than point_dimension */
+      |                          ~ ^~~~~~~~~~~~~~~
+src/libqhullcpp/QhullPoints.cpp:214:47: warning: implicit conversion changes signedness: 'long' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  214 |         extra= (pointCoordinates-point_first) % point_dimension;
+      |              ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullPointSet.cpp:9:
+In file included from src/libqhullcpp/QhullPointSet.h:13:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullPointSet.cpp:9:
+In file included from src/libqhullcpp/QhullPointSet.h:14:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -shared -o lib/libqhull_r.so.8.0.2  src/libqhullstatic_r/global_r.o src/libqhullstatic_r/stat_r.o src/libqhullstatic_r/geom2_r.o src/libqhullstatic_r/poly2_r.o src/libqhullstatic_r/merge_r.o src/libqhullstatic_r/libqhull_r.o src/libqhullstatic_r/geom_r.o src/libqhullstatic_r/poly_r.o src/libqhullstatic_r/qset_r.o src/libqhullstatic_r/mem_r.o src/libqhullstatic_r/random_r.o src/libqhullstatic_r/usermem_r.o src/libqhullstatic_r/userprintf_r.o src/libqhullstatic_r/io_r.o src/libqhullstatic_r/user_r.o src/libqhullstatic_r/rboxlib_r.o src/libqhullstatic_r/userprintf_rbox_r.o
+In file included from src/libqhullcpp/QhullSet.cpp:11:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullSet.cpp:13:
+In file included from src/libqhullcpp/Qhull.h:12:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullRidge.cpp:11:
+In file included from src/libqhullcpp/QhullRidge.h:13:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullSet.cpp:13:
+In file included from src/libqhullcpp/Qhull.h:13:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullSet.cpp:13:
+In file included from src/libqhullcpp/Qhull.h:14:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+In file included from src/libqhullcpp/QhullRidge.cpp:11:
+In file included from src/libqhullcpp/QhullRidge.h:14:
+In file included from src/libqhullcpp/QhullVertex.h:13:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullRidge.cpp:11:
+In file included from src/libqhullcpp/QhullRidge.h:14:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullRidge.cpp:11:
+In file included from src/libqhullcpp/QhullRidge.h:15:
+In file included from src/libqhullcpp/QhullVertexSet.h:12:
+In file included from src/libqhullcpp/QhullFacetList.h:13:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+In file included from src/libqhullcpp/QhullRidge.cpp:11:
+src/libqhullcpp/QhullRidge.h:88:55: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   88 |     countT              id() const { return qh_ridge->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~^~
+# the following line fails under MSYS, not needed for SO=dll
+(cd lib/ && ln -f -s libqhull_r.so.8.0.2 libqhull_r.so)
+6 warnings generated.
+(cd lib/ && ln -f -s libqhull_r.so.8.0.2 libqhull_r.so.8.0)
+==========================================
+==== If ar fails, try make qhullx ====
+==========================================
+ar -rs lib/libqhullstatic.a src/libqhullstatic/global.o src/libqhullstatic/stat.o src/libqhullstatic/geom2.o src/libqhullstatic/poly2.o src/libqhullstatic/merge.o src/libqhullstatic/libqhull.o src/libqhullstatic/geom.o src/libqhullstatic/poly.o src/libqhullstatic/qset.o src/libqhullstatic/mem.o src/libqhullstatic/random.o src/libqhullstatic/usermem.o src/libqhullstatic/userprintf.o src/libqhullstatic/io.o src/libqhullstatic/user.o src/libqhullstatic/rboxlib.o src/libqhullstatic/userprintf_rbox.o
+ar -rs lib/libqhullstatic_r.a src/libqhullstatic_r/global_r.o src/libqhullstatic_r/stat_r.o src/libqhullstatic_r/geom2_r.o src/libqhullstatic_r/poly2_r.o src/libqhullstatic_r/merge_r.o src/libqhullstatic_r/libqhull_r.o src/libqhullstatic_r/geom_r.o src/libqhullstatic_r/poly_r.o src/libqhullstatic_r/qset_r.o src/libqhullstatic_r/mem_r.o src/libqhullstatic_r/random_r.o src/libqhullstatic_r/usermem_r.o src/libqhullstatic_r/userprintf_r.o src/libqhullstatic_r/io_r.o src/libqhullstatic_r/user_r.o src/libqhullstatic_r/rboxlib_r.o src/libqhullstatic_r/userprintf_rbox_r.o
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/testqset src/testqset/testqset.o src/libqhull/qset.o src/libqhull/mem.o src/libqhull/usermem.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -lm
+ar: creating archive lib/libqhullstatic_r.a
+ar: creating archive lib/libqhullstatic.a
+ranlib: warning: archive member 'global_r.o' not a mach-o file
+ranlib: warning: archive member 'global.o' not a mach-o file
+#ranlib lib/libqhullstatic_r.a
+#If 'ar -rs' fails, try using 'ar -s' with 'ranlib'
+#ranlib lib/libqhullstatic.a
+9 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/testqset_r src/testqset_r/testqset_r.o src/libqhull_r/qset_r.o src/libqhull_r/mem_r.o src/libqhull_r/usermem_r.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -lm
+In file included from src/libqhullcpp/RboxPoints.cpp:9:
+In file included from src/libqhullcpp/RboxPoints.h:13:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+In file included from src/libqhullcpp/QhullUser.cpp:9:
+In file included from src/libqhullcpp/QhullUser.h:13:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/QhullVertex.cpp:11:
+In file included from src/libqhullcpp/QhullVertex.h:13:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130at(countT idx) const { return coordinate_ar-e \n\n===================================================
+ |  ray.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+         void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+-e \n\n===================================================
+In file included from src/libqhullcpp/QhullUser.cpp:9:
+In file included from src/libqhullcpp/QhullUser.h:14:
+In file included from src/libqhullcpp/PointCoordinates.h:13:
+src/libqhullcpp/QhullPoints.h:112:89: warning: operand of ? changes signedness: 'long' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  112 |     size_t              size() const { return (point_dimension ? (point_end-point_first)/point_dimension : 0); }
+      |                                        ~~~~~~                    ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+-e == user_eg2 links to  qhullstatic_r.  It may use libqhull_r instead.
+|                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+In file included from src/libqhullcpp/RboxPoints.cpp:9:
+In file included from src/libqhullcpp/RboxPoints.h:14:
+In file included from src/libqhullcpp/PointCoordinates.h:13:
+src/libqhullcpp/QhullPoints.h:112:89: warning: operand of ? changes signedness: 'long' to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+  112 |     size_t              size() const { return (point_dimension ? (point_end-point_first)/point_dimension : 0); }
+      |                                        ~~~~~~                    ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullVertex.cpp:11:
+In file included from src/libqhullcpp/QhullVertex.h:15:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullVertex.cpp:11:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+-e ===================================================\n
+-e == If user_eg fails to link on a Windows host, use
+In file included from src/libqhullcpp/QhullVertex.cpp:13:
+In file included from src/libqhullcpp/Qhull.h:14:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/user_eg2 src/user_eg2/user_eg2_r.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -Llib -lqhullstatic_r -lm
+src/libqhullcpp/QhullUser.cpp:204:61: warning: implicit conversion changes signedness: 'int' to 'unsigned long' [-Wsign-conversion]
+  204 |         vsnprintf(newMessage + msgLen, sizeof(newMessage) - msgLen, fmt, args);
+      |                                                           ~ ^~~~~~
+-e ==   "make SO=dll" and copy lib/libqhull_r.dll to bin/
+10 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/rbox src/rbox/rbox.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -Llib -lqhullstatic -lm
+-e == Otherwise if user_eg fails to link, switch to -lqhullstatic_r
+In file included from src/libqhullcpp/QhullVertexSet.cpp:11:
+In file included from src/libqhullcpp/QhullVertexSet.h:12:
+In file included from src/libqhullcpp/QhullFacetList.h:13:
+In file included from src/libqhullcpp/QhullFacet.h:14:
+In file included from src/libqhullcpp/QhullPoint.h:16:
+src/libqhullcpp/Coordinates.h:81:69: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   81 |     coordT &            at(countT idx) { return/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/qconvex src/qconvex/qconvex.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -Llib -lqhullstatic -lm
+ coordinate_array.at(idx); }
+      |                                                                  ~~ ^~~
+src/libqhullcpp/Coordinates.h:82:75: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   82 |     const coordT &      at(countT idx) const { return coordinate_array.at(idx); }
+      |                                                                        ~~ ^~~
+src/libqhullcpp/Coordinates.h:92:85: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   92 |     coordT &            operator[](countT idx) { return coordinate_array.operator[](idx); }
+      |                                                                          ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:93:91: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+   93 |     const coordT &      operator[](countT idx) const { return coordinate_array.operator[](idx); }
+      |                                                                                ~~~~~~~~   ^~~
+src/libqhullcpp/Coordinates.h:130:70: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_type' (aka 'unsigned long') [-Wsign-conversion]
+  130 |     void                reserve(countT i) { coordinate_array.reserve(i); }
+      |                                                              ~~~~~~~ ^
+-e ===================================================\n
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/user_eg src/user_eg/user_eg_r.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic  -Llib -lqhull_r -lm
+In file included from src/libqhullcpp/QhullVertexSet.cpp:11:
+In file included from src/libqhullcpp/QhullVertexSet.h:12:
+In file included from src/libqhullcpp/QhullFacetList.h:13:
+In file included from src/libqhullcpp/QhullFacet.h:15:
+src/libqhullcpp/QhullSet.h:71:47: warning: implicit conversion changes signedness: 'countT' (aka 'int') to 'size_t' (aka 'unsigned long') [-Wsign-conversion]
+   71 |     size_t              size() const { return QhullSetBase::count(qh_set); }
+      |                                        ~~~~~~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/libqhullcpp/QhullVertexSet.cpp:11:
+In file included from src/libqhullcpp/QhullVertexSet.h:12:
+In file included from src/libqhullcpp/QhullFacetList.h:13:
+src/libqhullcpp/QhullFacet.h:73:67: warning: operand of ? changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   73 |     countT              id() const { return (qh_facet ? qh_facet->id : static_cast<countT>(qh_IDunknown)); }
+      |                                      ~~~~~~             ~~~~~~~~~~^~
+src/libqhullcpp/QhullFacet.h:90:72: warning: operand of ? changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+   90 |     int                 visitId() const { return (qh_facet ? qh_facet->visitid : -1); }
+      |                                           ~~~~~~             ~~~~~~~~~~^~~~~~~
+In file included from src/libqhullcpp/QhullVertexSet.cpp:11:
+In file included from src/libqhullcpp/QhullVertexSet.h:14:
+src/libqhullcpp/QhullVertex.h:75:56: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   75 |     countT              id() const { return qh_vertex->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~~^~
+In file included from src/libqhullcpp/QhullVertexSet.cpp:15:
+src/libqhullcpp/QhullRidge.h:88:55: warning: implicit conversion changes signedness: 'unsigned int' to 'countT' (aka 'int') [-Wsign-conversion]
+   88 |     countT              id() const { return qh_ridge->id; }
+      |                                      ~~~~~~ ~~~~~~~~~~^~
+15 warnings generated.
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/qdelaunay src/qdelaunay/qdelaun.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -Llib -lqhullstatic -lm
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/qhalf src/qhalf/qhalf.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -Llib -lqhullstatic -lm
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/qvoronoi src/qvoronoi/qvoronoi.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -Llib -lqhullstatic -lm
+9 warnings generated.
+ld.lld: error: undefined symbol: qh_lib_check
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+
+ld.lld: error: undefined symbol: qh_argv_to_command_size
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+
+ld.lld: error: undefined symbol: qh_malloc
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+
+ld.lld: error: undefined symbol: qh_argv_to_command
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+
+ld.lld: error: undefined symbol: qh_rboxpoints
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+
+ld.lld: error: undefined symbol: qh_fprintf_stderr
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+>>> referenced 1 more times
+
+ld.lld: error: undefined symbol: qh_free
+>>> referenced by rbox.c
+>>>               src/rbox/rbox.o:(main)
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -o bin/qhull src/qhull/unix_r.o -O3 -ansi -Isrc/ -Wall -Wcast-qual -Wextra -Wwrite-strings -Wshadow -Wsign-conversion -Wconversion  -fpic -Llib -lqhullstatic_r -lm
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+ld.lld: error: undefined symbol: qh_fprintf
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(adddiamond)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addhalf)
+>>> referenced 21 more times
+
+ld.lld: error: undefined symbol: qh_findbestfacet
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(adddiamond)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(adddiamond)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced 4 more times
+
+ld.lld: error: undefined symbol: qh_addpoint
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(adddiamond)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(adddiamond)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced 3 more times
+
+ld.lld: error: undefined symbol: qh_check_maxout
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(adddiamond)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addhalf)
+
+ld.lld: error: undefined symbol: qh_nearcoplanar
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(adddiamond)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addhalf)
+
+ld.lld: error: undefined symbol: qh_srand
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(makeDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_rand
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(makeDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced 15 more times
+
+ld.lld: error: undefined symbol: qh_setdelaunay
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(makeDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced 2 more times
+
+ld.lld: error: undefined symbol: qh_printpoint
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addhalf)
+>>> referenced 1 more times
+
+ld.lld: error: undefined symbol: qh_setsize
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addDelaunay)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addhalf)
+>>> referenced 1 more times
+
+ld.lld: error: undefined symbol: qh_sethalfspace
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addhalf)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(addhalf)
+
+ld.lld: error: undefined symbol: qh_lib_check
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_init_A
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_initflags
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_init_B
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_qhull
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_output
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced 3 more times
+
+ld.lld: error: undefined symbol: qh_triangulate
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_points
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced 3 more times
+
+ld.lld: error: undefined symbol: qh_produce_output
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced by user_eg2_r.c
+>>>               src/user_eg2/user_eg2_r.o:(main)
+>>> referenced 2 more times
+
+ld.lld: error: too many errors emitted, stopping now (use --error-limit=0 to see all errors)
+make: *** [bin/rbox] Error 1
+make: *** Waiting for unfinished jobs....
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+ld.lld: error: undefined symbol: qh_lib_check
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_version
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+>>> referenced 3 more times
+
+ld.lld: error: undefined symbol: qh_init_A
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_qh
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_checkflags
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_initflags
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_readpoints
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_init_B
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_qhull
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_output
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_produce_output
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_points
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_freeqhull
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_memfreeshort
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_fprintf_stderr
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+
+ld.lld: error: undefined symbol: qh_version2
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+>>> referenced by qconvex.c
+>>>               src/qconvex/qconvex.o:(main)
+make: *** [bin/user_eg2] Error 1
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+6 warnings generated.
+make: *** [bin/qconvex] Error 1
+ld.lld: error: undefined symbol: qh_lib_check
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_version
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+>>> referenced 3 more times
+
+ld.lld: error: undefined symbol: qh_init_A
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_qh
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_option
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_checkflags
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_initflags
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_readpoints
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_init_B
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_qhull
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_output
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_produce_output
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_points
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_freeqhull
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_memfreeshort
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_fprintf_stderr
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+
+ld.lld: error: undefined symbol: qh_version2
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+>>> referenced by qdelaun.c
+>>>               src/qdelaunay/qdelaun.o:(main)
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+ld.lld: error: undefined symbol: qh_lib_check
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+make: *** [bin/qdelaunay] Error 1
+
+ld.lld: error: undefined symbol: qh_version
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+>>> referenced 3 more times
+
+ld.lld: error: undefined symbol: qh_init_A
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_qh
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_option
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_checkflags
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_initflags
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_readpoints
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_init_B
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_qhull
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_output
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_produce_output
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_points
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_freeqhull
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_memfreeshort
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_fprintf_stderr
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+
+ld.lld: error: undefined symbol: qh_version2
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+>>> referenced by qvoronoi.c
+>>>               src/qvoronoi/qvoronoi.o:(main)
+ld.lld: error: undefined symbol: qh_lib_check
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_version
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+>>> referenced 3 more times
+
+ld.lld: error: undefined symbol: qh_init_A
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_qh
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_option
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_checkflags
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_initflags
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_errexit
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_readpoints
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_init_B
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_qhull
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_output
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_produce_output
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_points
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_freeqhull
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_memfreeshort
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_fprintf_stderr
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+
+ld.lld: error: undefined symbol: qh_version2
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+>>> referenced by qhalf.c
+>>>               src/qhalf/qhalf.o:(main)
+clang: error: linker command failed with exit code 1 (use -v to see invocation)clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+make: *** [bin/qhalf] Error 1
+make: *** [bin/qvoronoi] Error 1
+10 warnings generated.
+ld.lld: error: undefined symbol: qh_lib_check
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_version
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+>>> referenced 3 more times
+
+ld.lld: error: undefined symbol: qh_init_A
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_initflags
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_readpoints
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_init_B
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_qhull
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_output
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_produce_output
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_check_points
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_freeqhull
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_memfreeshort
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_fprintf_stderr
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+
+ld.lld: error: undefined symbol: qh_version2
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+>>> referenced by unix_r.c
+>>>               src/qhull/unix_r.o:(main)
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make: *** [bin/qhull] Error 1
+15 warnings generated.
+7 warnings generated.
