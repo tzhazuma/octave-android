@@ -33,3 +33,13 @@ spike/blas-test/blas_static
 
 # macOS
 .DS_Store
+
+# Verbose per-attempt build/configure logs (regenerable; the meaningful
+# summaries live in STATUS.md and evidence/).
+logs/octave_configure_run*.log
+logs/octave_configure_full.log
+logs/octave_make*.log
+logs/fftwf_*.log
+logs/libiconv_*.log
+logs/deps_all.log
+logs/dep_*.log

@@ -50,8 +50,24 @@ for a in "$@"; do
   case "$a" in -c|-S|-E|-cpp|-fc1|-emit-llvm|-fsyntax-only) compile=1 ;; esac
 done
 
+# Flags LLVM Flang does not accept. autotools injects gfortran/GCC-isms into
+# FFLAGS: Octave's configure puts `-fexceptions` there, and flang aborts with
+#   flang-23: error: unknown argument: '-fexceptions'
+# on the very first libcruft/blas-xtra source. They are meaningless for Flang,
+# so drop them rather than fail.
+strip_flags() {
+  out=""
+  for a in "$@"; do
+    case "$a" in
+      -fexceptions) : ;;
+      *) out="$out $(printf '%q' "$a")" ;;
+    esac
+  done
+  printf '%s' "$out"
+}
+
 if [ "$compile" = 1 ]; then
-  exec $FLANG $TGT "$@"
+  eval exec "$FLANG" $TGT $(strip_flags "$@")
 fi
 
 # ---- link mode: two-phase ----

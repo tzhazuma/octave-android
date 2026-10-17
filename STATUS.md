@@ -681,3 +681,165 @@ OpenBLAS 的构建**在原树内写 `.o`**。本轮实测：两个进程在同�
 | **`scripts/build-openblas.sh`** | **全 Fortran** OpenBLAS 构建（`NOFORTRAN=0 F_COMPILER=FLANGNEW`），与 `build_openblas.sh` 的 `clapack` 模式互补 |
 | `scripts/device_run.sh` | 设备端脚本：驱动 Termux `RunCommandService`（路线 A 归档用） |
 | `scripts/probe_octave.sh` | 设备端脚本：探查 Termux 环境（路线 A 归档用） |
+
+---
+
+# 9. 2026-10-17 收尾轮：环境修复 + 纯 C 依赖 + **Octave core 交叉 configure 通过**
+
+## 9.1 验收项：**在真机上重新取证**
+
+本轮开工先复验上一轮的 LAPACK 结论（不是引用旧日志）：
+```sh
+adb push spike/openblas-lapack/lapack_gate /data/local/tmp/lapack_gate
+adb push spike/openblas-lapack/libopenblas_armv8p-r0.3.34.so /data/local/tmp/libopenblas.so
+adb shell 'cd /data/local/tmp && LD_LIBRARY_PATH=/data/local/tmp ./lapack_gate; echo EXIT_RC=$?'
+```
+```
+LAPACK_GATE dgesv info=0  x = [0.090909 0.636364]
+LAPACK_GATE expected  x = [0.090909 0.636364]  (1/11, 7/11)
+LAPACK_GATE dpotrf info=0  L^T = [2.000000 1.000000 ; 0.500000 1.658312]
+LAPACK_GATE check L11^2 = 4.000000 (expect 4)
+EXIT_RC=0
+```
+→ OpenBLAS 0.3.34（含完整 Fortran LAPACK，纯 C 源码）在真机上**数值正确**，`dgesv` 精确解
+= `[1/11, 7/11]`，`dpotrf` Cholesky 校验通过。
+
+## 9.2 🔧 修掉一个**环境级阻塞**：`brew flang` 因 z3 升级而崩
+
+本轮开工时 `flang-new --version` **直接崩**：
+```
+dyld: Library not loaded: /opt/homebrew/opt/z3/lib/libz3.5.1.dylib
+  Referenced from: .../Cellar/llvm/23.1.3_1/lib/libLLVM.23.1.dylib
+  Reason: tried: '/opt/homebrew/opt/z3/lib/libz3.5.1.dylib' (no such file)
+```
+**根因**：Homebrew 的 `z3` 已升到 **5.3.0**（提供 `libz3.5.3.dylib`），而 `llvm 23.1.3_1`
+是链在 `libz3.5.1.dylib` 上的 —— 升级把旧 soname 带走了。
+
+**修法**（最小、可逆）：
+```sh
+ln -sfn libz3.5.3.dylib /opt/homebrew/opt/z3/lib/libz3.5.1.dylib
+/opt/homebrew/opt/flang/bin/flang-new --version   # Homebrew flang version 23.1.3  RC=0
+```
+z3 的 C API 在 5.1→5.3 之间稳定，且 flang 正常编译路径并不调用 z3（LLVM 只把它用于
+SMT 相关的可选 pass），所以这个兼容链接是安全的。
+> ⚠️ 这是**环境级**改动（在 `~/octave-android` 之外）。若日后 `brew upgrade z3` 再次
+> 换 soname，需要重建同名链接；长期正解是 `brew reinstall llvm` 让它链到当前 z3。
+
+## 9.3 🔴 本轮最大的坑：**交叉构建会静默用宿主的 `ar`/`ranlib`**
+
+**症状**：依赖"构建成功"（`make` 返回 0、日志里 configure 全绿），但产出的 `.a`
+**只有 96 字节、0 个符号**；下游链接时报 `undefined symbol`。
+
+**根因**：autoconf/libtool 若未显式给出 `AR`/`RANLIB`，会回落到**宿主的 Apple `ar`/`ranlib`**。
+Apple 的 `ranlib` 拒绝 ELF 目标文件：
+```
+ranlib: warning: archive member 'libpcre2_8_la-pcre2_auto_possess.o' not a mach-o file
+```
+**但它仍然返回 0**，于是留下一个空归档，看起来完全成功。
+
+**受害范围（本轮实测）**：`pcre2`、`zlib`、`glpk`、`qhull`、`fftw(3f)` —— 全部中招。
+`libz.a` / `libglpk.a` / `libqhull_r.a` 三个都是 96 字节的空档。
+
+**修法**：所有构建脚本显式导出 NDK 归档器（已写进 `scripts/build-deps.sh`、
+`build_fftwf.sh`、`build_fftw.sh`）：
+```sh
+export AR="$NDK/.../llvm-ar" RANLIB="$NDK/.../llvm-ranlib" \
+       STRIP="$NDK/.../llvm-strip" NM="$NDK/.../llvm-nm" LD="$NDK/.../ld.lld"
+```
+修复后：`libz.a` 100 个符号（含 `gzclearerr`/`uncompress`）、`libglpk.a` 1100 个（含 `glp_simplex`）、
+`libqhull_r.a` 53 个、`libpcre2-8.a` 76 个。
+
+## 9.4 纯 C 依赖交叉编译（本轮新增）
+
+| 依赖 | 产物 | 校验 |
+|---|---|---|
+| **zlib 1.3.1** | `libz.a` 131 KB | 100 个 `T` 符号；`gzclearerr`/`uncompress` 在 |
+| **PCRE2 10.44** | `libpcre2-8.a` 422 KB | 76 个 `T pcre2_*`；ELF64 AArch64 |
+| **qhull 2020.2** | `libqhull_r.a` 35 KB | 53 个符号；**11 个头文件全拷**（`libqhull_r.h` 会 `#include user_r.h`） |
+| **glpk 5.0** | `libglpk.a` 2.0 MB | 1100 个符号；`glp_simplex` 在 |
+| **fast_float 6.1.6** | 头文件库 | 见 §9.5 |
+| **FFTW3F**（单精度） | `libfftw3f.so` | 见 §9.6 |
+
+### 踩坑记录（都很有价值）
+
+1. **zlib：`make` 会连测试程序一起编**，而交叉链接下 `example`/`minigzip` 会失败。
+   → 只 `make libz.a`，然后手工装 `libz.a` + `zlib.h`/`zconf.h`。
+2. **PCRE2：不能逐个 `src/pcre2_*.c` 全编**。`pcre2_jit_match.c` / `pcre2_jit_misc.c` 是被
+   `pcre2_jit_compile.c` `#include` 的，`pcre2_dftables.c` 是构建期工具。
+   → 正确做法是**从 PCRE2 自己的 `Makefile` 里取 `COMMON_SOURCES` 列表**（27 个 .c + `pcre2_chartables.c`）。
+3. **Octave 探的是 `-lpcre2`，不是 `-lpcre2-8`**：
+   ```
+   ld.lld: error: unable to find library -lpcre2
+   ```
+   → 同时提供 `libpcre2.a`（`libpcre2-8.a` 的副本）即可。
+4. **FFTW 不支持 out-of-tree 构建**：
+   `configure: error: source directory already configured; run "make distclean" there first`
+   → 单精度那一遍必须用**独立解包的新源码树**。（另：fftw 的 tarball 在 `src/` 而不是
+   `downloads/`，容易找错。）
+
+## 9.5 fast_float：configure 的一个硬性前置
+
+configure 走到 gnulib 检查后失败：
+```
+checking whether C++ STL supports std::from_chars for double precision floating-point... no
+configure: error: If the C++ STL does not support std::from_chars for double precision
+floating-point, the fast-float header-only library needs to be installed.
+```
+NDK r28 的 libc++ 尚未实现浮点 `std::from_chars`，Octave 因此要求 fast_float。
+→ 取 `fastfloat/fast_float v6.1.6` 的头文件装到 `prefix/arm64-v8a/fastfloat/include/fast_float/`，
+并加入 `CPPFLAGS`。
+
+## 9.6 ⭐ **Octave 11.3.0 core 交叉 configure 通过（首次）**
+
+**provenance 先对齐**：我们的 `octave-11.3.0.tar.xz` 的 sha256
+`2b80f3149b2de6d1f4f2fcb4fe6515a17eb363b52111bf57b90f37bf6f5e12e1`
+**与 Termux 配方 pin 的值完全一致**；Termux 的 `build.sh` 与其 3 个补丁都用 `gh api` 取回，
+存在 `downloads/termux-octave-build.sh` 与 `downloads/termux-patches/`。
+
+复现脚本 **`scripts/octave-configure.sh`**（自动打 3 个 Termux 补丁 + 全部 `ac_cv_*`）：
+
+```
+Octave is now configured for aarch64-unknown-linux-android
+  Fortran compiler:  .../scripts/toolbin/aarch64-linux-android24-flang-new
+  BLAS libraries:    -L.../openblas/lib -lopenblas
+  LAPACK libraries:  -L.../openblas/lib -lopenblas
+CONFIGURE_RC=0
+```
+
+**这是路线 B 的最后一个未知点被清掉**：Octave 本体在 bionic 上的 autoconf 交叉检测
+（含 gnulib、Fortran f77 调用约定、C++17、`std::from_chars`/fast_float）全部走通。
+
+**Termux 配方里固化的 bionic 答案（已采纳）**：
+```
+--without-x --disable-java --disable-openmp --enable-link-all-dependencies
+--with-blas=openblas --enable-fortran-calling-convention=f2c
+ac_cv_header_glob_h=no
+ac_cv_func_{endpwent,getegrent,geteuid,getgrent,getgrgid,getgrnam,getpwent,
+            getpwnam,getpwnam_r,getpwuid,setgrent,setpwent,setpwuid}=no
+gl_cv_cc_visibility=no
+```
+
+### 当前 feature 状态（configure 汇总里仍缺的项）
+`zlib` / `qhull` / `glpk` 已在本轮修好（重跑 configure 后应转为可用）；
+`FFTW3F` 正在补（§9.4）。其余按计划关闭：`HDF5`、`CURL`、`SUNDIALS`、`SuiteSparse` 全家、
+`Qt/FLTK/OpenGL/Freetype/fontconfig`、`readline`（`--disable-readline`）、`Java`、`OpenMP`。
+
+> `--disable-readline` 是刻意的：交叉编译 readline 需要 ncurses/terminfo，
+> 而 CLI 的 `--eval`/脚本执行路径不需要行编辑。
+
+## 9.7 下一步（按优先级）
+
+1. **重跑 `scripts/octave-configure.sh`** 收下本轮修好的 zlib/qhull/glpk/FFTW3F。
+2. **`make -j12`** 跑 Octave 本体（`libcruft` 里的 Fortran 走 `FC=<flang wrapper>`；
+   这是 flang 驱动第一次被真正的 autotools 大工程使用）。
+3. 补 `SuiteSparse`（CXSparse/COLAMD 用 NDK 的 CMake toolchain file —— 直接 `make library`
+   会让 CMake 用宿主的 `-arch x86_64`）、`bzip2`、`readline`。
+4. Octave 自身的 `.so`（`liboctinterp` 等）会再次撞上
+   **Termux flang 运行时不 PIC** 的问题（§3.5.2 卡点 d）→ 依赖 `-Wl,-Bsymbolic` 绕过；
+   长期正解仍是自建 `-fPIC` 的 `flang-rt`（§6 #7）。
+
+## 9.8 磁盘注意
+
+本轮期间 `df -h ~` 可用量在 **9.1–14 GiB** 之间波动（其他 agent 的满核构建在抢）。
+Octave 全量构建前务必确认可用空间。
+
