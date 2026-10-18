@@ -61,3 +61,6 @@ android-app/app/src/main/assets/oct/
 android-app/app/src/main/jniLibs/**/*.so
 android-app/app/build/
 android-app/.gradle/
+
+# Release artefacts are published as GitHub release assets, never committed.
+*.apk
