@@ -1,0 +1,13 @@
+--- a/src/plot.c
++++ b/src/plot.c
+@@ -228,7 +228,11 @@
+ /* make sure that we really have revoked root access, this might happen if
+    gnuplot is compiled without vga support but is installed suid by mistake */
+-#ifdef __linux__
++#if defined(__linux__) && !defined(__ANDROID__)
++    /* Android's seccomp policy turns setuid() into a fatal SIGSYS for app processes:
++       "Fatal signal 31 (SIGSYS), code 1 (SYS_SECCOMP), syscall 146". There is no suid
++       installation to defend against here anyway, so the check is skipped on Android. */
+     if (setuid(getuid()) != 0) {
+ 	fprintf(stderr,"gnuplot: refusing to run at elevated privilege\n");
+ 	exit(EXIT_FAILURE);

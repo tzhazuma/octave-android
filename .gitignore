@@ -1,5 +1,7 @@
 # Build inputs / outputs that are large or regenerable -- NOT source of truth.
-src/
+# Anchored: an unanchored `src/` also matched android-app/app/src/, so the entire
+# Android application (Java, manifest, icons) was invisible to git.
+/src/
 prefix/
 downloads/
 backups/
@@ -51,3 +53,11 @@ android-app/.gradle/
 android-app/app/build/
 android-app/build/
 android-app/local.properties
+
+# --- Android app: generated or built artefacts (added 2026-10-19) ---
+# The bundled Octave tree is staged from prefix/ by scripts/stage-apk-assets.sh.
+android-app/app/src/main/assets/oct/
+# Prebuilt executables and libraries packaged as JNI libs.
+android-app/app/src/main/jniLibs/**/*.so
+android-app/app/build/
+android-app/.gradle/

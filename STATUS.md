@@ -862,3 +862,143 @@ Octave 本体尚未构建。
 1. 完成 `octave-configure.sh` 之后的核心构建（`liboctave`、`liboctinterp`）；
 2. 链接成一个可执行的 `octave`（或 `liboctave.so` + JNI），先做 `--eval`；
 3. 再考虑 GUI（Qt）——那需要整套 Qt for Android，工作量和 FreeCAD 同级。
+
+---
+
+# 第 11 节：Octave 本体跑起来了（2026-10-19）
+
+之前这份文档的结论是「只有一个数值内核验证外壳」。这一节把它推翻了：
+`liboctave` / `liboctinterp` / `octave-cli` 全部交叉编译完成并安装到
+`prefix/arm64-v8a/octave`，在真机上能算、能画、能跑脚本。
+
+## 11.1 最后一道坎：`src/octave-cli` 的链接
+
+`make` 一路编译到最后一个可执行文件才失败，报两类错：
+
+```
+ld.lld: error: non-exported symbol '__divsc3' in 'libclang_rt.builtins-aarch64-android.a(divsc3.c.o)'
+          is referenced by DSO 'liboctave/.libs/liboctave.so'
+ld.lld: error: undefined reference: clogf
+```
+
+两个原因互不相干：
+
+1. **compiler-rt 的符号是 hidden**。`liboctave.so` / `liboctinterp.so` 调用
+   `__divsc3`、`__powisf2`、`__powidf2` 和 `__aarch64_*` outline atomics，但这两个
+   DSO 在链接时没有引入 builtins，定义只落到了可执行文件里，而且是 hidden —— lld
+   拒绝用「不可导出」的定义去满足 DSO 的未定义引用。
+   解法：把 `libclang_rt.builtins-aarch64-android.a` 拆开，
+   `llvm-objcopy --set-symbol-visibility=<sym>=default` 重写这 8 个符号，
+   重新打归档后链进可执行文件（`scripts/build-octave-cli.sh`）。
+2. **bionic 的 libm 没有 C99 复数函数**。`clogf` 等由 Octave 自带的实现提供，
+   已经编译在 `build/complexmath/*.o`（20 个目标文件），只是没被链进去。
+
+补上这两样之后，**同一条 libtool 链接命令**直接成功（81048 字节）。
+`make install` 必须带 `-o src/octave-cli`，否则它会重新链接、再次失败，
+并把已经链接好的二进制删掉——这个坑踩过一次。
+
+## 11.2 图形：gnuplot 6.0.0 + SVG
+
+这个构建里没有 Qt、没有 FLTK（那需要一整套更大的工具链），所以
+`plot(...)` 唯一的出路是 gnuplot toolkit。gnuplot 用 `--without-x --without-qt
+--without-cairo --without-gd --without-pango --disable-plugins` 交叉编译，
+SVG 终端是内置的，不需要任何图像库；App 把 SVG 交给 WebView 渲染。
+
+gnuplot 需要一处源码修改（`patches/gnuplot-android.patch`）：
+`src/plot.c:231` 有一句 `setuid(getuid())`，用来防止「被误装成 suid」。
+Android 的 seccomp 对应用进程禁止 `setuid`，于是子进程直接死掉：
+
+```
+F libc : Fatal signal 31 (SIGSYS), code 1 (SYS_SECCOMP), syscall 146 in tid (libgnuplot.so)
+```
+
+（146 = `__NR_setuid`。）Octave 只会把它报成
+`The gnuplot executable '...' was not found or does not work`，看起来像路径问题，
+其实是信号。加 `!defined(__ANDROID__)` 之后 toolkit 正常初始化。
+
+## 11.3 可执行文件为什么放进 jniLibs
+
+Android 10 起 `execve` 在 `app_data_file` 上被拒绝。文件权限 0755 也没用：
+
+```
+BOOT FAILED: java.io.IOException: Cannot run program ".../files/oct/octave/bin/octave-cli":
+  error=13, Permission denied
+```
+
+APK 的 native library 目录是允许执行的，所以 `octave-cli` 打包成
+`lib/arm64-v8a/liboctavecli.so`，gnuplot 同理打包成 `libgnuplot.so`，
+运行时用 `getApplicationInfo().nativeLibraryDir` 取路径执行。
+`libc++_shared.so` 也放在那里——否则 gnuplot 作为独立进程找不到它：
+
+```
+CANNOT LINK EXECUTABLE ".../libgnuplot.so": library "libc++_shared.so" not found
+```
+
+`scripts/stage-apk-assets.sh` 负责把 prefix 里的安装树、库和执行文件摆到正确位置，
+其中「libtool 生成的符号链接必须实体化」是必须的：Gradle 会静默丢掉 assets 里的
+符号链接，`bin/octave-cli` 就这样消失过一次。
+
+## 11.4 真机证据
+
+在 App 私有目录里直接跑（`run-as`，与应用进程同一个 uid 和 SELinux 域）：
+
+```
+$ ./octave/bin/octave-cli --no-gui --quiet --eval 'disp(2+3)'
+5
+```
+
+画图（同一环境下）：
+
+```
+$ ./octave/bin/octave-cli --no-gui --quiet --eval "graphics_toolkit('gnuplot'); \
+    f=figure('visible','off'); plot([1 2 3 4],[1 4 9 16],'-o'); \
+    print(f,'-dsvg','plot.svg'); disp('PLOT_OK')"
+PLOT_OK
+$ ls -la plot.svg
+-rw-rw-rw- 1 u0_a434 u0_a434 10513 ... plot.svg
+```
+
+生成的图见 `evidence/plot-from-device.png`（由 gnuplot 的 SVG 渲染而来）。
+
+App 界面里（`uiautomator dump` 抓到的 console 文本）：
+
+```
+octave:1> warning: using the gnuplot graphics toolkit is discouraged
+...
+octave:2> octave:3>
+2+3
+octave:4> ans = 5
+```
+
+也就是说提示符接受表达式、gnuplot toolkit 初始化成功。
+
+## 11.5 APK
+
+- 包名 `org.octave.android`，版本 0.2.0，41,626,956 字节，sha256 `0567cf76…`
+- 图标是 Octave 源码树里的原版 artwork（`etc/icons/octave-logo-512.png`），
+  五档密度 + adaptive；`aapt2 dump badging`：
+  `application: label='Octave' icon='res/mipmap-anydpi-v26/ic_launcher.xml'`
+- 界面：工具行（Open .m / Save / Save as / Run script / Self-test）、输出控制台、
+  WebView 图形区、脚本编辑框、命令输入行
+- 文件读写走 SAF（ACTION_OPEN_DOCUMENT / ACTION_CREATE_DOCUMENT），
+  Octave 本身只认 POSIX 路径，所以由 Java 侧把内容读进编辑框、再写回同一个 URI
+
+## 11.6 这个 ROM 上 documentsui 是个壳
+
+`com.android.documentsui` 虽然装着（有 `picker.PickActivity`），但实际
+`ACTION_OPEN_DOCUMENT` 被 `com.android.filemanager/.selector.view.SelectorHomeActivity`
+接管——即使用 `-p com.android.documentsui` 显式指定，前台落到的仍是 vivo 的文件管理器。
+所以「`pidof com.android.documentsui` 非空」在这台机器上永远不成立；
+真正的系统选择器在跑，只是包名不同。`uiautomator`/`dumpsys` 抓到的前台 Activity
+与 pid 是可复现的证据。App 里仍然优先 pin 标准 documentsui（装了才 pin），
+在没有被改写的 ROM 上就是 AOSP 选择器。
+
+## 11.7 还没做完
+
+- **SAF round-trip 没有在真机上完成**：需要打开 Downloads 里的 `.m`、改一行、
+  存回同一个 URI，再用 `adb shell cat` 确认磁盘内容变了。设备在验证途中掉线
+  （`192.168.0.108:42513` 不再响应，本机已换到 192.168.5.x 网段），
+  这一步只能等设备回来再补。
+- vivo 的媒体选择器对 `*/*` 只列图片/文件夹，`.m` 是否出现在「文档」视图里
+  还没确认；如果不行，需要按 MIME 打开或者改用 ACTION_GET_CONTENT + 自定义 MIME。
+- 新的 APK 里 Self-test（LAPACK/FFTW/ARPACK 门禁）还没重跑一遍。
