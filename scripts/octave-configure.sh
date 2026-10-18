@@ -80,8 +80,19 @@ echo "=== 3. configure ==="
   "${AC_CV[@]}" \
   CPPFLAGS="$INCS -D_FORTIFY_SOURCE=2" \
   CFLAGS="-O2 -fPIC" CXXFLAGS="-O2 -fPIC" \
-  LDFLAGS="$LIBS_DIRS -Wl,-z,max-page-size=16384 -Wl,-Bsymbolic -Wl,--allow-multiple-definition" \
-  LIBS="$BUILTINS -lm" \
+  # libclang_rt.builtins is compiled with HIDDEN visibility, and lld refuses to
+# let a DSO reference a non-exported symbol from a static archive member:
+#   ld.lld: error: non-exported symbol '__aarch64_ldadd8_acq_rel' in
+#   '.../libclang_rt.builtins-aarch64-android.a(...)' is referenced by DSO
+#   'libinterp/.libs/liboctinterp.so'
+# Octave links its core into shared libraries (unlike the small spike programs),
+# so allow those references to stay undefined in the DSO and be resolved from
+# the final executable, which links the builtins normally.
+LDFLAGS="$LIBS_DIRS -Wl,-z,max-page-size=16384 -Wl,-Bsymbolic -Wl,--allow-multiple-definition -Wl,--allow-shlib-undefined" \
+  # bionic has no C99 complex math at all (clogf/clog/cpowf/... are undefined at
+# link time). Termux ships libandroid-complex-math for exactly this; we build
+# the same NetBSD sources from their package.
+LIBS="$BUILTINS -L$P -landroid-complex-math -lm" \
   2>&1 | tee "$LOGS/octave_configure_full.log"
 
 echo "CONFIGURE_RC=${PIPESTATUS[0]}"

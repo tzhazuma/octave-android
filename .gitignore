@@ -43,3 +43,11 @@ logs/fftwf_*.log
 logs/libiconv_*.log
 logs/deps_all.log
 logs/dep_*.log
+
+# --- Android build outputs (added 2026-10-19) ---
+# Gradle's caches and intermediates are machine-local and regenerable; committing them
+# made every build show up as a diff. Only sources, scripts and the icon set are tracked.
+android-app/.gradle/
+android-app/app/build/
+android-app/build/
+android-app/local.properties
