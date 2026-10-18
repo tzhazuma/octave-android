@@ -843,3 +843,22 @@ gl_cv_cc_visibility=no
 本轮期间 `df -h ~` 可用量在 **9.1–14 GiB** 之间波动（其他 agent 的满核构建在抢）。
 Octave 全量构建前务必确认可用空间。
 
+
+## 10. 图标与本轮的诚实结论（2026-10-19）
+
+**图标**：原来的 launcher 图标是手绘的矢量占位（两个方括号 + 一段波形），既不
+是 Octave 的图标，也不像它启动的程序。现在改成 Octave 源码树里自带的原版
+artwork（`etc/icons/octave-logo-512.png`），五种密度 + adaptive icon，背景色从
+图像自身采样。
+
+**结论必须说清楚**：这个 APK 仍然只是**数值内核的验证外壳**——一个
+"Run native tests" 按钮，跑 OpenBLAS / FFTW / ARPACK / qrupdate 的门禁。
+它**不是 Octave 应用**：没有解释器、没有命令行、没有 GUI，因此也谈不上
+"打开和保存文件"。`prefix/arm64-v8a/` 里目前只有依赖库（openblas、fftw、
+suitesparse、glpk、qhull、pcre2、zlib、iconv、fastfloat、flang-runtime），
+Octave 本体尚未构建。
+
+要把它变成真的 Octave，下一步按顺序是：
+1. 完成 `octave-configure.sh` 之后的核心构建（`liboctave`、`liboctinterp`）；
+2. 链接成一个可执行的 `octave`（或 `liboctave.so` + JNI），先做 `--eval`；
+3. 再考虑 GUI（Qt）——那需要整套 Qt for Android，工作量和 FreeCAD 同级。
