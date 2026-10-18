@@ -1002,3 +1002,10 @@ octave:4> ans = 5
 - vivo 的媒体选择器对 `*/*` 只列图片/文件夹，`.m` 是否出现在「文档」视图里
   还没确认；如果不行，需要按 MIME 打开或者改用 ACTION_GET_CONTENT + 自定义 MIME。
 - 新的 APK 里 Self-test（LAPACK/FFTW/ARPACK 门禁）还没重跑一遍。
+
+## 11.8 发布
+
+- APK：`Octave-0.2.0-android-arm64.apk`（41,626,956 字节，sha256 `0567cf76…`）
+- Release：https://github.com/tzhazuma/octave-android/releases/tag/v0.2.0
+- 仓库提交：`057b3fd`（解释器 + 绘图 + 控制台），`ca6f305`（APK 不入库）
+- Release 资产只放 APK，不进 git（`.gitignore` 里加了 `*.apk`）
