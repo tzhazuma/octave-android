@@ -1009,3 +1009,40 @@ octave:4> ans = 5
 - Release：https://github.com/tzhazuma/octave-android/releases/tag/v0.2.0
 - 仓库提交：`057b3fd`（解释器 + 绘图 + 控制台），`ca6f305`（APK 不入库）
 - Release 资产只放 APK，不进 git（`.gitignore` 里加了 `*.apk`）
+
+## 11.9 第二次真机窗口（2026-10-19 12:18）
+
+设备以 `192.168.0.108:5555`（标准端口）重新上线，已装的就是发布版 0.2.0。
+再次确认：
+
+- App 启动后 console 出现 `octave:1>`，gnuplot toolkit 正常初始化
+  （只剩 "using the gnuplot graphics toolkit is discouraged" 的提示）
+- `uiautomator dump` 里能读到完整 console 文本
+
+但 13:00 左右设备进入锁屏且启用了安全锁：
+
+- `dumpsys window policy` → `showing=true`（KeyguardStateMonitor）
+- `screencap` 全黑（这台 ROM 在锁屏下屏蔽截屏），`input` 事件被拦截
+- `wm dismiss-keyguard` 无效，说明不是 swipe-only 锁
+
+为了继续自动化，我在设备上执行过下面两条（**需要还原**）：
+
+```
+adb shell svc power stayon true
+adb shell settings put system screen_off_timeout 1800000
+adb shell locksettings set-disabled true      # ← 这条要还原
+```
+
+`locksettings set-disabled true` 只是「禁用锁屏界面」，不改变用户凭证；设备回来后执行
+`adb shell locksettings set-disabled false` 即可恢复原状。
+
+15:12 设备再次掉线（本机网段已变成 10.20.162.104/21，手机不在同一网段，
+mDNS 也发现不到），因此这两项**仍未验证**：
+
+1. SAF round-trip：打开 `/sdcard/Download/octtest.m`（设备上已有，28 字节）、
+   改一行、Save 回同一 URI，再 `adb shell cat` 确认磁盘内容变化
+2. Self-test（LAPACK / FFTW / ARPACK 门禁）在 0.2.0 上重跑
+
+设备回来后按这个顺序补：解锁 → `adb connect <ip>:5555` → 装/确认 0.2.0 →
+点 Self-test → 点 Open .m → 选 Downloads/octtest.m → 编辑一行 → Save →
+`adb shell cat /sdcard/Download/octtest.m` → 点 Run script。
