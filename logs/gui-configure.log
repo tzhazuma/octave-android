@@ -1,0 +1,1211 @@
+== configure with Qt GUI ==
+configure: WARNING: unrecognized options: --without-sundials, --enable-gui, --without-alsa
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether sleep supports fractional seconds... yes
+checking filesystem timestamp resolution... 2
+checking whether build environment is sane... yes
+checking for aarch64-linux-android-strip... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-strip
+checking for a race-free mkdir -p... /usr/local/bin/gmkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking xargs -n works... yes
+checking whether UID '501' is supported by ustar format... yes
+checking whether GID '20' is supported by ustar format... yes
+checking how to create a ustar tar archive... gnutar
+checking build system type... aarch64-apple-darwin
+checking host system type... aarch64-unknown-linux-android
+checking whether make supports the include directive... yes (GNU style)
+checking for aarch64-linux-android-gcc... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -g... yes
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang option to enable C11 features... none needed
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang understands -c and -o together... yes
+checking whether the compiler is clang... yes
+checking for compiler option needed when checking for declarations... -Werror=implicit-function-declaration
+checking dependency style of /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang... gcc3
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for wchar.h... yes
+checking for minix/config.h... no
+checking for stdbool.h... yes
+checking for byteswap.h... yes
+checking for uchar.h... yes
+checking for sys/param.h... yes
+checking for sys/socket.h... yes
+checking for dirent.h... yes
+checking for error.h... yes
+checking for fnmatch.h... yes
+checking for stdio_ext.h... yes
+checking for netdb.h... yes
+checking for threads.h... yes
+checking for xlocale.h... yes
+checking for langinfo.h... yes
+checking for getopt.h... yes
+checking for sys/time.h... yes
+checking for glob.h... (cached) no
+checking for iconv.h... yes
+checking for limits.h... yes
+checking for crtdefs.h... no
+checking for wctype.h... yes
+checking for math.h... yes
+checking for sys/mman.h... yes
+checking for sys/select.h... yes
+checking for pthread.h... yes
+checking for stdckdint.h... yes
+checking for sys/random.h... yes
+checking for sys/resource.h... yes
+checking for sys/times.h... yes
+checking for sys/uio.h... yes
+checking for sys/utsname.h... yes
+checking for sys/wait.h... yes
+checking for features.h... yes
+checking whether it is safe to define __EXTENSIONS__... yes
+checking whether _XOPEN_SOURCE should be defined... no
+defining octlibdir to be ${libdir}/octave/${version}
+defining archlibdir to be ${libexecdir}/octave/${version}/exec/${canonical_host_type}
+defining localarchlibdir to be ${libexecdir}/octave/site/exec/${canonical_host_type}
+defining localapiarchlibdir to be ${libexecdir}/octave/${api_version}/site/exec/${canonical_host_type}
+defining localverarchlibdir to be ${libexecdir}/octave/${version}/site/exec/${canonical_host_type}
+defining octfiledir to be ${libdir}/octave/${version}/oct/${canonical_host_type}
+defining localoctfiledir to be ${libdir}/octave/site/oct/${canonical_host_type}
+defining localapioctfiledir to be ${libdir}/octave/site/oct/${api_version}/${canonical_host_type}
+defining localveroctfiledir to be ${libdir}/octave/${version}/site/oct/${canonical_host_type}
+defining octincludedir to be ${includedir}/octave-${version}/octave
+defining fcnfiledir to be ${datadir}/octave/${version}/m
+defining localfcnfiledir to be ${datadir}/octave/site/m
+defining localapifcnfiledir to be ${datadir}/octave/site/${api_version}/m
+defining localverfcnfiledir to be ${datadir}/octave/${version}/site/m
+defining octetcdir to be ${datadir}/octave/${version}/etc
+defining octlocaledir to be ${datadir}/octave/${version}/locale
+defining doc_cache_file to be ${octetcdir}/doc-cache
+defining octtestsdir to be ${octetcdir}/tests
+defining texi_macros_file to be ${octetcdir}/macros.texi
+defining imagedir to be ${datadir}/octave/${version}/imagelib
+defining octdatadir to be ${datadir}/octave/${version}/data
+defining octdocdir to be ${datadir}/octave/${version}/doc
+defining octfontsdir to be ${datadir}/octave/${version}/fonts
+defining startupfiledir to be ${fcnfiledir}/startup
+defining localstartupfiledir to be ${localfcnfiledir}/startup
+defining localapipkgdir to be ${datadir}/octave/site/${api_version}
+defining man1dir to be ${mandir}/man1
+defining man1ext to be .1
+defining infofile to be ${infodir}/octave.info
+checking for aarch64-linux-android-pkg-config... no
+checking for pkg-config... /usr/local/bin/pkg-config
+configure: WARNING: using cross tools not prefixed with host triplet
+checking pkg-config is at least version 0.9.0... yes
+checking for gawk... (cached) gawk
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for gfind... gfind
+checking for a usable sed... /usr/local/bin//gsed
+checking for perl... perl
+checking for gperf... gperf
+checking for flex... flex
+checking for lex output file root... lex.yy
+checking for lex library... none needed
+checking whether yytext is a pointer... yes
+defining LFLAGS to be -I
+checking for bison... bison
+checking for bison 3.0 or newer... 2.3, bad
+configure: WARNING: 
+
+I wasn't able to find a suitable style for declaring the api prefix
+in a bison input file so I'm disabling bison.  We expect bison to
+understand the '%define api.prefix { PREFIX }' syntax.
+
+configure: WARNING: 
+
+I didn't find bison, or the version of bison that I found does not
+support all the features that are required, but it's only a problem
+if you need to reconstruct parse.cc, which is the case if you're
+building from VCS sources.
+
+checking for makeinfo... makeinfo
+checking for makeinfo support for @sortas command... yes
+checking for texi2dvi... texi2dvi
+checking for texi2pdf... texi2pdf
+checking for options to make reproducible archives with GNU tar... --owner=0 --group=0 --numeric-owner
+checking whether ln -s works... yes
+checking for gs... gs
+assuming gnuplot exists on aarch64-unknown-linux-android host
+assuming less exists on aarch64-unknown-linux-android host
+checking for python3... python3
+checking for icotool... no
+configure: WARNING: 
+
+I didn't find icotool, but it's only a problem if you need to
+reconstruct octave-logo.ico, which is the case if you're building from
+VCS sources.
+
+checking for rsvg-convert... rsvg-convert
+checking whether the compiler supports GNU C++... yes
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -g... yes
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ option to enable C++11 features... none needed
+checking dependency style of /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++... gcc3
+checking how to run the C++ preprocessor... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -E
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ supports C++17 features by default... yes
+checking whether std::pmr::polymorphic_allocator is available... yes
+checking for aarch64-linux-android-gcc... (cached) /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang
+checking whether the compiler supports GNU C... (cached) yes
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -g... (cached) yes
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang option to enable C11 features... (cached) none needed
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang understands -c and -o together... (cached) yes
+checking whether the compiler is clang... (cached) yes
+checking for compiler option needed when checking for declarations... (cached) -Werror=implicit-function-declaration
+checking dependency style of /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang... (cached) gcc3
+checking how to run the C preprocessor... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang -E
+checking for Minix Amsterdam compiler... no
+checking for aarch64-linux-android-ar... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar
+checking for _LARGEFILE_SOURCE value needed for large files... no
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang option to support large files... none needed
+checking g++ compiler version number... 
+checking gcc compiler version number... 
+configure: defining __NO_MATH_INLINES avoids buggy GNU libc exp function
+checking for sin in -lm... yes
+checking for aarch64-linux-android-gfortran... /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new
+checking whether the compiler supports GNU Fortran 77... no
+checking whether /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new accepts -g... yes
+checking whether a usable Fortran compiler was found... yes
+checking how to get verbose linking output from /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new... -v
+checking for Fortran 77 libraries of /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new... (cached) -L/Users/azuma/octave-android/prefix/arm64-v8a/flang-runtime -lflang_rt.runtime
+checking for dummy main to link with Fortran 77 libraries... none
+checking for Fortran 77 name-mangling scheme... lower case, underscore, no extra underscore
+configure: defining FFLAGS to be -g
+configure: defining FPICFLAG to be -fPIC
+configure: defining CPICFLAG to be -fPIC
+configure: defining CXXPICFLAG to be -fPIC
+configure: defining SH_LDFLAGS to be -shared
+configure: defining DL_LDFLAGS to be -shared
+configure: defining MKOCTFILE_DL_LDFLAGS to be -shared -Wl,-Bsymbolic
+configure: defining NO_OCT_FILE_STRIP to be false
+configure: defining TEMPLATE_AR to be /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar
+configure: defining TEMPLATE_ARFLAGS to be cr
+configure: defining library_path_var to be LD_LIBRARY_PATH
+checking size of int... 4
+checking size of void *... 8
+checking whether using STL from LLVM or Apple... no
+checking whether using C library from BSD or Apple... no
+checking for a sed that does not truncate output... /usr/local/bin//gsed
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang is Clang... yes
+checking whether pthreads work with "-pthread" and "-lpthread"... no
+checking whether pthreads work with -pthread... yes
+checking whether Clang needs flag to prevent "argument unused" warning when linking with -pthread... no
+checking for joinable pthread attribute... PTHREAD_CREATE_JOINABLE
+checking whether more special flags are required for pthreads... no
+checking for PTHREAD_PRIO_INHERIT... yes
+checking whether pthread stack size does not account for thread-local storage... no
+checking how to print strings... printf
+checking for a sed that does not truncate output... (cached) /usr/local/bin//gsed
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld
+checking if the linker (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-nm
+checking the name lister (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-nm) interface... BSD nm
+checking the maximum length of command line arguments... 786432
+checking how to convert aarch64-apple-darwin file names to aarch64-unknown-linux-android format... func_convert_file_noop
+checking how to convert aarch64-apple-darwin file names to toolchain format... func_convert_file_noop
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld option to reload object files... -r
+checking for file... file
+checking for aarch64-linux-android-objdump... no
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for aarch64-linux-android-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for aarch64-linux-android-ar... (cached) /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar
+checking for archiver @FILE support... @
+checking for aarch64-linux-android-strip... (cached) /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-strip
+checking command to parse /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-nm output from /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang object... ok
+checking for sysroot... no
+checking for a working dd... /bin/dd
+checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+checking for aarch64-linux-android-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang supports -fno-rtti -fno-exceptions... yes
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang option to produce PIC... -fPIC -DPIC
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang PIC flag -fPIC -DPIC works... yes
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang static flag -static works... yes
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang supports -c -o file.o... yes
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang supports -c -o file.o... (cached) yes
+checking whether the /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang linker (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... Android linker
+checking how to hardcode library paths into programs... immediate
+checking for shl_load... no
+checking for shl_load in -ldld... no
+checking for dlopen... yes
+checking whether a program can dlopen itself... cross
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking how to run the C++ preprocessor... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ -E
+checking for ld used by /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld
+checking if the linker (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld) is GNU ld... yes
+checking whether the /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ linker (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld) supports shared libraries... yes
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ option to produce PIC... -fPIC -DPIC
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ PIC flag -fPIC -DPIC works... yes
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ static flag -static works... yes
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ supports -c -o file.o... yes
+checking if /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ supports -c -o file.o... (cached) yes
+checking whether the /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ linker (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... Android linker
+checking how to hardcode library paths into programs... immediate
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking for /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new option to produce PIC... -fPIC
+checking if /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new PIC flag -fPIC works... yes
+checking if /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new static flag -static works... yes
+checking if /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new supports -c -o file.o... yes
+checking if /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new supports -c -o file.o... (cached) yes
+checking whether the /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new linker (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... Android linker
+checking how to hardcode library paths into programs... immediate
+checking for sgemm_ in -L/Users/azuma/octave-android/prefix/arm64-v8a/openblas/lib -lopenblas... yes
+checking BLAS can be called from Fortran... yes assumed for cross compilation
+checking BLAS library integer size... 4 assumed for cross compilation
+checking for cheev_ in -L/Users/azuma/octave-android/prefix/arm64-v8a/openblas/lib -lopenblas... yes
+checking default size of Fortran INTEGER... 4
+checking whether /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new accepts -ffloat-store... yes
+setting F77_FLOAT_STORE_FLAG to -ffloat-store
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -rdynamic... yes
+configure: defining CROSS_TOOL_PREFIX to be aarch64-linux-android-
+configure: defining MKOCTFILE_AR to be /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar
+configure: defining MKOCTFILE_CC to be /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang
+configure: defining MKOCTFILE_CXX to be /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++
+configure: defining MKOCTFILE_F77 to be /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new
+configure: defining MKOCTFILE_RANLIB to be /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -fexceptions... yes
+configure: adding -fexceptions to XTRA_CFLAGS
+checking whether /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new accepts -fexceptions... yes
+adding -fexceptions to FFLAGS
+checking whether C++ supports dynamic auto arrays... yes
+checking for IEEE 754 data format... yes assumed for cross compilation
+checking whether bit_and, bit_or, bit_xor are defined in the C++ library... yes
+checking whether complex class can set components independently... yes
+checking whether complex class can reference components independently... no
+checking for size_t... yes
+checking for working alloca.h... yes
+checking for alloca... yes
+checking for /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang options needed to detect all undeclared functions... none needed
+checking for lstat... yes
+checking for btowc... yes
+checking for mbrtowc... yes
+checking for mbsinit... yes
+checking for canonicalize_file_name... no
+checking for realpath... yes
+checking for _set_invalid_parameter_handler... no
+checking for fchdir... yes
+checking for fcntl... yes
+checking for symlink... yes
+checking for fdopendir... yes
+checking for fnmatch... yes
+checking for mbsrtowcs... yes
+checking for fpurge... yes
+checking for fstatat... yes
+checking for getdtablesize... no
+checking for microuptime... no
+checking for nanouptime... no
+checking for getlocalename_l... no
+checking for getexecname... no
+checking for getrusage... yes
+checking for gettimeofday... yes
+checking for glob_pattern_p... no
+checking for isblank... yes
+checking for iswcntrl... yes
+checking for link... yes
+checking for mprotect... yes
+checking for strftime_z... no
+checking for openat... yes
+checking for pipe... yes
+checking for pselect... yes
+checking for pthread_sigmask... yes
+checking for readlink... yes
+checking for setenv... yes
+checking for sigaction... yes
+checking for sigaltstack... yes
+checking for siginterrupt... yes
+checking for snprintf... yes
+checking for strptime... yes
+checking for localtime_r... yes
+checking for vasnprintf... no
+checking for wcwidth... yes
+checking whether the preprocessor supports include_next... yes
+checking whether source code line length is unlimited... yes
+checking for C/C++ restrict keyword... __restrict__
+checking for wint_t... yes
+checking whether wint_t is large enough... yes
+checking whether <wchar.h> uses 'inline' correctly... yes
+checking for nl_langinfo and CODESET... no
+checking for a traditional french locale... none
+checking whether char8_t is correctly defined... no
+checking whether char16_t is correctly defined... yes
+checking whether char32_t is correctly defined... yes
+checking whether the C++ compiler has <uchar.h>... yes
+checking for bit size of wchar_t... 32
+checking for mbstate_t... yes
+checking for a traditional japanese locale... ja_JP.eucJP
+checking for an english Unicode locale... none
+checking for a transitional chinese locale... none
+checking whether mbrtowc handles incomplete characters... guessing yes
+checking whether mbrtowc works as well as mbtowc... guessing yes
+checking whether mbrtoc32 is declared... yes
+checking for mbrtoc32... yes
+checking whether mbrtoc32 works as well as mbrtowc... guessing yes
+checking whether c32rtomb is declared... yes
+checking for c32rtomb... yes
+checking whether c32rtomb works as well as wcrtomb... guessing yes
+checking whether malloc is ptrdiff_t safe... yes
+checking whether malloc, calloc set errno on failure... yes
+checking whether lstat correctly handles trailing slash... guessing yes
+checking whether // is distinct from /... unknown, assuming no
+checking whether realpath works... guessing no
+checking whether byte ordering is bigendian... no
+checking if environ is properly declared... yes
+checking for complete errno.h... yes
+checking for error... yes
+checking whether error_at_line is declared... yes
+checking for error_at_line... yes
+checking for working error function... guessing no
+checking whether strerror_r is declared... yes
+checking whether strerror_r returns char *... yes
+checking whether ctype.h defines __header_inline... no
+checking whether fchdir is declared... yes
+checking for working fcntl.h... guessing no
+checking for pid_t... yes
+checking for mode_t... yes
+checking whether strmode is declared... no
+checking for eaccess... no
+checking whether frexp() can be used without linking with libm... yes
+checking whether alarm is declared... yes
+checking whether frexp works... guessing yes
+checking whether stdin defaults to large file offsets... yes
+checking for off64_t... yes
+checking for blksize_t... yes
+checking for blkcnt_t... yes
+checking whether fseeko is declared... yes
+checking for fseeko... yes
+checking whether fflush works on input streams... cross
+checking whether stat file-mode macros are broken... no
+checking for nlink_t... yes
+checking whether ftello is declared... yes
+checking whether ungetc works on arbitrary bytes... guessing yes
+checking for ftello... yes
+checking whether ftello works... guessing yes
+checking whether getcwd (NULL, 0) allocates memory for result... guessing no
+checking for getcwd with POSIX signature... yes
+checking whether getcwd is declared... yes
+checking whether getdelim is declared... yes
+checking whether getdtablesize is declared... no
+checking for arithmetic hrtime_t... no
+checking whether getline is declared... yes
+checking for pthread.h... (cached) yes
+checking for pthread_kill in -lpthread... no
+checking for pthread_kill in -lthr... no
+checking whether POSIX threads API is available... yes
+checking whether setlocale (LC_ALL, NULL) is multithread-safe... guessing no
+checking whether setlocale (category, NULL) is multithread-safe... guessing no
+checking whether imported symbols can be declared weak... guessing yes
+checking whether locale.h defines locale_t... yes
+checking for uselocale... yes
+checking whether uselocale works... guessing yes
+checking for fake locale system (OpenBSD, Android)... yes
+checking for Solaris 11.4 locale system... no
+checking whether getlogin_r is declared... no
+checking whether getlogin is declared... yes
+checking for getopt.h... (cached) yes
+checking for getopt_long_only... yes
+checking whether getopt is POSIX compatible... guessing yes
+checking for working GNU getopt function... guessing no
+checking for glibc-compatible sys/cdefs.h... no
+checking whether timespec_get is declared... no
+checking for timespec_get... future OS version
+checking for struct timeval... yes
+checking for wide-enough struct timeval.tv_sec member... yes
+checking for ld... /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld
+checking if the linker (/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld) is GNU ld... yes
+checking for shared library run path origin... done
+checking 32-bit host C ABI... no
+checking for ELF binary format... yes
+checking for the common suffixes of directories in the library search path... lib,lib,lib
+checking for iconv... yes
+checking for working iconv... guessing yes
+checking how to link with libiconv... /Users/azuma/octave-android/prefix/arm64-v8a/libiconv/lib/libiconv.a
+checking whether iconv is compatible with its POSIX signature... yes
+checking for inline... inline
+checking whether limits.h has WORD_BIT, BOOL_WIDTH etc.... no
+checking whether the compiler produces multi-arch binaries... no
+checking whether stdint.h conforms to C99... no
+checking for sys/inttypes.h... no
+checking for sys/bitypes.h... no
+checking for bit size of ptrdiff_t... 64
+checking for bit size of size_t... 64
+checking for bit size of sig_atomic_t... 32
+checking for bit size of wchar_t... (cached) 32
+checking for bit size of wint_t... 32
+checking whether sig_atomic_t is signed... yes
+checking whether wchar_t is signed... no
+checking whether wint_t is signed... no
+checking for ptrdiff_t integer literal suffix... l
+checking for size_t integer literal suffix... ul
+checking for sig_atomic_t integer literal suffix... 
+checking for wchar_t integer literal suffix... u
+checking for wint_t integer literal suffix... u
+checking where to find the exponent in a 'double'... (cached) word 1 bit 20
+checking whether iswcntrl works... guessing yes
+checking for towlower... yes
+checking for wctype_t... yes
+checking for wctrans_t... yes
+checking whether wctype supports the "blank" and "punct" character classes... guessing yes
+checking for good max_align_t... yes
+checking whether NULL can be used in arbitrary expressions... yes
+checking for unreachable in C... no
+checking whether nullptr_t needs <stddef.h>... yes
+checking whether <stddef.h> is idempotent... guessing yes
+checking whether locale.h defines _locale_t... no
+checking whether locale.h conforms to POSIX:2001... yes
+checking whether struct lconv is properly defined... yes
+checking for CFPreferencesCopyAppValue... no
+checking for CFLocaleCopyPreferredLanguages... no
+checking for LC_MESSAGES... yes
+checking whether imported symbols can be declared weak... (cached) guessing yes
+checking for multithread API to use... posix
+checking whether malloc (0) returns nonnull... guessing no
+checking whether NAN macro works... yes
+checking whether HUGE_VAL works... yes
+checking for MAP_ANONYMOUS... yes
+checking whether memchr works... guessing no
+checking whether memrchr is declared... yes
+checking whether <limits.h> defines MIN and MAX... no
+checking whether <sys/param.h> defines MIN and MAX... yes
+checking whether time_t is signed... yes
+checking for working mktime... guessing no
+checking for struct tm.tm_gmtoff... yes
+checking for struct tm.tm_zone... yes
+checking for O_CLOEXEC... yes
+checking for promoted mode_t type... mode_t
+checking whether <sys/select.h> is self-contained... yes
+checking for pthread_t... yes
+checking for pthread_spinlock_t... yes
+checking for pthread_spin_init... yes
+checking for sigset_t... yes
+checking whether realloc should abort upon undefined behaviour... no
+checking for sched.h... yes
+checking for struct sched_param... yes
+checking for library containing setsockopt... none needed
+checking whether setenv is declared... yes
+checking whether _putenv is declared... no
+checking for search.h... yes
+checking for tsearch... yes
+checking for uid_t in sys/types.h... yes
+checking for volatile sig_atomic_t... yes
+checking for sighandler_t... yes
+checking whether snprintf returns a byte count as in C99... guessing yes
+checking whether printf supports POSIX/XSI format strings with positions... guessing yes
+checking whether snprintf is declared... yes
+checking whether stdckdint.h can be included in C... yes
+checking checking for an ISO C23 compliant stdckdint.h in C... yes
+checking whether stdckdint.h can be included in C++... yes
+checking checking for an ISO C++26 compliant stdckdint.h in C++... yes
+checking whether fcloseall is declared... no
+checking whether getw is declared... no
+checking whether putw is declared... no
+checking which flavor of printf attribute matches inttypes macros... system
+checking whether ecvt is declared... no
+checking whether fcvt is declared... no
+checking whether gcvt is declared... no
+checking whether MB_CUR_MAX is correct... guessing yes
+checking whether strdup is declared... yes
+checking whether strerror(0) succeeds... guessing no
+checking whether streq is declared... no
+checking whether memeq is declared... no
+checking whether strncpy works... guessing yes
+checking whether strnlen is declared... yes
+checking whether strsignal is declared... yes
+checking whether <sys/socket.h> is self-contained... yes
+checking for shutdown... yes
+checking whether <sys/socket.h> defines the SHUT_* macros... yes
+checking for struct sockaddr_storage... yes
+checking for sa_family_t... yes
+checking for struct sockaddr_storage.ss_family... yes
+checking for struct tms... yes
+checking for struct utsname... yes
+checking for struct timespec in <time.h>... yes
+checking for TIME_UTC in <time.h>... yes
+checking whether execvpe is declared... yes
+checking whether unsetenv is declared... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for intmax_t... yes
+checking whether snprintf truncates the result as in C99... guessing yes
+checking for wcslen... yes
+checking for snprintf... (cached) yes
+checking for strnlen... yes
+checking for wcrtomb... yes
+checking whether _snprintf is declared... no
+checking whether wcsdup is declared... yes
+checking for C compiler option to allow warnings... -Wno-error
+checking for _Exit... yes
+checking whether access honors trailing slash... guessing yes
+checking for alignas and alignof... yes, <stdalign.h> macros
+checking for alloca as a compiler built-in... yes
+checking for static_assert... no
+checking for bool, true, false... no
+checking whether btowc(0) is correct... guessing yes
+checking whether btowc is consistent with mbrtowc in the C locale... guessing yes
+checking whether the C locale is free of encoding errors... guessing no
+checking for __builtin_expect... yes
+checking for working bswap_16, bswap_32, bswap_64... yes
+checking whether calloc (0, n) and calloc (n, 0) return nonnull... guessing no
+checking for faccessat... yes
+checking for readlinkat... yes
+checking whether this system supports file names of any length... no
+checking for library containing clock_gettime... none required
+checking for clock_getres... yes
+checking for clock_gettime... yes
+checking for clock_settime... yes
+checking for closedir... yes
+checking for d_ino member in directory struct... guessing no
+checking for d_type member in directory struct... yes
+checking for dirfd... yes
+checking whether dirfd is declared... yes
+checking whether dirfd is a macro... no
+checking whether // is distinct from /... (cached) unknown, assuming no
+checking whether dup works... guessing yes
+checking whether dup2 works... guessing no
+checking for setdtablesize... no
+checking whether fcntl handles F_DUPFD correctly... guessing yes
+checking whether fcntl understands F_DUPFD_CLOEXEC... guessing no
+checking whether fdopendir is declared... yes
+checking whether fdopendir works... guessing no
+checking whether fflush works on input streams... (cached) cross
+checking for mempcpy... yes
+checking for flexible array member... yes
+checking whether float.h conforms to ISO C23... no
+checking whether conversion from 'int' to 'long double' works... guessing yes
+checking for working POSIX fnmatch... guessing no
+checking for __fpurge... yes
+checking whether fpurge is declared... yes
+checking whether fpurge works... guessing no
+checking for __freading... future OS version
+checking whether free is known to preserve errno... no
+checking whether frexpf can be used without linking with libm... yes
+checking whether frexpf works... guessing yes
+checking for fseeko... (cached) yes
+checking whether fflush works on input streams... (cached) cross
+checking for _fseeki64... no
+checking for __fseterr... future OS version
+checking whether fstatat (..., 0) works... guessing yes
+checking for ftello... (cached) yes
+checking whether ftello works... (cached) guessing yes
+checking for ftruncate... yes
+checking whether getcwd handles long file names properly... guessing no, but it is partly working
+checking for getdelim... yes
+checking for working getdelim function... guessing no
+checking for flockfile... yes
+checking for funlockfile... yes
+checking whether getc_unlocked is declared... yes
+checking for gethostname... yes
+checking for HOST_NAME_MAX... yes
+checking whether gethrtime is declared... no
+checking whether CLOCK_MONOTONIC or CLOCK_REALTIME is defined... yes
+checking for getline... yes
+checking for working getline function... guessing no
+checking for newlocale... yes
+checking for duplocale... yes
+checking for freelocale... yes
+checking for newlocale... (cached) yes
+checking for duplocale... (cached) yes
+checking for freelocale... (cached) yes
+checking for getlogin_r... future OS version
+checking for getprogname... yes
+checking whether program_invocation_name is declared... no
+checking for getrandom... future OS version
+checking for gettimeofday with POSIX signature... almost
+checking for glob... future OS version
+checking for getlogin_r... (cached) future OS version
+checking for getpwnam_r... future OS version
+checking whether the compiler generally respects inline... yes
+checking whether isnan(double) can be used without linking with libm... yes
+checking for iswblank... yes
+checking whether iswblank is declared... (cached) yes
+checking whether iswdigit is ISO C compliant... guessing no
+checking whether iswpunct is consistent with ispunct... guessing yes
+checking whether iswxdigit is ISO C compliant... guessing no
+checking whether the -Werror option is usable... yes
+checking for simple visibility declarations... (cached) no
+checking whether the compiler supports the __inline keyword... yes
+checking whether link obeys POSIX... guessing yes
+checking whether localeconv works... guessing no
+checking for struct lconv.decimal_point... yes
+checking for struct lconv.int_p_cs_precedes... yes
+checking for pthread_rwlock_t... yes
+checking whether pthread_rwlock_rdlock prefers a writer to a reader... guessing no
+checking whether lseek detects pipes... yes
+checking whether SEEK_DATA works but is incompatible with GNU... no
+checking whether mbrtoc32 works on empty input... guessing no
+checking whether the C locale is free of encoding errors... guessing no
+checking whether mbrtoc32 works in an UTF-8 locale... guessing no
+checking whether mbrtowc handles a NULL pwc argument... guessing yes
+checking whether mbrtowc has a correct return value... guessing yes
+checking whether mbrtowc returns 0 when parsing a NUL character... guessing yes
+checking whether mbrtowc stores incomplete characters... guessing no
+checking whether mbrtowc works on empty input... guessing no
+checking whether the C locale is free of encoding errors... (cached) guessing no
+checking whether mbsrtowcs works... guessing yes
+checking whether the C locale is free of encoding errors... (cached) guessing no
+checking for mbtowc... yes
+checking for bp-sym.h... no
+checking for mempcpy... (cached) yes
+checking for memrchr... yes
+checking whether mkdir handles trailing slash... guessing yes
+checking whether mkdir handles trailing dot... guessing no
+checking for mkfifo... yes
+checking whether mkfifo rejects trailing slashes... guessing yes
+checking for mkostemp... yes
+checking for mkostemps... yes
+checking for __mktime_internal... no
+checking for library containing nanosleep... none required
+checking for working nanosleep... guessing no (mishandles large arguments)
+checking for mntent.h... yes
+checking for sys/pstat.h... no
+checking for sys/param.h... (cached) yes
+checking for setmntent... yes
+checking for sys/sysctl.h... no
+checking for sched_getaffinity_np... no
+checking for pstat_getdynamic... no
+checking for sysctl... no
+checking for sched_getaffinity... yes
+checking for glibc compatible sched_getaffinity... yes
+checking whether open recognizes a trailing slash... guessing yes
+checking for opendir... yes
+checking whether program_invocation_name is declared... (cached) no
+checking whether program_invocation_short_name is declared... no
+checking whether signature of pselect conforms to POSIX... yes
+checking whether pselect detects invalid fds... guessing yes
+checking for PTHREAD_CREATE_DETACHED... yes
+checking for PTHREAD_MUTEX_RECURSIVE... yes
+checking for PTHREAD_MUTEX_ROBUST... no
+checking for PTHREAD_PROCESS_SHARED... yes
+checking whether pthread_once works... yes
+checking whether pthread_sigmask is a macro... no
+checking whether pthread_sigmask works without -lpthread... guessing yes
+checking whether pthread_sigmask returns error numbers... guessing yes
+checking for raise... yes
+checking for sigprocmask... yes
+checking for rawmemchr... no
+checking for readdir... yes
+checking for readline... no
+checking for readline/readline.h... no
+checking for readline/history.h... no
+checking whether readlink signature is correct... yes
+checking whether readlink handles trailing slash correctly... guessing yes
+checking whether readlink truncates results correctly... guessing yes
+checking whether realloc sets errno on failure... yes
+checking whether realloc (..., 0) returns nonnull... guessing no
+checking for reallocarray... future OS version
+checking for rewinddir... yes
+checking whether rmdir works... guessing yes
+checking whether select supports a 0 argument... guessing yes
+checking whether select detects invalid fds... guessing yes
+checking whether setenv validates arguments... guessing no
+checking whether the -Werror option is usable... (cached) yes
+checking for simple visibility declarations... (cached) no
+checking for struct sigaction.sa_sigaction... yes
+checking for sigprocmask... (cached) yes
+checking for stdint.h... (cached) yes
+checking for SIZE_MAX... yes
+checking for snprintf... (cached) yes
+checking whether snprintf respects a size of 1... guessing yes
+checking for socklen_t... yes
+checking for ssize_t... yes
+checking whether stat handles trailing slashes on files... guessing yes
+checking for struct stat.st_atim.tv_nsec... yes
+checking whether struct stat.st_atim is of type struct timespec... yes
+checking for struct stat.st_birthtimespec.tv_nsec... no
+checking for struct stat.st_birthtimensec... no
+checking for struct stat.st_birthtim.tv_nsec... no
+checking for vasprintf... yes
+checking for stpcpy... yes
+checking for strcasecmp... yes
+checking whether strcasecmp works... guessing yes
+checking for strncasecmp... yes
+checking whether strcasecmp works... (cached) guessing yes
+checking whether strncasecmp is declared... yes
+checking for working strnlen... yes
+checking for strsignal... yes
+checking whether strsignal always returns a string... guessing yes
+checking whether symlink handles trailing slash correctly... guessing yes
+checking for sys/single_threaded.h... no
+checking whether localtime_r is declared... yes
+checking whether localtime_r is compatible with its POSIX signature... yes
+checking whether localtime works even near extrema... guessing yes
+checking for timezone_t... yes
+checking for tzalloc... future OS version
+checking for timegm... yes
+checking for uname... yes
+checking whether unlink honors trailing slashes... guessing yes
+checking whether unlink of a parent directory fails as it should... guessing yes
+checking for unsetenv... yes
+checking for unsetenv() return type... int
+checking whether unsetenv obeys POSIX... guessing no
+checking for variable-length arrays... yes
+checking for ptrdiff_t... yes
+checking for vasprintf... (cached) yes
+checking whether wcwidth is declared... yes
+checking whether wcwidth works reasonably in UTF-8 locales... guessing no
+checking for wmemchr... yes
+checking for wmempcpy... yes
+checking for stdint.h... (cached) yes
+checking for sys/wait.h that is POSIX.1 compatible... (cached) yes
+checking for dlfcn.h... (cached) yes
+checking for floatingpoint.h... no
+checking for fpu_control.h... no
+checking for grp.h... yes
+checking for ieeefp.h... no
+checking for pthread.h... (cached) yes
+checking for pwd.h... yes
+checking for sys/ioctl.h... yes
+checking for stropts.h... no
+checking for sys/stropts.h... no
+checking whether stdatomic.h can be compiled... yes
+checking for termios.h... yes
+checking for termio.h... yes
+checking for sgtty.h... no
+checking for conio.h... no
+checking for int64_t... yes
+checking for mode_t... (cached) yes
+checking for off_t... yes
+checking for pid_t... (cached) yes
+checking for size_t... (cached) yes
+checking for ssize_t... yes
+checking for uid_t in sys/types.h... (cached) yes
+checking for uint64_t... yes
+checking for dev_t... yes
+checking for ino_t... yes
+checking for ptrdiff_t... (cached) yes
+checking for long long int... yes
+checking for unsigned long long int... yes
+checking size of long double... 16
+checking for struct stat.st_blksize... yes
+checking for struct stat.st_blocks... yes
+checking for struct stat.st_rdev... yes
+checking for struct group.gr_passwd... no
+checking whether struct tm is in sys/time.h or time.h... time.h
+checking for struct tm.tm_zone... (cached) yes
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ allows overload of char, int8_t, and uint8_t... yes
+checking whether quiet NaN values are conformant to IEEE 754-2008... yes
+checking whether quiet NaN values retain payload on arithmetic operations... yes
+checking whether C++ STL supports std::from_chars for double precision floating-point... no
+checking for fast_float/fast_float.h... yes
+checking for ctermid... no
+checking for dup2... yes
+checking for endgrent... no
+checking for endpwent... (cached) no
+checking for execvp... yes
+checking for fork... yes
+checking for getegid... (cached) no
+checking for geteuid... (cached) no
+checking for getgid... yes
+checking for getgrent... (cached) no
+checking for getgrgid... (cached) no
+checking for getgrnam... (cached) no
+checking for getpgrp... yes
+checking for getpid... yes
+checking for getppid... yes
+checking for getpwent... (cached) no
+checking for getpwuid... (cached) no
+checking for getuid... yes
+checking for isascii... yes
+checking for kill... yes
+checking for lgamma_r... yes
+checking for lgammaf_r... yes
+checking for realpath... (cached) yes
+checking for resolvepath... no
+checking for select... yes
+checking for setgrent... (cached) no
+checking for setpwent... (cached) no
+checking for setsid... yes
+checking for siglongjmp... yes
+checking for strsignal... (cached) yes
+checking for tcgetattr... yes
+checking for tcsetattr... yes
+checking for toascii... yes
+checking for umask... yes
+checking for waitpid... yes
+checking for _getch... no
+checking for _kbhit... no
+checking for MATH DEFINES in math.h... yes
+checking for getrusage... (cached) yes
+checking for getpwnam... (cached) no
+checking for getpwnam in -lsun... no
+checking for dirent.h that defines DIR... yes
+checking for library containing opendir... none required
+checking whether closedir returns void... no
+checking for struct exception in math.h... no
+checking whether sys_siglist is declared... yes
+checking for pcre2.h... yes
+checking for pcre2_compile_8 in -lpcre2... yes
+checking whether PCRE2 library was compiled with UTF support... yes
+checking for libqhull_r/libqhull_r.h... yes
+checking for qh_qhull in -lqhull_r... no
+configure: WARNING: Qhull library not found.  This will result in loss of functionality for some geometry functions.
+checking whether the function iconvlist is available... yes
+checking whether the function iconv_canonicalize is available... yes
+checking for zlib.h... yes
+checking for gzclearerr in -lz... yes
+checking for bzlib.h... no
+configure: WARNING: BZIP2 library not found.  Octave will not be able to compress or decompress bzip2 files.
+checking for fftw3.h... yes
+checking for fftw_plan_dft_1d in -lfftw3... yes
+checking for fftw3.h... (cached) yes
+checking for fftwf_plan_dft_1d in -lfftw3f... yes
+checking for fftw3 multi-threading support... -lfftw3_threads
+checking for fftw3f multi-threading support... -lfftw3f_threads
+checking for glpk.h... yes
+checking for glp_simplex in -lglpk... yes
+checking whether the glpk library has glp_interior(glp_prob*, glp_iptcp*)... yes
+checking for X... disabled
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld accepts -framework Carbon... no
+checking Qt version 6... configure: WARNING: "Using provided values for QT_CPPFLAGS
+checking for aarch64-linux-android-moc-qt6... no
+checking for moc-qt6... no
+checking for aarch64-linux-android-moc... no
+checking for moc... /Users/azuma/Qt-host/6.8.3/macos/libexec/moc
+checking for aarch64-linux-android-uic-qt6... no
+checking for uic-qt6... no
+checking for aarch64-linux-android-uic... no
+checking for uic... /Users/azuma/Qt-host/6.8.3/macos/libexec/uic
+checking for aarch64-linux-android-rcc-qt6... no
+checking for rcc-qt6... no
+checking for aarch64-linux-android-rcc... no
+checking for rcc... /Users/azuma/Qt-host/6.8.3/macos/libexec/rcc
+checking for aarch64-linux-android-lrelease-qt6... no
+checking for lrelease-qt6... no
+checking for aarch64-linux-android-lrelease... no
+checking for lrelease... /Users/azuma/Qt-host/6.8.3/macos/bin/lrelease
+checking for aarch64-linux-android-qhelpgenerator-qt6... no
+checking for qhelpgenerator-qt6... no
+checking for aarch64-linux-android-qhelpgenerator... no
+checking for qhelpgenerator... /Users/azuma/Qt-host/6.8.3/macos/libexec/qhelpgenerator
+checking for pty.h... yes
+checking for libutil.h... no
+checking for util.h... no
+checking for library containing openpty... (cached) none required
+checking for chmod... yes
+checking for chown... yes
+checking for ftruncate... (cached) yes
+checking for mmap... yes
+checking for munmap... yes
+checking for QStandardPaths... yes
+checking for QFontMetrics::horizontalAdvance function... yes
+checking for QHelpSearchQueryWidget::searchInput... yes
+checking for new QHelpIndexWidget API... yes
+checking for QList<T>::QList (iterator, iterator) constructor... yes
+checking for QHelpEngine::documentsForIdentifier in <QHelpEngine>... yes
+checking for QWheelEvent::position in <QWheelEvent>... yes
+checking for QPainter::LosslessImageRendering flag... yes
+checking for QColor::getRgbF and QColor::getHslF with float arguments... yes
+checking for class QStringView... yes
+checking for QTextStream::setEncoding... yes
+checking for Qt::Key_micro enum value... yes
+checking for QCheckBox::checkStateChanged signal... yes
+checking for QColor::fromString... yes
+checking for QRegion iterators and related functions... yes
+checking for Qt::ImCursorRectangle enum value... yes
+checking for Qt::SplitBehavior enum... yes
+checking for gl2ps.h... no
+configure: WARNING: gl2ps library not found.  Printing of OpenGL graphics will be disabled.
+checking for camd.h... no
+checking for suitesparse/camd.h... no
+checking for camd/camd.h... no
+configure: WARNING: CAMD library not found.  This will result in some lack of functionality for sparse matrices.
+checking for klu.h... no
+checking for suitesparse/klu.h... no
+checking for klu/klu.h... no
+configure: WARNING: KLU library not found.  This will result in some lack of functionality for sparse matrices.
+checking for nvector/nvector_serial.h... no
+configure: WARNING: SUNDIALS NVECTOR serial library not found.  The solvers ode15i and ode15s will be disabled.
+configure: WARNING: building documentation disabled; make dist will fail.
+configure: cannot build with visibility flags on this platform
+configure: defining EXTERNAL_DLL_DEFS to be 
+configure: defining OCTAVE_DLL_DEFS to be 
+configure: defining OCTINTERP_DLL_DEFS to be 
+configure: defining OCTMEX_DLL_DEFS to be 
+configure: defining OCTGUI_DLL_DEFS to be 
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wall... yes
+adding -Wall to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -W... yes
+adding -W to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wshadow... yes
+adding -Wshadow to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wformat... yes
+adding -Wformat to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wpointer-arith... yes
+adding -Wpointer-arith to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wmissing-prototypes... yes
+adding -Wmissing-prototypes to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wstrict-prototypes... yes
+adding -Wstrict-prototypes to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wwrite-strings... yes
+adding -Wwrite-strings to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wcast-align... yes
+adding -Wcast-align to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wcast-qual... yes
+adding -Wcast-qual to WARN_CFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -Wall... yes
+adding -Wall to WARN_CXXFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -W... yes
+adding -W to WARN_CXXFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -Wshadow... yes
+adding -Wshadow to WARN_CXXFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -Woverloaded-virtual... yes
+adding -Woverloaded-virtual to WARN_CXXFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -Wold-style-cast... yes
+adding -Wold-style-cast to WARN_CXXFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -Wformat... yes
+adding -Wformat to WARN_CXXFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -Wpointer-arith... yes
+adding -Wpointer-arith to WARN_CXXFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -Wwrite-strings... yes
+adding -Wwrite-strings to WARN_CXXFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -Wcast-align... yes
+adding -Wcast-align to WARN_CXXFLAGS
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++ accepts -Wcast-qual... yes
+adding -Wcast-qual to WARN_CXXFLAGS
+checking for #pragma GCC diagnostic push/pop/ignored... yes
+checking for #pragma GCC visibility push/pop... yes
+checking whether /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang accepts -Wimplicit-fallthrough... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating build-aux/check-subst-vars.sh
+config.status: creating build-aux/find-defun-files.sh
+config.status: creating build-aux/find-files-with-tests.sh
+config.status: creating doc/doxyhtml/Doxyfile
+config.status: creating libgnu/Makefile
+config.status: creating test/Makefile
+config.status: creating liboctave/octave.pc
+config.status: creating libinterp/octinterp.pc
+config.status: creating libmex/octmex.pc
+config.status: creating oct-conf-post-private.h-tmp
+config.status: creating oct-conf-post-public.h-tmp
+config.status: creating liboctave/external/mk-f77-def.sh-tmp
+config.status: creating liboctave/mk-version-h.sh-tmp
+config.status: creating libinterp/corefcn/mk-mxtypes-h.sh-tmp
+config.status: creating build-aux/subst-config-vals.sh-tmp
+config.status: creating build-aux/subst-cross-config-vals.sh-tmp
+config.status: creating build-aux/subst-script-vals.sh-tmp
+config.status: creating config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+config.status: executing oct-conf-post-private.h commands
+config.status: executing oct-conf-post-public.h commands
+config.status: executing liboctave/external/mk-f77-def.sh commands
+config.status: executing liboctave/mk-version-h.sh commands
+config.status: executing libinterp/corefcn/mk-mxtypes-h.sh commands
+config.status: executing build-aux/subst-config-vals.sh commands
+config.status: executing build-aux/subst-cross-config-vals.sh commands
+config.status: executing build-aux/subst-script-vals.sh commands
+configure: WARNING: unrecognized options: --without-sundials, --enable-gui, --without-alsa
+configure:
+
+Octave is now configured for aarch64-unknown-linux-android
+
+  Source directory:              .
+  Installation prefix:           /Users/azuma/octave-android/prefix/arm64-v8a/octave
+  C compiler:                    /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang  -pthread -fexceptions  -Wall -W -Wshadow -Wformat -Wpointer-arith -Wmissing-prototypes -Wstrict-prototypes -Wwrite-strings -Wcast-align -Wcast-qual -O2 -fPIC
+  C++ compiler:                  /Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android24-clang++  -pthread  -Wall -W -Wshadow -Woverloaded-virtual -Wold-style-cast -Wformat -Wpointer-arith -Wwrite-strings -Wcast-align -Wcast-qual -O2 -fPIC
+  Fortran compiler:              /Users/azuma/octave-android/scripts/toolbin/aarch64-linux-android24-flang-new -g -fexceptions
+  CPPFLAGS:                      -I/Users/azuma/octave-android/prefix/arm64-v8a/zlib/include -I/Users/azuma/octave-android/prefix/arm64-v8a/pcre2/include -I/Users/azuma/octave-android/prefix/arm64-v8a/openblas/include -I/Users/azuma/octave-android/prefix/arm64-v8a/fftw/include -I/Users/azuma/octave-android/prefix/arm64-v8a/qhull/include -I/Users/azuma/octave-android/prefix/arm64-v8a/glpk/include -I/Users/azuma/octave-android/prefix/arm64-v8a/suitesparse/include -I/Users/azuma/octave-android/prefix/arm64-v8a/fastfloat/include -I/Users/azuma/octave-android/prefix/arm64-v8a/libiconv/include -D_FORTIFY_SOURCE=2
+  Fortran libraries:             -L/Users/azuma/octave-android/prefix/arm64-v8a/flang-runtime -lflang_rt.runtime
+  Lex libraries:                 
+  LIBS:                           -lm 
+  LDFLAGS:                       
+  Extra LDFLAGS:                  
+
+  AMD CPPFLAGS:                  
+  AMD LDFLAGS:                   
+  AMD libraries:                 
+  ARPACK CPPFLAGS:               
+  ARPACK LDFLAGS:                
+  ARPACK libraries:              
+  BLAS libraries:                -L/Users/azuma/octave-android/prefix/arm64-v8a/openblas/lib -lopenblas
+  BZ2 CPPFLAGS:                  
+  BZ2 LDFLAGS:                   
+  BZ2 libraries:                 
+  CAMD CPPFLAGS:                 
+  CAMD LDFLAGS:                  
+  CAMD libraries:                
+  CARBON libraries:              
+  CCOLAMD CPPFLAGS:              
+  CCOLAMD LDFLAGS:               
+  CCOLAMD libraries:             
+  CHOLMOD CPPFLAGS:              
+  CHOLMOD LDFLAGS:               
+  CHOLMOD libraries:             
+  COLAMD CPPFLAGS:               
+  COLAMD LDFLAGS:                
+  COLAMD libraries:              
+  CURL CPPFLAGS:                 
+  CURL LDFLAGS:                  
+  CURL libraries:                
+  CXSPARSE CPPFLAGS:             
+  CXSPARSE LDFLAGS:              
+  CXSPARSE libraries:            
+  DL libraries:                  
+  FFTW3 CPPFLAGS:                -I/Users/azuma/octave-android/prefix/arm64-v8a/fftw/include
+  FFTW3 LDFLAGS:                 -L/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib
+  FFTW3 libraries:               -lfftw3_threads -lfftw3
+  FFTW3F CPPFLAGS:               -I/Users/azuma/octave-android/prefix/arm64-v8a/fftw/include
+  FFTW3F LDFLAGS:                -L/Users/azuma/octave-android/prefix/arm64-v8a/fftw/lib
+  FFTW3F libraries:              -lfftw3f_threads -lfftw3f
+  FLTK CPPFLAGS:                 
+  FLTK LDFLAGS:                  
+  FLTK libraries:                
+  fontconfig CPPFLAGS:           
+  fontconfig libraries:          
+  FreeType2 CPPFLAGS:            
+  FreeType2 libraries:           
+  GLPK CPPFLAGS:                 -I/Users/azuma/octave-android/prefix/arm64-v8a/glpk/include
+  GLPK LDFLAGS:                  -L/Users/azuma/octave-android/prefix/arm64-v8a/glpk/lib
+  GLPK libraries:                -lglpk
+  HDF5 CPPFLAGS:                 
+  HDF5 LDFLAGS:                  
+  HDF5 libraries:                
+  Java home:                     
+  Java JVM path:                 
+  Java CPPFLAGS:                 
+  Java libraries:                
+  KLU CPPFLAGS:                  
+  KLU LDFLAGS:                   
+  KLU libraries:                 
+  LAPACK libraries:              -L/Users/azuma/octave-android/prefix/arm64-v8a/openblas/lib -lopenblas
+  Magick++ CPPFLAGS:             
+  Magick++ LDFLAGS:              
+  Magick++ libraries:            
+  OpenGL libraries:              
+  PCRE CPPFLAGS:                 -I/Users/azuma/octave-android/prefix/arm64-v8a/pcre2/include
+  PCRE LDFLAGS:                  -L/Users/azuma/octave-android/prefix/arm64-v8a/pcre2/lib
+  PCRE libraries:                -lpcre2
+  PortAudio CPPFLAGS:            
+  PortAudio LDFLAGS:             
+  PortAudio libraries:           
+  PTHREAD flags:                 -pthread
+  PTHREAD libraries:             
+  QHULL CPPFLAGS:                
+  QHULL LDFLAGS:                 
+  QHULL libraries:               
+  QRUPDATE CPPFLAGS:             
+  QRUPDATE LDFLAGS:              
+  QRUPDATE libraries:            
+  Qt CPPFLAGS:                   -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtCore -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtGui -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtWidgets -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtNetwork -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtPrintSupport -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtOpenGL -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtOpenGLWidgets -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtHelp -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtXml -I/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/include/QtCore5Compat
+  Qt LDFLAGS:                    -L/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/lib
+  Qt GUI libraries:              -L/Users/azuma/freecad-android/Qt/6.8.3/android_arm64_v8a/lib -lQt6Core_arm64-v8a -lQt6Gui_arm64-v8a -lQt6Widgets_arm64-v8a -lQt6Network_arm64-v8a -lQt6PrintSupport_arm64-v8a -lQt6OpenGL_arm64-v8a -lQt6OpenGLWidgets_arm64-v8a -lQt6Help_arm64-v8a -lQt6Xml_arm64-v8a -lQt6Core5Compat_arm64-v8a
+  Qt moc:                        /Users/azuma/Qt-host/6.8.3/macos/libexec/moc 
+  Qt uic:                        /Users/azuma/Qt-host/6.8.3/macos/libexec/uic 
+  Qt rcc:                        /Users/azuma/Qt-host/6.8.3/macos/libexec/rcc 
+  Qt lrelease:                   /Users/azuma/Qt-host/6.8.3/macos/bin/lrelease 
+  Qt qcollectiongenerator:       /Users/azuma/Qt-host/6.8.3/macos/libexec/qhelpgenerator 
+  Qt qhelpgenerator:             /Users/azuma/Qt-host/6.8.3/macos/libexec/qhelpgenerator 
+  READLINE libraries:            
+  Sndfile CPPFLAGS:              
+  Sndfile LDFLAGS:               
+  Sndfile libraries:             
+  SPQR CPPFLAGS:                 
+  SPQR LDFLAGS:                  
+  SPQR libraries:                
+  SuiteSparse config libraries:  
+  SUNDIALS core CPPFLAGS:        
+  SUNDIALS core LDFLAGS:         
+  SUNDIALS core libraries:       
+  SUNDIALS IDA CPPFLAGS:         
+  SUNDIALS IDA LDFLAGS:          
+  SUNDIALS IDA libraries:        
+  SUNDIALS NVECTOR CPPFLAGS:     
+  SUNDIALS NVECTOR LDFLAGS:      
+  SUNDIALS NVECTOR libraries:    
+  SUNLINSOL KLU CPPFLAGS:        
+  SUNLINSOL KLU LDFLAGS:         
+  SUNLINSOL KLU libraries:       
+  UMFPACK CPPFLAGS:              
+  UMFPACK LDFLAGS:               
+  UMFPACK libraries:             
+  Wayland client CPPFLAGS:       
+  Wayland client LDFLAGS:        
+  Wayland client libraries:      
+  X11 include flags:             
+  X11 libraries:                 
+  Z CPPFLAGS:                    -I/Users/azuma/octave-android/prefix/arm64-v8a/zlib/include
+  Z LDFLAGS:                     -L/Users/azuma/octave-android/prefix/arm64-v8a/zlib/lib
+  Z libraries:                   -lz
+
+  Default pager:                 less
+  gnuplot:                       gnuplot
+
+  Build Octave Qt GUI:                  yes (version: 6)
+  Build Java interface:                 no
+  Build static libraries:               no
+  Build shared libraries:               yes
+  Dynamic Linking API:                  dlopen
+  Use library visibility flags:         no
+  64-bit array dims and indexing:       yes
+  64-bit BLAS array dims and indexing:  no
+  Use std::pmr::polymorphic_allocator:  yes
+  OpenMP SMP multithreading:            no
+  Include support for GNU readline:     no
+  Use push parser in command line REPL: yes
+  Build cross tools:                    no
+  Build docs:                           no
+  Embed Mercurial ID in libraries:      yes
+  Install build logs:                   no
+
+configure: WARNING: 
+
+I wasn't able to find a suitable style for declaring the api prefix
+in a bison input file so I'm disabling bison.  We expect bison to
+understand the '%define api.prefix { PREFIX }' syntax.
+
+configure: WARNING: 
+
+I didn't find bison, or the version of bison that I found does not
+support all the features that are required, but it's only a problem
+if you need to reconstruct parse.cc, which is the case if you're
+building from VCS sources.
+
+configure: WARNING: 
+
+I didn't find icotool, but it's only a problem if you need to
+reconstruct octave-logo.ico, which is the case if you're building from
+VCS sources.
+
+configure: WARNING: Qhull library not found.  This will result in loss of functionality for some geometry functions.
+configure: WARNING: BZIP2 library not found.  Octave will not be able to compress or decompress bzip2 files.
+configure: WARNING: gl2ps library not found.  Printing of OpenGL graphics will be disabled.
+configure: WARNING: CAMD library not found.  This will result in some lack of functionality for sparse matrices.
+configure: WARNING: KLU library not found.  This will result in some lack of functionality for sparse matrices.
+configure: WARNING: SUNDIALS NVECTOR serial library not found.  The solvers ode15i and ode15s will be disabled.
+configure: WARNING: building documentation disabled; make dist will fail.
+configure: 
+configure: NOTE: Libraries or auxiliary programs may be skipped if they are not found
+configure: NOTE: OR if they are missing required features on your system.
+CONFIGURE_RC=0
+RC=0

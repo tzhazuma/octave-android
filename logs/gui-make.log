@@ -1,0 +1,712 @@
+  GEN      oct-conf-post-private.h
+  GEN      oct-conf-post-public.h
+  GEN      liboctave/mk-version-h.sh
+  GEN      libinterp/corefcn/mk-mxtypes-h.sh
+  GEN      libinterp/corefcn/default-defs.h
+  GEN      octave-config.h
+  GEN      build-aux/subst-script-vals.sh
+config.status: creating oct-conf-post-private.h-tmp
+config.status: creating oct-conf-post-public.h-tmp
+config.status: creating liboctave/mk-version-h.sh-tmp
+config.status: creating build-aux/subst-script-vals.sh-tmp
+config.status: creating libinterp/corefcn/mk-mxtypes-h.sh-tmp
+config.status: executing oct-conf-post-private.h commands
+config.status: executing oct-conf-post-public.h commands
+config.status: executing liboctave/mk-version-h.sh commands
+config.status: executing build-aux/subst-script-vals.sh commands
+config.status: executing libinterp/corefcn/mk-mxtypes-h.sh commands
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  all-recursive
+Making all in libgnu
+  GEN      assert.h
+  GEN      dirent.h
+  GEN      ctype.h
+  GEN      fcntl.h
+  GEN      alloca.h
+  GEN      fnmatch.h
+  GEN      error.h
+  GEN      getopt-cdefs.h
+  GEN      float.h
+  GEN      getopt.h
+  GEN      glob.h
+  GEN      iconv.h
+  GEN      inttypes.h
+  GEN      locale.h
+  GEN      math.h
+  GEN      limits.h
+  GEN      sched.h
+  GEN      signal.h
+  GEN      stdint.h
+  GEN      stdio.h
+  GEN      pthread.h
+  GEN      stddef.h
+  GEN      stdlib.h
+  GEN      string.h
+  GEN      strings.h
+  GEN      sys/random.h
+  GEN      sys/resource.h
+  GEN      sys/select.h
+  GEN      sys/socket.h
+  GEN      sys/stat.h
+  GEN      sys/time.h
+  GEN      sys/times.h
+  GEN      sys/types.h
+  GEN      sys/uio.h
+  GEN      sys/utsname.h
+  GEN      sys/wait.h
+  GEN      time.h
+  GEN      uchar.h
+  GEN      unistd.h
+  GEN      wchar.h
+  GEN      wctype.h
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  all-recursive
+  CC       libgnu_la-base64.lo
+  CC       libgnu_la-allocator.lo
+  CC       libgnu_la-areadlink.lo
+  CC       libgnu_la-openat-proc.lo
+  CC       libgnu_la-bitrotate.lo
+  CC       libgnu_la-btoc32.lo
+  CC       libgnu_la-basename-lgpl.lo
+  CC       libgnu_la-c-strcasecmp.lo
+  CC       libgnu_la-btowc.lo
+  CC       libgnu_la-c-ctype.lo
+  CC       libgnu_la-c32_get_type_test.lo
+  CC       libgnu_la-c32_apply_type_test.lo
+  CC       libgnu_la-c32isalnum.lo
+  CC       libgnu_la-c32isalpha.lo
+  CC       libgnu_la-c32isblank.lo
+  CC       libgnu_la-c32isdigit.lo
+  CC       libgnu_la-c32isgraph.lo
+  CC       libgnu_la-c32iscntrl.lo
+  CC       libgnu_la-c32islower.lo
+  CC       libgnu_la-c32isprint.lo
+  CC       libgnu_la-c32ispunct.lo
+  CC       libgnu_la-c32isspace.lo
+  CC       libgnu_la-c32isupper.lo
+  CC       libgnu_la-c32isxdigit.lo
+  CC       libgnu_la-c32tolower.lo
+  CC       libgnu_la-canonicalize.lo
+  CC       libgnu_la-c32width.lo
+  CC       libgnu_la-careadlinkat.lo
+  CC       libgnu_la-chdir-long.lo
+  CC       libgnu_la-cloexec.lo
+  CC       libgnu_la-concat-filename.lo
+  CC       libgnu_la-md2.lo
+  CC       libgnu_la-md4.lo
+  CC       libgnu_la-md5.lo
+  CC       libgnu_la-sha1.lo
+  CC       libgnu_la-sha256.lo
+  CC       libgnu_la-sha512.lo
+  CC       libgnu_la-dirname-lgpl.lo
+  CC       libgnu_la-dup2.lo
+  CC       libgnu_la-stripslash.lo
+  CC       libgnu_la-error.lo
+  CC       libgnu_la-exitfail.lo
+  CC       libgnu_la-fcntl.lo
+  CC       libgnu_la-fd-hook.lo
+  CC       libgnu_la-fdopendir.lo
+  CC       libgnu_la-fflush.lo
+  CC       libgnu_la-file-set.lo
+  CC       libgnu_la-filemode.lo
+  CC       libgnu_la-filenamecat-lgpl.lo
+  CC       libgnu_la-findprog-in.lo
+  CC       libgnu_la-float.lo
+  CC       libgnu_la-fpurge.lo
+  CC       libgnu_la-freading.lo
+  CC       libgnu_la-free.lo
+  CC       libgnu_la-fseek.lo
+  CC       libgnu_la-fseeko.lo
+  CC       libgnu_la-fseterr.lo
+  CC       libgnu_la-getcwd.lo
+  CC       libgnu_la-getcwd-lgpl.lo
+  CC       libgnu_la-getdelim.lo
+  CC       libgnu_la-getdtablesize.lo
+  CC       libgnu_la-gethrxtime.lo
+  CC       libgnu_la-xtime.lo
+  CC       libgnu_la-getline.lo
+  CC       libgnu_la-getlocalename_l-unsafe.lo
+  CC       libgnu_la-localename-table.lo
+  CC       libgnu_la-getlogin_r.lo
+  CC       libgnu_la-getopt.lo
+  CC       libgnu_la-getopt1.lo
+  CC       libgnu_la-getrandom.lo
+  CC       libgnu_la-gettime.lo
+  CC       malloc/libgnu_la-scratch_buffer_grow.lo
+  CC       malloc/libgnu_la-scratch_buffer_grow_preserve.lo
+  CC       malloc/libgnu_la-scratch_buffer_set_array_size.lo
+  CC       libgnu_la-glob.lo
+  CC       libgnu_la-globfree.lo
+  CC       libgnu_la-glob_pattern_p.lo
+  CC       libgnu_la-hard-locale.lo
+  CC       libgnu_la-hash.lo
+  CC       libgnu_la-hashcode-named-file.lo
+  CC       libgnu_la-hashcode-string1.lo
+  CC       libgnu_la-hashcode-string2.lo
+  CC       libgnu_la-ialloc.lo
+  CC       libgnu_la-issymlink.lo
+  CC       libgnu_la-iswdigit.lo
+  CC       libgnu_la-iswxdigit.lo
+  CC       libgnu_la-localcharset.lo
+  CC       libgnu_la-localeconv.lo
+  CC       libgnu_la-localename.lo
+  CC       libgnu_la-localename-environ.lo
+  CC       libgnu_la-localename-unsafe.lo
+  CC       glthread/libgnu_la-lock.lo
+  CC       libgnu_la-malloca.lo
+  CC       libgnu_la-math.lo
+  CC       libgnu_la-mbiterf.lo
+  CC       libgnu_la-mbchar.lo
+  CC       libgnu_la-mbrtoc32.lo
+  CC       libgnu_la-mbsnlen.lo
+  CC       libgnu_la-mbrtowc.lo
+  CC       libgnu_la-mbsrtoc32s.lo
+  CC       libgnu_la-mbsrtowcs.lo
+  CC       libgnu_la-mbszero.lo
+  CC       libgnu_la-memchr.lo
+  CC       libgnu_la-mkdir.lo
+  CC       libgnu_la-next-prime.lo
+  CC       libgnu_la-nanosleep.lo
+  CC       libgnu_la-nproc.lo
+  CC       libgnu_la-nstrftime.lo
+  CC       glthread/libgnu_la-once.lo
+  CC       libgnu_la-open.lo
+  CC       libgnu_la-openat.lo
+  CC       libgnu_la-openat-die.lo
+  CC       libgnu_la-progname.lo
+  CC       libgnu_la-rawmemchr.lo
+  CC       libgnu_la-readline.lo
+  CC       libgnu_la-realloc.lo
+  CC       libgnu_la-reallocarray.lo
+  CC       libgnu_la-same-inode.lo
+In file included from nstrftime.c:19:
+./strftime.c:2048:24: warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
+ 2048 |           cpy (ap_len, ampm);
+      |           ~~~~~~~~~~~~~^~~~~
+./strftime.c:1277:27: note: expanded from macro 'ampm'
+ 1277 | # define ampm (L_("AMPM") + 2 * (tp->tm_hour > 11))
+      |                           ^
+./strftime.c:306:40: note: expanded from macro 'cpy'
+  306 | #define cpy(n, s) width_cpy (width, n, s)
+      |                   ~~~~~~~~~~~~~~~~~~~~~^~
+./strftime.c:328:32: note: expanded from macro 'width_cpy'
+  326 |     width_add (width, n,                                                      \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  327 |          if (to_lowcase)                                                      \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  328 |            memcpy_lowcase (p, (s), _n LOCALE_ARG);                            \
+      |            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  329 |          else if (to_uppcase)                                                 \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  330 |            memcpy_uppcase (p, (s), _n LOCALE_ARG);                            \
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  331 |          else                                                                 \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  332 |            MEMCPY ((void *) p, (void const *) (s), _n))
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./strftime.c:294:11: note: expanded from macro 'width_add'
+  294 |           f;                                                                  \
+      |           ^
+./strftime.c:2048:24: note: use array indexing to silence this warning
+./strftime.c:1277:27: note: expanded from macro 'ampm'
+ 1277 | # define ampm (L_("AMPM") + 2 * (tp->tm_hour > 11))
+      |                           ^
+./strftime.c:2048:24: warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
+ 2048 |           cpy (ap_len, ampm);
+      |           ~~~~~~~~~~~~~^~~~~
+./strftime.c:1277:27: note: expanded from macro 'ampm'
+ 1277 | # define ampm (L_("AMPM") + 2 * (tp->tm_hour > 11))
+      |                           ^
+./strftime.c:306:40: note: expanded from macro 'cpy'
+  306 | #define cpy(n, s) width_cpy (width, n, s)
+      |                   ~~~~~~~~~~~~~~~~~~~~~^~
+./strftime.c:330:32: note: expanded from macro 'width_cpy'
+  326 |     width_add (width, n,                                                      \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  327 |          if (to_lowcase)                                                      \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  328 |            memcpy_lowcase (p, (s), _n LOCALE_ARG);                            \
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  329 |          else if (to_uppcase)                                                 \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  330 |            memcpy_uppcase (p, (s), _n LOCALE_ARG);                            \
+      |            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  331 |          else                                                                 \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  332 |            MEMCPY ((void *) p, (void const *) (s), _n))
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./strftime.c:294:11: note: expanded from macro 'width_add'
+  294 |           f;                                                                  \
+      |           ^
+./strftime.c:2048:24: note: use array indexing to silence this warning
+./strftime.c:1277:27: note: expanded from macro 'ampm'
+ 1277 | # define ampm (L_("AMPM") + 2 * (tp->tm_hour > 11))
+      |                           ^
+./strftime.c:2048:24: warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
+ 2048 |           cpy (ap_len, ampm);
+      |           ~~~~~~~~~~~~~^~~~~
+./strftime.c:1277:27: note: expanded from macro 'ampm'
+ 1277 | # define ampm (L_("AMPM") + 2 * (tp->tm_hour > 11))
+      |                           ^
+./strftime.c:306:40: note: expanded from macro 'cpy'
+  306 | #define cpy(n, s) width_cpy (width, n, s)
+      |                   ~~~~~~~~~~~~~~~~~~~~~^~
+./strftime.c:332:48: note: expanded from macro 'width_cpy'
+  326 |     width_add (width, n,                                                      \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  327 |          if (to_lowcase)                                                      \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  328 |            memcpy_lowcase (p, (s), _n LOCALE_ARG);                            \
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  329 |          else if (to_uppcase)                                                 \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  330 |            memcpy_uppcase (p, (s), _n LOCALE_ARG);                            \
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  331 |          else                                                                 \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  332 |            MEMCPY ((void *) p, (void const *) (s), _n))
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+./strftime.c:143:37: note: expanded from macro 'MEMCPY'
+  143 | # define MEMCPY(d, s, n) memcpy (d, s, n)
+      |                                     ^
+./strftime.c:294:11: note: expanded from macro 'width_add'
+  294 |           f;                                                                  \
+      |           ^
+./strftime.c:2048:24: note: use array indexing to silence this warning
+./strftime.c:1277:27: note: expanded from macro 'ampm'
+ 1277 | # define ampm (L_("AMPM") + 2 * (tp->tm_hour > 11))
+      |                           ^
+openat-die.c:38:10: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+   37 |   error (exit_failure, errnum,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   38 |          _("unable to record current working directory"));
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+openat-die.c:31:18: note: expanded from macro '_'
+   31 | #define _(msgid) dgettext (GNULIB_TEXT_DOMAIN, msgid)
+      |                  ^
+./gettext.h:127:39: note: expanded from macro 'dgettext'
+  127 | #  define dgettext(Domainname, Msgid) ((void) (Domainname), gettext (Msgid))
+      |                                       ^
+./error.h:474:42: note: expanded from macro 'error'
+  474 |      __gl_error_call (rpl_error, status, __VA_ARGS__)
+      |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+./error.h:442:44: note: expanded from macro '__gl_error_call'
+  442 |      ? __gl_error_call1 (function, status, __VA_ARGS__)         \
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+./error.h:431:26: note: expanded from macro '__gl_error_call1'
+  431 |     ((function) (status, __VA_ARGS__), \
+      |                          ^~~~~~~~~~~
+openat-die.c:38:10: note: treat the string as an argument to avoid this
+   38 |          _("unable to record current working directory"));
+      |          ^
+      |          "%s", 
+openat-die.c:31:18: note: expanded from macro '_'
+   31 | #define _(msgid) dgettext (GNULIB_TEXT_DOMAIN, msgid)
+      |                  ^
+./gettext.h:127:39: note: expanded from macro 'dgettext'
+  127 | #  define dgettext(Domainname, Msgid) ((void) (Domainname), gettext (Msgid))
+      |                                       ^
+./error.h:474:42: note: expanded from macro 'error'
+  474 |      __gl_error_call (rpl_error, status, __VA_ARGS__)
+      |                                          ^
+./error.h:442:44: note: expanded from macro '__gl_error_call'
+  442 |      ? __gl_error_call1 (function, status, __VA_ARGS__)         \
+      |                                            ^
+./error.h:431:26: note: expanded from macro '__gl_error_call1'
+  431 |     ((function) (status, __VA_ARGS__), \
+      |                          ^
+openat-die.c:38:10: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+   37 |   error (exit_failure, errnum,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   38 |          _("unable to record current working directory"));
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+openat-die.c:31:18: note: expanded from macro '_'
+   31 | #define _(msgid) dgettext (  CC       libgnu_la-save-cwd.lo
+GNULIB_TEXT_DOMAIN, msgid)
+      |                  ^
+./gettext.h:127:39: note: expanded from macro 'dgettext'
+  127 | #  define dgettext(Domainname, Msgid) ((void) (Domainname), gettext (Msgid))
+      |                                       ^
+./error.h:474:42: note: expanded from macro 'error'
+  474 |      __gl_error_call (rpl_error, status, __VA_ARGS__)
+      |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+./error.h:446:51: note: expanded from macro '__gl_error_call'
+  446 |          __gl_error_call1 (function, __errstatus, __VA_ARGS__); \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+./error.h:431:26: note: expanded from macro '__gl_error_call1'
+  431 |     ((function) (status, __VA_ARGS__), \
+      |                          ^~~~~~~~~~~
+openat-die.c:38:10: note: treat the string as an argument to avoid this
+   38 |          _("unable to record current working directory"));
+      |          ^
+      |          "%s", 
+openat-die.c:31:18: note: expanded from macro '_'
+   31 | #define _(msgid) dgettext (GNULIB_TEXT_DOMAIN, msgid)
+      |                  ^
+./gettext.h:127:39: note: expanded from macro 'dgettext'
+  127 | #  define dgettext(Domainname, Msgid) ((void) (Domainname), gettext (Msgid))
+      |                                       ^
+./error.h:474:42: note: expanded from macro 'error'
+  474 |      __gl_error_call (rpl_error, status, __VA_ARGS__)
+      |                                          ^
+./error.h:446:51: note: expanded from macro '__gl_error_call'
+  446 |          __gl_error_call1 (function, __errstatus, __VA_ARGS__); \
+      |                                                   ^
+./error.h:431:26: note: expanded from macro '__gl_error_call1'
+  431 |     ((function) (status, __VA_ARGS__), \
+      |                          ^
+openat-die.c:57:10: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+   56 |   error (exit_failure, errnum,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   57 |          _("failed to return to initial working directory"));
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+openat-die.c:31:18: note: expanded from macro '_'
+   31 | #define _(msgid) dgettext (GNULIB_TEXT_DOMAIN, msgid)
+      |                  ^
+./gettext.h:127:39: note: expanded from macro 'dgettext'
+  127 | #  define dgettext(Domainname, Msgid) ((void) (Domainname), gettext (Msgid))
+      |                                       ^
+./error.h:474:42: note: expanded from macro 'error'
+  474 |      __gl_error_call (rpl_error, status, __VA_ARGS__)
+      |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+./error.h:442:44: note: expanded from macro '__gl_error_call'
+  442 |      ? __gl_error_call1 (function, status, __VA_ARGS__)         \
+      |        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+./error.h:431:26: note: expanded from macro '__gl_error_call1'
+  431 |     ((function) (status, __VA_ARGS__), \
+      |                          ^~~~~~~~~~~
+openat-die.c:57:10: note: treat the string as an argument to avoid this
+   57 |          _("failed to return to initial working directory"));
+      |          ^
+      |          "%s", 
+openat-die.c:31:18: note: expanded from macro '_'
+   31 | #define _(msgid) dgettext (GNULIB_TEXT_DOMAIN, msgid)
+      |                  ^
+./gettext.h:127:39: note: expanded from macro 'dgettext'
+  127 | #  define dgettext(Domainname, Msgid) ((void) (Domainname), gettext (Msgid))
+      |                                       ^
+./error.h:474:42: note: expanded from macro 'error'
+  474 |      __gl_error_call (rpl_error, status, __VA_ARGS__)
+      |                                          ^
+./error.h:442:44: note: expanded from macro '__gl_error_call'
+  442 |      ? __gl_error_call1 (function, status, __VA_ARGS__)         \
+      |                                            ^
+./error.h:431:26: note: expanded from macro '__gl_error_call1'
+  431 |     ((function) (status, __VA_ARGS__), \
+      |                          ^
+openat-die.c:57:10: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+   56 |   error (exit_failure, errnum,
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   57 |          _("failed to return to initial working directory"));
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+openat-die.c:31:18: note: expanded from macro '_'
+   31 | #define _(msgid) dgettext (GNULIB_TEXT_DOMAIN, ms  CC       libgnu_la-setenv.lo
+gid)
+      |                  ^
+./gettext.h:127:39: note: expanded from macro 'dgettext'
+  127 | #  define dgettext(Domai  CC       libgnu_la-setlocale.lo
+nname, Msgid) ((void) (Domainname), gettext (Msgid))
+      |                                       ^
+./error.h:474:42: note: expanded from macro 'error'
+  474 |      __gl_error_call (rpl_error, status, __VA_ARGS__)
+      |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+./error.h:446:51: note: expanded from macro '__gl_error_call'
+  446 |          __gl_error_call1 (function, __errstatus, __VA_ARGS__); \
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+./error.h:431:26: note: expanded from macro '__gl_error_call1'
+  431 |     ((function) (status, __VA_ARGS__), \
+      |                          ^~~~~~~~~~~
+openat-die.c:57:10: note: treat the string as an argument to avoid this
+   57 |          _("failed to return to initial working directory"));
+      |          ^
+      |          "%s", 
+openat-die.c:31:18: note: expanded from macro '_'
+   31 | #define _(msgid) dgettext (GNULIB_TEXT_DOMAIN, msgid)
+      |                  ^
+./gettext.h:127:39: note: expanded from macro 'dgettext'
+  127 | #  define dgettext(Domainname, Msgid) ((void) (D  CC       libgnu_la-setlocale-fixes.lo
+omainname), gettext (Msgid))
+      |                                       ^
+./error.h:474:42: note: expanded from macro 'error'
+  474 |      __gl_error_call (rpl_error, status, __VA_ARGS__)
+      |                                          ^
+./error.h:446:51: note: expanded from macro '__gl_error_call'
+  446 |          __gl_error_call1 (function, __errstatus, __VA_ARGS__); \
+      |                                                   ^
+./error.h:431:26: note: expanded from macro '__gl_error_call1'
+  431 |     ((function) (status, __VA_ARGS__), \
+      |                          ^
+4 warnings generated.
+  CC       libgnu_la-setlocale_null.lo
+  CC       libgnu_la-setlocale-lock.lo
+  CC       libgnu_la-setlocale_null-unlocked.lo
+  CC       libgnu_la-sig-handler.lo
+  CC       libgnu_la-sockets.lo
+3 warnings generated.
+  CC       libgnu_la-stat-time.lo
+  CC       libgnu_la-stdlib.lo
+  CC       libgnu_la-str_endswith.lo
+setlocale.c:858:9: warning: initializing 'char *' with an expression of type 'const char *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+  858 |   char *result = setlocale_fixed (category, locale);
+      |         ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+setlocale.c:1791:10: warning: returning 'const char *' from a function with result type 'char *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+ 1791 |   return setlocale_fixed_null (LC_ALL);
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+  CC       libgnu_la-strerror.lo
+  CC       libgnu_la-striconveh.lo
+  CC       libgnu_la-strerror-override.lo
+  CC       libgnu_la-striconveha.lo
+  CC       libgnu_la-string.lo
+  CC       libgnu_la-strnlen1.lo
+  CC       libgnu_la-sys_socket.lo
+  CC       libgnu_la-tempname.lo
+  CC       glthread/libgnu_la-threadlib.lo
+  CC       libgnu_la-time_rz.lo
+  CC       libgnu_la-timegm.lo
+  CC       libgnu_la-timespec.lo
+  CC       glthread/libgnu_la-tls.lo
+  CC       libgnu_la-u64.lo
+  CC       unicase/libgnu_la-cased.lo
+  CC       unicase/libgnu_la-empty-prefix-context.lo
+  CC       unicase/libgnu_la-empty-suffix-context.lo
+  CC       unicase/libgnu_la-ignorable.lo
+  CC       unicase/libgnu_la-special-casing.lo
+  CC       unicase/libgnu_la-tolower.lo
+  CC       unicase/libgnu_la-toupper.lo
+  CC       unicase/libgnu_la-u8-casemap.lo
+  CC       unicase/libgnu_la-u8-tolower.lo
+  CC       unicase/libgnu_la-u8-toupper.lo
+  CC       uniconv/libgnu_la-u16-conv-from-enc.lo
+  CC       uniconv/libgnu_la-u16-conv-to-enc.lo
+  CC       uniconv/libgnu_la-u32-conv-to-enc.lo
+  CC       uniconv/libgnu_la-u8-conv-from-enc.lo
+  CC       uniconv/libgnu_la-u8-conv-to-enc.lo
+  CC       unictype/libgnu_la-combiningclass.lo
+  CC       unictype/libgnu_la-ctype_alnum.lo
+  CC       unictype/libgnu_la-ctype_alpha.lo
+  CC       unictype/libgnu_la-ctype_blank.lo
+  CC       unictype/libgnu_la-ctype_cntrl.lo
+  CC       unictype/libgnu_la-ctype_digit.lo
+  CC       unictype/libgnu_la-ctype_graph.lo
+  CC       unictype/libgnu_la-ctype_lower.lo
+  CC       unictype/libgnu_la-ctype_print.lo
+  CC       unictype/libgnu_la-ctype_punct.lo
+  CC       unictype/libgnu_la-ctype_space.lo
+  CC       unictype/libgnu_la-ctype_upper.lo
+  CC       unictype/libgnu_la-ctype_xdigit.lo
+  CC       unictype/libgnu_la-pr_soft_dotted.lo
+  CC       uninorm/libgnu_la-u8-normalize.lo
+  CC       uninorm/libgnu_la-decompose-internal.lo
+  CC       libgnu_la-unistd.lo
+  CC       unistr/libgnu_la-u16-mblen.lo
+  CC       unistr/libgnu_la-u16-mbtoucr.lo
+  CC       unistr/libgnu_la-u16-to-u8.lo
+  CC       unistr/libgnu_la-u16-uctomb.lo
+  CC       unistr/libgnu_la-u16-uctomb-aux.lo
+  CC       unistr/libgnu_la-u32-chr.lo
+  CC       unistr/libgnu_la-u32-cpy.lo
+  CC       unistr/libgnu_la-u32-mblen.lo
+  CC       unistr/libgnu_la-u32-pcpy.lo
+  CC       unistr/libgnu_la-u32-strcat.lo
+  CC       unistr/libgnu_la-u32-strlen.lo
+  CC       unistr/libgnu_la-u32-to-u8.lo
+  CC       unistr/libgnu_la-u8-check.lo
+  CC       unistr/libgnu_la-u8-cpy.lo
+  CC       unistr/libgnu_la-u8-mblen.lo
+  CC       unistr/libgnu_la-u8-mbsnlen.lo
+  CC       unistr/libgnu_la-u8-mbtouc.lo
+  CC       unistr/libgnu_la-u8-mbtouc-unsafe.lo
+  CC       unistr/libgnu_la-u8-mbtouc-aux.lo
+  CC       unistr/libgnu_la-u8-mbtouc-unsafe-aux.lo
+  CC       unistr/libgnu_la-u8-mbtoucr.lo
+  CC       unistr/libgnu_la-u8-prev.lo
+  CC       unistr/libgnu_la-u8-strmblen.lo
+  CC       unistr/libgnu_la-u8-strmbtouc.lo
+  CC       unistr/libgnu_la-u8-to-u16.lo
+  CC       unistr/libgnu_la-u8-to-u32.lo
+  CC       unistr/libgnu_la-u8-uctomb.lo
+  CC       unistr/libgnu_la-u8-uctomb-aux.lo
+  CC       uniwidth/libgnu_la-width.lo
+  CC       libgnu_la-unsetenv.lo
+  CC       libgnu_la-vsnzprintf.lo
+  CC       libgnu_la-wctype-h.lo
+  CC       libgnu_la-wcwidth.lo
+  CC       libgnu_la-xmalloc.lo
+  CC       libgnu_la-xalloc-die.lo
+  CC       libgnu_la-xsize.lo
+  CC       libgnu_la-asnprintf.lo
+  CC       libgnu_la-calloc.lo
+  CC       libgnu_la-fnmatch.lo
+  CC       libgnu_la-malloc.lo
+  CC       libgnu_la-mbsrtoc32s-state.lo
+  CC       libgnu_la-mbsrtowcs-state.lo
+  CC       libgnu_la-mktime.lo
+  CC       libgnu_la-printf-args.lo
+  CC       libgnu_la-printf-parse.lo
+  CC       libgnu_la-vasnprintf.lo
+  CCLD     libgnu.la
+Making all in test
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  all-am
+make[3]: Nothing to be done for `all-am'.
+  GEN      oct-conf-post-public.h
+  GEN      oct-conf-post-private.h
+  GEN      octave-config.h
+  GEN      liboctave/mk-version-h.sh
+  GEN      HG-ID
+  CXX      libgui/qterminal/libqterminal/unix/la-Emulation.lo
+  CXX      libgui/qterminal/libqterminal/unix/la-QUnixTerminalImpl.lo
+  CXX      libgui/qterminal/libqterminal/unix/la-kpty.lo
+  CXX      libgui/qterminal/libqterminal/unix/la-TerminalView.lo
+  CXX      libgui/qterminal/libqterminal/unix/la-TerminalModel.lo
+  CXX      libgui/qterminal/libqterminal/unix/la-Vt102Emulation.lo
+  CXX      libgui/qterminal/libqterminal/la-QTerminal.lo
+  GEN      libgui/qterminal/libqterminal/moc-QTerminal.cc
+  GEN      libgui/qterminal/libqterminal/unix/moc-Emulation.cc
+config.status: creating oct-conf-post-private.h-tmp
+config.status: creating liboctave/mk-version-h.sh-tmp
+config.status: creating oct-conf-post-public.h-tmp
+config.status: executing oct-conf-post-private.h commands
+config.status: executing oct-conf-post-public.h commands
+config.status: executing liboctave/mk-version-h.sh commands
+  GEN      libgui/qterminal/libqterminal/unix/moc-Filter.cc
+  GEN      libgui/qterminal/libqterminal/unix/moc-QUnixTerminalImpl.cc
+  GEN      libgui/qterminal/libqterminal/unix/moc-ScreenWindow.cc
+  GEN      libgui/qterminal/libqterminal/unix/moc-SelfListener.cc
+  GEN      libgui/qterminal/libqterminal/unix/moc-TerminalModel.cc
+  GEN      libgui/qterminal/libqterminal/unix/moc-TerminalView.cc
+  GEN      libgui/qterminal/libqterminal/unix/moc-Vt102Emulation.cc
+  CXX      libgui/graphics/libgraphics_la-BaseControl.lo
+  CXX      libgui/graphics/libgraphics_la-ButtonControl.lo
+  CXX      libgui/graphics/libgraphics_la-ButtonGroup.lo
+  CXX      libgui/graphics/libgraphics_la-Canvas.lo
+  CXX      libgui/graphics/libgraphics_la-CheckBoxControl.lo
+  CXX      libgui/graphics/libgraphics_la-Container.lo
+  CXX      libgui/graphics/libgraphics_la-ContextMenu.lo
+  CXX      libgui/graphics/libgraphics_la-EditControl.lo
+  CXX      libgui/graphics/libgraphics_la-Figure.lo
+  CXX      libgui/graphics/libgraphics_la-FigureWindow.lo
+  CXX      libgui/graphics/libgraphics_la-KeyMap.lo
+  CXX      libgui/graphics/libgraphics_la-ListBoxControl.lo
+  CXX      libgui/graphics/libgraphics_la-Logger.lo
+  CXX      libgui/graphics/libgraphics_la-GLCanvas.lo
+  CXX      libgui/graphics/libgraphics_la-Object.lo
+  CXX      libgui/graphics/libgraphics_la-ObjectProxy.lo
+  CXX      libgui/graphics/libgraphics_la-PopupMenuControl.lo
+  CXX      libgui/graphics/libgraphics_la-Menu.lo
+  CXX      libgui/graphics/libgraphics_la-Panel.lo
+  CXX      libgui/graphics/libgraphics_la-PushButtonControl.lo
+  CXX      libgui/graphics/libgraphics_la-PushTool.lo
+  CXX      libgui/graphics/libgraphics_la-QtHandlesUtils.lo
+  CXX      libgui/graphics/libgraphics_la-RadioButtonControl.lo
+  CXX      libgui/graphics/libgraphics_la-SliderControl.lo
+  CXX      libgui/graphics/libgraphics_la-Table.lo
+  CXX      libgui/graphics/libgraphics_la-TextControl.lo
+  CXX      libgui/graphics/libgraphics_la-TextEdit.lo
+  CXX      libgui/graphics/libgraphics_la-ToggleButtonControl.lo
+  CXX      libgui/graphics/libgraphics_la-ToggleTool.lo
+  CXX      libgui/graphics/libgraphics_la-ToolBar.lo
+  CXX      libgui/graphics/libgraphics_la-annotation-dialog.lo
+  CXX      libgui/graphics/libgraphics_la-qt-graphics-toolkit.lo
+  CXX      libgui/graphics/libgraphics_la-gl-select.lo
+  GEN      libgui/graphics/moc-ButtonControl.cc
+  GEN      libgui/graphics/moc-ButtonGroup.cc
+  GEN      libgui/graphics/moc-Canvas.cc
+  GEN      libgui/graphics/moc-Container.cc
+  GEN      libgui/graphics/moc-ContextMenu.cc
+  GEN      libgui/graphics/moc-EditControl.cc
+  GEN      libgui/graphics/moc-FigureWindow.cc
+  GEN      libgui/graphics/moc-Figure.cc
+  GEN      libgui/graphics/moc-ListBoxControl.cc
+  GEN      libgui/graphics/moc-GLCanvas.cc
+  GEN      libgui/graphics/moc-Menu.cc
+  GEN      libgui/graphics/moc-Object.cc
+  GEN      libgui/graphics/moc-ObjectProxy.cc
+  GEN      libgui/graphics/moc-PopupMenuControl.cc
+  GEN      libgui/graphics/moc-PushTool.cc
+  GEN      libgui/graphics/moc-SliderControl.cc
+  GEN      libgui/graphics/moc-Table.cc
+  GEN      libgui/graphics/moc-TextEdit.cc
+  GEN      libgui/graphics/moc-ToggleTool.cc
+  GEN      libgui/graphics/moc-ToolBar.cc
+  GEN      libgui/graphics/moc-annotation-dialog.cc
+  GEN      libgui/graphics/moc-qt-graphics-toolkit.cc
+  CXX      libgui/src/libgui_src_la-command-widget.lo
+  CXX      libgui/src/libgui_src_la-community-news.lo
+  CXX      libgui/src/libgui_src_la-console-lexer.lo
+  CXX      libgui/src/libgui_src_la-dialog.lo
+  CXX      libgui/src/libgui_src_la-documentation-dock-widget.lo
+  CXX      libgui/src/libgui_src_la-documentation.lo
+In file included from libgui/graphics/gl-select.cc:30:
+libgui/graphics/gl-select.h:84:12: error: unknown type name 'GLuint'; did you mean 'uint'?
+   84 |   std::map<GLuint, graphics_object> m_object_map;
+      |            ^~~~~~
+      |            uint
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/sys/types.h:133:29: note: 'uint' declared here
+  133 | typedef unsigned int        uint;
+      |                             ^
+libgui/graphics/gl-select.cc:37:3: error: use of undeclared identifier 'GLdouble'; did you mean 'double'?
+   37 |   GLdouble p_matrix[16];
+      |   ^~~~~~~~
+      |   double
+libgui/graphics/gl-select.cc:39:12: error: no member named 'glGetDoublev' in 'octave::opengl_functions'
+   39 |   m_glfcns.glGetDoublev (GL_PROJECTION_MATRIX, p_matrix);
+      |   ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:39:26: error: use of undeclared identifier 'GL_PROJECTION_MATRIX'
+   39 |   m_glfcns.glGetDoublev (GL_PROJECTION_MATRIX, p_matrix);
+      |                          ^
+libgui/graphics/gl-select.cc:40:12: error: no member named 'glMatrixMode' in 'octave::opengl_functions'
+   40 |   m_glfcns.glMatrixMode (GL_PROJECTION);
+      |   ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:40:26: error: use of undeclared identifier 'GL_PROJECTION'
+   40 |   m_glfcns.glMatrixMode (GL_PROJECTION);
+      |                          ^
+libgui/graphics/gl-select.cc:41:12: error: no member named 'glLoadIdentity' in 'octave::opengl_functions'
+   41 |   m_glfcns.glLoadIdentity ();
+      |   ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:52:16: error: no member named 'glTranslatef' in 'octave::opengl_functions'
+   52 |       m_glfcns.glTranslatef ((viewport(2) - 2 * (m_xp - viewport(0))) / m_size,
+      |       ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:55:16: error: no member named 'glScalef' in 'octave::opengl_functions'
+   55 |       m_glfcns.glScalef (viewport(2) / m_size, viewport(3) / m_size, 1.0);
+      |       ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:58:12: error: no member named 'glMultMatrixd' in 'octave::opengl_functions'
+   58 |   m_glfcns.glMultMatrixd (p_matrix);
+      |   ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:59:12: error: no member named 'glMatrixMode' in 'octave::opengl_functions'
+   59 |   m_glfcns.glMatrixMode (GL_MODELVIEW);
+      |   ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:59:26: error: use of undeclared identifier 'GL_MODELVIEW'
+   59 |   m_glfcns.glMatrixMode (GL_MODELVIEW);
+      |                          ^
+libgui/graphics/gl-select.cc:81:12: error: no member named 'glEnable' in 'octave::opengl_functions'
+   81 |   m_glfcns.glEnable (GL_DEPTH_TEST);
+      |   ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:81:22: error: use of undeclared identifier 'GL_DEPTH_TEST'
+   81 |   m_glfcns.glEnable (GL_DEPTH_TEST);
+      |                      ^
+libgui/graphics/gl-select.cc:82:12: error: no member named 'glDepthFunc' in 'octave::opengl_functions'
+   82 |   m_glfcns.glDepthFunc (GL_LEQUAL);
+      |   ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:82:25: error: use of undeclared identifier 'GL_LEQUAL'
+   82 |   m_glfcns.glDepthFunc (GL_LEQUAL);
+      |                         ^
+libgui/graphics/gl-select.cc:87:3: error: unknown type name 'GLuint'; did you mean 'uint'?
+   87 |   GLuint select_buffer[BUFFER_SIZE];
+      |   ^~~~~~
+      |   uint
+/Users/azuma/Library/Android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/darwin-x86_64/bin/../sysroot/usr/include/sys/types.h:133:29: note: 'uint' declared here
+  133 | typedef unsigned int        uint;
+      |                             ^
+libgui/graphics/gl-select.cc:89:12: error: no member named 'glSelectBuffer' in 'octave::opengl_functions'
+   89 |   m_glfcns.glSelectBuffer (BUFFER_SIZE, select_buffer);
+      |   ~~~~~~~~ ^
+libgui/graphics/gl-select.cc:90:12: error: no member named 'glRenderMode' in 'octave::opengl_functions'
+   90 |   m_glfcns.glRenderMode (GL_SELECT);
+      |   ~~~~~~~~ ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+  CXX      libgui/src/libgui_src_la-documentation-bookmarks.lo
+make[2]: *** [libgui/graphics/libgraphics_la-gl-select.lo] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [all-recursive] Error 1
+make: *** [all] Error 2
+MAKE_RC=2

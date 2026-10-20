@@ -1046,3 +1046,35 @@ mDNS 也发现不到），因此这两项**仍未验证**：
 设备回来后按这个顺序补：解锁 → `adb connect <ip>:5555` → 装/确认 0.2.0 →
 点 Self-test → 点 Open .m → 选 Downloads/octtest.m → 编辑一行 → Save →
 `adb shell cat /sdcard/Download/octtest.m` → 点 Run script。
+
+## 13. Octave GUI（octave-gui）能不能移植？—— 已实测到具体卡点
+
+不是猜的，是真跑了一遍：
+
+**configure 通过**（`CONFIGURE_RC=0`，`logs/gui-configure.log`）：Qt 依赖齐全，
+警告只有 Qhull / BZIP2 / gl2ps / CAMD / KLU / SUNDIALS 这些可选库缺失，
+属于功能裁剪，不阻塞构建。
+
+**make 在 OpenGL 处断掉**（`logs/gui-make.log`，`MAKE_RC=2`）：
+
+```
+libgui/graphics/gl-select.cc:89:12: error: no member named 'glSelectBuffer' in 'octave::opengl_functions'
+libgui/graphics/gl-select.cc:90:12: error: no member named 'glRenderMode' in 'octave::opengl_functions'
+20 errors generated.
+```
+
+根因很明确：**Android 只有 OpenGL ES，没有桌面 GL 的 selection buffer**
+（`glSelectBuffer` / `glRenderMode` 是固定管线的老 API，GLES 里根本不存在）。
+Octave 的绘图控件用 GL selection 做「点选图元」，所以缺这两个符号。
+
+两条可行路线（和 FreeCAD 遇到的是同一类问题）：
+
+1. **gl4es**（FreeCAD 已经用这条路跑通了）：提供一个桌面 GL 的子集实现，
+   把这 195 个桌面专用入口补齐，gl-select.cc 原样编译。
+2. **改 CPU 拾取**：把 `gl-select.cc` 的 GL selection 换成把图元投影到屏幕坐标后
+   自己算最近命中（Qt 新版本本身就是这么做的）。改动集中在一个文件，但需要理解
+   Octave 的 graphics 对象模型。
+
+结论：**GUI 可移植，卡点是 OpenGL ES 缺 selection API，不是 Qt 或平台能力不足。**
+现有移植用的是自定义 Android 界面（控制台 + WebView 出图），功能上够用，
+但和上游 `octave-gui` 不是同一个 UI。
