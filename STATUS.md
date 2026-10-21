@@ -1078,3 +1078,38 @@ Octave 的绘图控件用 GL selection 做「点选图元」，所以缺这两�
 结论：**GUI 可移植，卡点是 OpenGL ES 缺 selection API，不是 Qt 或平台能力不足。**
 现有移植用的是自定义 Android 界面（控制台 + WebView 出图），功能上够用，
 但和上游 `octave-gui` 不是同一个 UI。
+
+## 2026-10-22：Octave GUI 在 Android 上编译链接通过（gl4es 路线）
+
+之前 `libgui/graphics/gl-select.cc` 有 20 个错，根因是 Android 只有 GLES，没有桌面 GL 的
+`glSelectBuffer` / `glRenderMode`。这一轮把它解决了：
+
+1. **gl4es**（ptitSeb/gl4es）交叉编译成 `libGL.so.1`，导出 1223 个桌面 GL 符号，
+   其中就有缺的那四个：`glSelectBuffer`、`glRenderMode`、`glLoadName`、`glPushName`。
+2. configure 原本写的是 `--without-opengl` —— 这就是 `HAVE_OPENGL` 没定义、
+   整个桌面 GL 分支被 `#if defined (HAVE_OPENGL)` 跳过的直接原因。
+   改成 `--with-opengl`，并把 gl4es 的 include/lib 加进 CPPFLAGS/LDFLAGS：
+   ```
+   config.h: #define HAVE_GL_GL_H 1
+             #define HAVE_OPENGL 1
+   OPENGL_LIBS='-lGL -lGLU'
+   ```
+3. 两个后续坑：
+   - gl4es 的 `glext.h` 里 `glShaderSource` 写作 `const GLchar* *`，而 Qt 的 GLES 头是
+     `const GLchar* const *` —— 类型冲突。把 gl4es 那份改成 `const GLchar* const *`（语义相同）。
+   - Octave 要 `-lGLU`，但 gl4es 不含 GLU，独立 GLU 项目（mesa3d/glu）已不存在。
+     先放一个可安全降级的占位实现（`src/glu-stub/glu_stub.c`），只影响 gl2ps 的
+     PS/PDF 多边形导出，不影响界面与屏上绘图；真正的镶嵌器（libtess2 已 clone）是后续工作。
+4. 链接时 `ld.lld` 还挑剔 DSO 引用 libclang_rt.builtins 里非导出的原子符号，
+   加 `-Wl,--allow-shlib-undefined` 通过。
+
+**结果**（不是「应该能编」）：
+
+```
+libgui/.libs/liboctgui.so : ELF 64-bit LSB shared object, ARM aarch64     4.6 MB
+NEEDED: liboctinterp.so liboctave.so libQt6Core/Gui/Widgets/Network_arm64-v8a.so
+undefined (留给 gl4es 在运行期提供): glRenderMode, glSelectBuffer
+```
+
+即：GUI 那 4.6 MB 的库真的链出来了，selection 系列按设计留成未定义符号，
+由 `libGL.so`（gl4es）在运行时满足。剩下的是把 gl4es + Qt 一起部署到设备上启动。

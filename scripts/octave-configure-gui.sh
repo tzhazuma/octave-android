@@ -27,6 +27,7 @@ NDK="$HOME/Library/Android/sdk/ndk/28.2.13676358"
 TC="$NDK/toolchains/llvm/prebuilt/darwin-x86_64"
 WRAP="$ROOT/scripts/toolbin/aarch64-linux-android24-flang-new"
 FLANG_RT_DIR="$P/flang-runtime"
+GL4ES="$ROOT/src/gl4es"   # desktop-GL-to-GLES shim: supplies glSelectBuffer/glRenderMode
 QT="$HOME/freecad-android/Qt/6.8.3/android_arm64_v8a"
 QTH="$HOME/Qt-host/6.8.3/macos"
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
@@ -88,7 +89,7 @@ export QT_HOST_LIBEXECS="$QTH/libexec"
   --without-curl --without-hdf5 --without-sundials \
   --without-spqr --without-amd --without-ccolamd --without-colamd --without-cholmod \
   --without-cxsparse --without-umfpack --without-suitesparseconfig \
-  --without-freetype --without-fontconfig --without-opengl --without-fltk \
+  --without-freetype --without-fontconfig --with-opengl --without-fltk \
   --with-qt=6 --enable-gui --without-qscintilla \
   --without-magick --without-portaudio --without-sndfile --without-alsa \
   --without-wayland-client --without-qrupdate --without-arpack \
@@ -97,7 +98,8 @@ export QT_HOST_LIBEXECS="$QTH/libexec"
   --with-qhull_r-includedir="$P/qhull/include" --with-qhull_r-libdir="$P/qhull/lib" \
   --with-glpk-includedir="$P/glpk/include" --with-glpk-libdir="$P/glpk/lib" \
   "${AC_CV[@]}" \
-  "CPPFLAGS=$INCS -D_FORTIFY_SOURCE=2" \
+  "CPPFLAGS=$INCS -I$GL4ES/include -D_FORTIFY_SOURCE=2" \
+  "LDFLAGS=-L$GL4ES/lib" \
   "CFLAGS=-O2 -fPIC" \
   "CXXFLAGS=-O2 -fPIC" \
   "QT_CPPFLAGS=-I$QT/include$QT_INCS" \
