@@ -1168,3 +1168,34 @@ FreeCAD 已经在同一台设备上跑通了 Qt，它的做法就是模板（`~/
 
 **当前状态**：GUI 的 APK 能装、Qt 能起、库能加载，卡在原子符号解析这一关。
 编译/链接/打包/清单都已就绪，剩下的是原子符号这一个链接细节。
+
+## 2026-10-22 (4)：原子符号这一关的进展与结论
+
+上一轮卡在 `__aarch64_ldadd4_acq_rel`，这一轮把它推到了很后面：
+
+1. `liboctave.so` 已被我上一轮误删，用 `make -n` 取出的 libtool 命令手工重建成功（22.4 MB）。
+2. 手写 shim（`src/atomic-shim/atomic_shim.c`）从 20 个符号扩到 **48 个**
+   （ldadd/cas/swp × 1/2/4/8 字节 × relax/acq/rel/acq_rel 四种内存序），
+   再补上 `__powisf2` / `__powidf2`。
+3. 让三个库（liboctave / liboctinterp / liboctgui）在链接时**直接依赖** shim
+   （`-latomic-shim`），验证 `NEEDED` 里确实出现了 `libatomic-shim.so`。
+   这一步真的生效了 —— 错误从 `__aarch64_ldadd4_acq_rel` 一路推进到 `__powisf2`、
+   再到 `__divsc3`。
+
+**结论：这是「补一个冒一个」的模式，不该继续逐个补。** 这些符号全部来自
+`libclang_rt.builtins`，本该由 clang 在链接每个 DSO 时自动带进去；现在它们
+「被引用但未定义」，说明 **libtool 的链接路径把 builtins 归档丢掉了**。
+
+试过但没成功的两条：
+- `-Wl,--whole-archive,<rt>,--no-whole-archive` 传给 libtool → 符号仍未定义
+- 直接把 `.a` 路径放在命令行 → libtool 把它当**依赖**而不是静态链接，只报
+  `warning: Linking the shared library against the static library ... is not portable!`
+
+**正解（下一轮执行）**：绕开 libtool，用**直接 clang++ 链接**这三个库
+（`libOctaveGui` 就是这么链的，所以它没有这个问题）。命令模板已经有了 ——
+`/tmp/gui-shared-link.sh` 就是把 libtool 行转成直接 clang++ 的脚本，同样的转换
+对三个库各做一次即可；clang 会自动把自己的 builtins 归档带进来，48 个 shim 符号
+和 `__divsc3` 这类就一起消失了。
+
+**当前真机状态**：APK 能装、Qt 能起、Qt/Octave/GL 库都能加载，
+卡在 liboctave.so 的 `__divsc3`。
