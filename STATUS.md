@@ -1199,3 +1199,29 @@ FreeCAD 已经在同一台设备上跑通了 Qt，它的做法就是模板（`~/
 
 **当前真机状态**：APK 能装、Qt 能起、Qt/Octave/GL 库都能加载，
 卡在 liboctave.so 的 `__divsc3`。
+
+## 2026-10-22 (5)：直连 clang 的尝试与失败方式（已恢复构建树）
+
+按上一轮的判断，写了一个把 automake/libtool 链接行转换成**直接 clang++** 的脚本
+（`/tmp/direct-link.py`），目标是让 clang 自己把 `libclang_rt.builtins` 带进来。
+转换过程中逐层修掉了这些：
+
+| 现象 | 原因 |
+|---|---|
+| `unknown --format value: indir` | configure 变量以裸 flag 形式漏进命令（`-bindir <dir>`） |
+| `cannot open .../octave/bin: Is a directory` | 同上，目录被当成输入文件 |
+| `unknown directive: pic_object=` | `.lo` 是 libtool 元数据，真正目标是 `.libs/*.o` |
+| `unknown directive: dlname=` | 目录名里的 `-`（`blas-xtra`、`template-inst`）没被正则覆盖 |
+
+这些修完后**链接「成功」了，但产物只有 175 KB**（应为 22.4 MB）—— 说明转换后的
+命令行漏掉了绝大部分目标文件，`--allow-shlib-undefined` 又让错误静默通过。
+这是个危险的失败模式：看起来成功、实际是个空壳。
+
+**已恢复**：用正常的 libtool 路径重建，三个库回到正确体积
+（liboctgui 4.6 MB / liboctinterp 22.3 MB / liboctave 22.4 MB）。
+
+**结论**：直连 clang 这条路可行但我的转换器不可靠（libtool 的链接行包含大量隐含语义，
+逐个还原容易出错且错误不可见）。**更稳妥的路线是 `-mno-outline-atomics` 全量重编**
+—— 它从源头消掉 `__aarch64_*` 这一大类符号，不需要改链接方式；
+剩下的 `__divsc3` / `__powisf2` 等继续用手写 shim 补（这部分已经验证有效）。
+全量重编预计 30–60 分钟，是下一轮该做的事。
