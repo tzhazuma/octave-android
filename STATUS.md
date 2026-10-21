@@ -1225,3 +1225,29 @@ FreeCAD 已经在同一台设备上跑通了 Qt，它的做法就是模板（`~/
 —— 它从源头消掉 `__aarch64_*` 这一大类符号，不需要改链接方式；
 剩下的 `__divsc3` / `__powisf2` 等继续用手写 shim 补（这部分已经验证有效）。
 全量重编预计 30–60 分钟，是下一轮该做的事。
+
+## 2026-10-22 (6)：原子/复数内建符号已闭环，APK 待安装
+
+把 shim 补到 **54 个符号**，覆盖了前面逐个冒出来的全部类别：
+
+- `__aarch64_ldadd/cas/swp` × 1/2/4/8 字节 × relax/acq/rel/acq_rel（48 个）
+- `__powisf2`、`__powidf2`（整数幂）
+- `__divsc3`、`__divdc3`、`__mulsc3`、`__muldc3`（复数乘除，clang 对
+  `float _Complex` / `double _Complex` 的除法和乘法不内联，而 bionic 没有这些符号）
+
+并且让三个库都在 `NEEDED` 里带上 `libatomic-shim.so`。**符号闭环已用 objdump 验证**：
+
+```
+liboctave.so   NEEDED libatomic-shim.so  ✅
+liboctgui.so   NEEDED libatomic-shim.so  ✅
+liboctinterp.so NEEDED libatomic-shim.so ✅
+
+shim 定义: __divsc3 ✅  __powisf2 ✅  __aarch64_cas8_acq ✅  __aarch64_ldadd4_acq_rel ✅
+```
+
+注意：这些符号在三个库里仍然是 `U`（未定义）—— **这是正确的**，
+它们由 NEEDED 里的 shim 在运行时提供，而不是在每个库里各复制一份。
+
+**卡点**：133 MB 的 APK 已经构建好，但设备掉线了（`10.20.101.184:38559` 与
+`192.168.0.108:44213` 两条传输都是 offline），装不上去。
+设备回来后第一件事就是安装并看 GUI 是否真的起来。
