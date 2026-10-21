@@ -1113,3 +1113,34 @@ undefined (留给 gl4es 在运行期提供): glRenderMode, glSelectBuffer
 
 即：GUI 那 4.6 MB 的库真的链出来了，selection 系列按设计留成未定义符号，
 由 `libGL.so`（gl4es）在运行时满足。剩下的是把 gl4es + Qt 一起部署到设备上启动。
+
+## 2026-10-22 (2)：Octave GUI 上线到真机的完整配方（已探明，待执行）
+
+`liboctgui.so` 已经能编出来了，但「把 GUI 跑起来」不是把库塞进现有 APK 就行 —— 它需要
+Qt for Android 的**进程内**初始化，而不是 exec 一个可执行文件。
+
+FreeCAD 已经在同一台设备上跑通了 Qt，它的做法就是模板（`~/freecad-android`）：
+
+1. **Activity 继承 Qt 的类**，而不是自己写：
+   `public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity`
+   这个类来自 Qt 的 Android jar（Qt 6.8.3 kit 的 `jar/` 目录）。
+2. **manifest 里声明 lib_name**：
+   ```xml
+   <meta-data android:name="android.app.lib_name" android:value="OctaveGui" />
+   ```
+   QtLoader 会把它拼成 `<value>_<abi>` → `OctaveGui_arm64-v8a` → `libOctaveGui_arm64-v8a.so`，
+   并**在该库里找 `main()`**；Qt 会在调用它之前把 JNI/Android 环境准备好。
+3. 因此 octave-gui 必须**编译成共享库并导出 main()**，而不是现在的可执行文件。
+   （现有 `src/.libs/octave-gui` 是普通 ELF 可执行文件，需要加 `-shared -Wl,-e,main`
+   或者用 Qt 的 `androiddeployqt` 方式重链接。）
+4. `jniLibs/arm64-v8a/` 里要放：Qt6 Core/Gui/Widgets/Network/OpenGL/OpenGLWidgets、
+   Qt 的 `libplugins_platforms_qtforandroid_arm64-v8a.so`（以及 imageformats/debug 插件）、
+   gl4es 的 `libGL.so` + `libGLU.so`、`liboctgui.so` / `liboctinterp.so` / `liboctave.so` / `liboctmex.so`。
+5. `useLegacyPackaging = true`（FreeCAD 的 build.gradle 就是这么设的），否则 native 库不解压。
+6. 资源：现有的 `assets/oct`（75 MB，Octave 的 m 文件）继续用，另加 Qt 的 plugins 目录。
+
+规模估算：库约 80 MB（Qt 22 + octave 49 + gl4es 5）+ 数据 75 MB ≈ 150 MB APK，
+和 FreeCAD（406 MB）比是小量级。
+
+**所以 Octave GUI 的剩余工作不是「能不能编」（已解决），而是这一步 Qt 打包集成** ——
+路线清楚、没有未知数，属于机械执行。
