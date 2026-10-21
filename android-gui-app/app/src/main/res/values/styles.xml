@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Minimal theme. Qt's QtActivity normally expects a Qt-supplied theme
+         (QT_ANDROID_THEMES); for a headless run a plain one is enough. -->
+    <style name="AppTheme" parent="@android:style/Theme.DeviceDefault.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+        <!--
+          targetSdk 35 turns on edge-to-edge enforcement, which makes the app draw
+          underneath the status bar. FreeCAD's top toolbar is at y=0, so the clock and
+          notification icons landed on top of New/Open/Save and made them untappable.
+          Opting out keeps the system bars outside the Qt window, exactly like the
+          desktop layout expects.
+        -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+</resources>

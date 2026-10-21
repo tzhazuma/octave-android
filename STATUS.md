@@ -1144,3 +1144,27 @@ FreeCAD 已经在同一台设备上跑通了 Qt，它的做法就是模板（`~/
 
 **所以 Octave GUI 的剩余工作不是「能不能编」（已解决），而是这一步 Qt 打包集成** ——
 路线清楚、没有未知数，属于机械执行。
+
+## 2026-10-22 (3)：Octave GUI 的 APK 已能加载到最后一关
+
+按 FreeCAD 的 Qt 配方做出了 `android-gui-app`（133 MB），QtLoader 能起、能找到 `main`、
+`libGL.so` 也能解析了。逐层踩过的坑：
+
+1. **`libpython3.11.so` 找不到** —— `res/values/libs.xml` 是 FreeCAD 的库清单，
+   还带着 python 和一堆 TK* 条目。改写成 Octave 自己的（Qt 库 + oct* + GL/GLU + fftw/openblas）。
+2. **`library "libGL.so.1" not found`** —— gl4es 的 `src/CMakeLists.txt` 里有一行
+   `set_target_properties(GL PROPERTIES SUFFIX ".so.1")`，产出的文件名和 SONAME 都是
+   `libGL.so.1`；而 Android 的打包器只解压 `lib*.so`，`.so.1` 根本不会被解出来。
+   把那行改成 `.so` 重建，SONAME 变成 `libGL.so`，再强制重链 octave 的三个库，
+   它们的 NEEDED 也跟着变成 `libGL.so`。
+3. **`cannot locate symbol "__aarch64_ldadd4_acq_rel"`** —— clang 的 outline-atomics
+   把原子操作编译成对编译器运行时辅助函数的调用，而这些符号在
+   `libclang_rt.builtins`（静态库）里且不导出。写了 `src/atomic-shim/atomic_shim.c`
+   提供 20 个 `__aarch64_ldadd/cas/swp` 符号（各自用 `__atomic_*` 内建实现，
+   并用 `-mno-outline-atomics` 编译避免递归）。
+   **这一步还没完全解决**：通过 `qt_libs` 预加载不够（符号没有全局可见），
+   正解是让 liboctgui/liboctinterp/liboctave 在链接时**直接依赖** shim，
+   或者干脆用 `-mno-outline-atomics` 全量重编（更慢但更干净）。
+
+**当前状态**：GUI 的 APK 能装、Qt 能起、库能加载，卡在原子符号解析这一关。
+编译/链接/打包/清单都已就绪，剩下的是原子符号这一个链接细节。

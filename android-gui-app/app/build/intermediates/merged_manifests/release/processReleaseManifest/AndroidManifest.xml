@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.octave.gui"
+    android:versionCode="2"
+    android:versionName="0.2.0" >
+
+    <uses-sdk
+        android:minSdkVersion="31"
+        android:targetSdkVersion="35" />
+
+    <!--
+      FreeCAD is a desktop Qt application: its own Qt file dialogs are what open and save
+      documents, and they speak plain POSIX paths, not Storage Access Framework URIs. So
+      instead of routing every dialog through SAF, the port asks for the one permission that
+      makes ordinary paths work again: "All files access".
+
+      Without it, Android's scoped storage hides /storage/emulated/0 from the process, and
+      both Open and Save in FreeCAD can only reach the app's private directory.
+    -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <!-- Pre-Android-11 devices grant the same reach through the legacy permissions. -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+
+    <application
+        android:extractNativeLibs="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="FreeCAD"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="org.octave.gui.MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+            android:exported="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+              Qt's QtLoader reads this key and builds the library name as
+                <value>_<abi>  ->  FreeCADCmd_arm64-v8a  ->  libFreeCADCmd_arm64-v8a.so
+              That library must export main(); Qt calls it after setting up the
+              JNI/Android environment that QCoreApplication requires.
+            -->
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="OctaveGui" />
+
+            <!--
+                 Arguments handed to main() as argv: only the workbench module paths.
+                 Do NOT append a document path here. FreeCAD treats a bare argument as a
+                 file to open, so the example .FCStd that used to be here made the app jump
+                 straight into a document and skip the Start page.
+            -->
+
+
+            <!-- Qt's own metadata; harmless for a headless run -->
+            <meta-data
+                android:name="android.app.background_running"
+                android:value="false" />
+        </activity>
+    </application>
+
+</manifest>

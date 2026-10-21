@@ -1,0 +1,82 @@
+plugins { id 'com.android.application' }
+
+// Qt ships QtActivity/QtLoader/QtApplication as *Java source* under
+//   $QT_ANDROID/src/android/java/src
+// while the prebuilt Qt6Android.jar only carries org.qtproject.qt.android.*
+// (QtNative and friends). Qt's own androiddeployqt compiles these sources into the
+// app, so we do the same here.
+def qtAndroidRoot = System.getenv("QT_ANDROID_DIR") ?:
+        "${System.getProperty("user.home")}/freecad-android/Qt/6.8.3/android_arm64_v8a"
+
+android {
+    namespace = "org.octave.gui"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "org.octave.gui"
+        minSdk = 31
+        targetSdk = 35
+        versionCode = 2
+        versionName = "0.2.0"
+        ndk { abiFilters 'arm64-v8a' }
+    }
+
+    sourceSets {
+        main {
+            // 我们的 native 库（FreeCAD + OCCT + Qt + Python）
+            jniLibs.srcDirs = ['../jniLibs']
+            // Qt 的 Java 引导源码
+            java.srcDirs += "${qtAndroidRoot}/src/android/java/src"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packagingOptions {
+        jniLibs { useLegacyPackaging = true }
+    }
+
+    androidResources {
+        // The CPython extension modules travel as assets; keep them stored so
+        // extraction is a straight copy.
+        noCompress 'so', 'zip'
+    }
+
+    // The release keystore and its password live OUTSIDE the repository, under
+    // ~/.freecad-android-keys/, so they can never be committed by accident. When they
+    // are absent -- a fresh clone, or CI without the secret -- the release build falls
+    // back to the debug key so that `assembleRelease` still yields an installable APK.
+    // A debug-signed build must not be distributed: it shares Android's public debug
+    // key with every other debug build on the device.
+    signingConfigs {
+        release {
+            def ksDir  = new File(System.getProperty("user.home"), ".freecad-android-keys")
+            def ksFile = new File(ksDir, "freecad-release.jks")
+            def pwFile = new File(ksDir, "keystore.password")
+            if (ksFile.exists() && pwFile.exists()) {
+                storeFile     = ksFile
+                storePassword = pwFile.text.trim()
+                keyAlias      = "freecad"
+                keyPassword   = pwFile.text.trim()
+            }
+        }
+    }
+
+    buildTypes {
+        debug { minifyEnabled false }
+        release {
+            minifyEnabled false
+            signingConfig = signingConfigs.release.storeFile != null
+                    ? signingConfigs.release
+                    : signingConfigs.debug
+        }
+    }
+}
+
+dependencies {
+    implementation files('libs/Qt6Android.jar')
+    implementation 'androidx.annotation:annotation:1.9.1'
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/azuma/octave-android/android-gui-app/app/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!&lt;dir>navigation"><source path="/Users/azuma/octave-android/android-gui-app/app/src/main/res"><file name="ic_launcher" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-mdpi/ic_launcher.png" qualifiers="mdpi-v4" type="mipmap"/><file name="ic_launcher_round" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" qualifiers="mdpi-v4" type="mipmap"/><file name="ic_launcher" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-hdpi/ic_launcher.png" qualifiers="hdpi-v4" type="mipmap"/><file name="ic_launcher_round" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" qualifiers="hdpi-v4" type="mipmap"/><file name="ic_launcher" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" qualifiers="xxxhdpi-v4" type="mipmap"/><file name="ic_launcher_round" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" qualifiers="xxxhdpi-v4" type="mipmap"/><file name="ic_launcher" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" qualifiers="xxhdpi-v4" type="mipmap"/><file name="ic_launcher_round" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" qualifiers="xxhdpi-v4" type="mipmap"/><file path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/values/styles.xml" qualifiers=""><style name="AppTheme" parent="@android:style/Theme.DeviceDefault.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+        
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style></file><file path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/values/libs.xml" qualifiers=""><array name="qt_libs">
+        <item>arm64-v8a;atomic-shim</item>
+        <item>arm64-v8a;Qt6Core_arm64-v8a</item>
+        <item>arm64-v8a;plugins_platforms_qtforandroid_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Concurrent_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Gui_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Network_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Widgets_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Xml_arm64-v8a</item>
+        <item>arm64-v8a;plugins_iconengines_qsvgicon_arm64-v8a</item>
+        <item>arm64-v8a;plugins_imageformats_qgif_arm64-v8a</item>
+        <item>arm64-v8a;plugins_imageformats_qico_arm64-v8a</item>
+        <item>arm64-v8a;plugins_imageformats_qjpeg_arm64-v8a</item>
+        <item>arm64-v8a;plugins_imageformats_qsvg_arm64-v8a</item>
+        <item>arm64-v8a;plugins_styles_qandroidstyle_arm64-v8a</item>
+    </array><array name="bundled_libs">
+        <item>arm64-v8a;OctaveGui_arm64-v8a</item>
+        <item>arm64-v8a;c++_shared</item>
+        <item>arm64-v8a;GL</item>
+        <item>arm64-v8a;GLU</item>
+        <item>arm64-v8a;Qt6OpenGL_arm64-v8a</item>
+        <item>arm64-v8a;Qt6OpenGLWidgets_arm64-v8a</item>
+        <item>arm64-v8a;Qt6PrintSupport_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Svg_arm64-v8a</item>
+        <item>arm64-v8a;Qt6SvgWidgets_arm64-v8a</item>
+        <item>arm64-v8a;Qt6UiTools_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Help_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Core5Compat_arm64-v8a</item>
+        <item>arm64-v8a;octgui</item>
+        <item>arm64-v8a;octmex</item>
+        <item>arm64-v8a;octinterp</item>
+        <item>arm64-v8a;octave</item>
+        <item>arm64-v8a;openblas</item>
+        <item>arm64-v8a;fftw3</item>
+        <item>arm64-v8a;fftw3_threads</item>
+        <item>arm64-v8a;fftw3f</item>
+        <item>arm64-v8a;fftw3f_threads</item>
+    </array><array name="load_local_libs">
+    </array><string name="static_init_classes"/><string name="use_local_qt_libs">1</string><string name="bundle_local_qt_libs">1</string><string name="system_libs_prefix"/></file><file path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/values/qt_strings.xml" qualifiers=""><string name="fatal_error_msg">Your application encountered a fatal error and cannot continue.</string><string name="unsupported_android_version">This version of Android is not supported.</string></file><file path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/values/ic_launcher_background.xml" qualifiers=""><color name="ic_launcher_background">#FFFFFF</color></file><file name="ic_launcher_foreground" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/drawable-xhdpi/ic_launcher_foreground.png" qualifiers="xhdpi-v4" type="drawable"/><file name="ic_launcher_foreground" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/drawable-xxhdpi/ic_launcher_foreground.png" qualifiers="xxhdpi-v4" type="drawable"/><file name="ic_launcher_foreground" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/drawable-hdpi/ic_launcher_foreground.png" qualifiers="hdpi-v4" type="drawable"/><file name="ic_launcher_foreground" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/drawable-mdpi/ic_launcher_foreground.png" qualifiers="mdpi-v4" type="drawable"/><file name="ic_launcher" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-xhdpi/ic_launcher.png" qualifiers="xhdpi-v4" type="mipmap"/><file name="ic_launcher_round" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" qualifiers="xhdpi-v4" type="mipmap"/><file name="ic_launcher_foreground" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/drawable-xxxhdpi/ic_launcher_foreground.png" qualifiers="xxxhdpi-v4" type="drawable"/><file name="ic_launcher" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" qualifiers="anydpi-v26" type="mipmap"/><file name="ic_launcher_round" path="/Users/azuma/octave-android/android-gui-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" qualifiers="anydpi-v26" type="mipmap"/></source></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/azuma/octave-android/android-gui-app/app/src/release/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release" generated-set="release$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!&lt;dir>navigation"><source path="/Users/azuma/octave-android/android-gui-app/app/src/release/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"/><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!&lt;dir>navigation"/><mergedItems/></merger>

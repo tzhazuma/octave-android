@@ -1,0 +1,106 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="org.octave.gui"
+4    android:versionCode="2"
+5    android:versionName="0.2.0" >
+6
+7    <uses-sdk
+7-->INJECTED
+8        android:minSdkVersion="31"
+8-->INJECTED
+9        android:targetSdkVersion="35" />
+9-->INJECTED
+10
+11    <!--
+12      FreeCAD is a desktop Qt application: its own Qt file dialogs are what open and save
+13      documents, and they speak plain POSIX paths, not Storage Access Framework URIs. So
+14      instead of routing every dialog through SAF, the port asks for the one permission that
+15      makes ordinary paths work again: "All files access".
+16
+17      Without it, Android's scoped storage hides /storage/emulated/0 from the process, and
+18      both Open and Save in FreeCAD can only reach the app's private directory.
+19    -->
+20    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+20-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:13:5-82
+20-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:13:22-79
+21    <!-- Pre-Android-11 devices grant the same reach through the legacy permissions. -->
+22    <uses-permission
+22-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:15:5-16:38
+23        android:name="android.permission.READ_EXTERNAL_STORAGE"
+23-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:15:22-77
+24        android:maxSdkVersion="32" />
+24-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:16:9-35
+25    <uses-permission
+25-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:17:5-18:38
+26        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+26-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:17:22-78
+27        android:maxSdkVersion="29" />
+27-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:18:9-35
+28
+29    <application
+29-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:20:5-55:19
+30        android:extractNativeLibs="true"
+30-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:25:9-41
+31        android:icon="@mipmap/ic_launcher"
+31-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:22:9-43
+32        android:label="FreeCAD"
+32-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:21:9-32
+33        android:roundIcon="@mipmap/ic_launcher_round"
+33-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:23:9-54
+34        android:supportsRtl="true"
+34-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:24:9-35
+35        android:theme="@style/AppTheme" >
+35-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:26:9-40
+36        <activity
+36-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:28:9-54:20
+37            android:name="org.octave.gui.MainActivity"
+37-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:29:13-41
+38            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+38-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:30:13-94
+39            android:exported="true"
+39-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:31:13-36
+40            android:launchMode="singleTask" >
+40-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:32:13-44
+41            <intent-filter>
+41-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:34:13-37:29
+42                <action android:name="android.intent.action.MAIN" />
+42-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:35:17-69
+42-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:35:25-66
+43
+44                <category android:name="android.intent.category.LAUNCHER" />
+44-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:36:17-77
+44-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:36:27-74
+45            </intent-filter>
+46
+47            <!--
+48              Qt's QtLoader reads this key and builds the library name as
+49                <value>_<abi>  ->  FreeCADCmd_arm64-v8a  ->  libFreeCADCmd_arm64-v8a.so
+50              That library must export main(); Qt calls it after setting up the
+51              JNI/Android environment that QCoreApplication requires.
+52            -->
+53            <meta-data
+53-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:45:13-88
+54                android:name="android.app.lib_name"
+54-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:45:24-59
+55                android:value="OctaveGui" />
+55-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:45:60-85
+56
+57            <!--
+58                 Arguments handed to main() as argv: only the workbench module paths.
+59                 Do NOT append a document path here. FreeCAD treats a bare argument as a
+60                 file to open, so the example .FCStd that used to be here made the app jump
+61                 straight into a document and skip the Start page.
+62            -->
+63
+64
+65            <!-- Qt's own metadata; harmless for a headless run -->
+66            <meta-data
+66-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:13-94
+67                android:name="android.app.background_running"
+67-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:24-69
+68                android:value="false" />
+68-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:70-91
+69        </activity>
+70    </application>
+71
+72</manifest>
