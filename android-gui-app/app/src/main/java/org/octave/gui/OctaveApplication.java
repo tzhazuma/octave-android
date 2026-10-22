@@ -44,6 +44,13 @@ public class OctaveApplication extends Application {
         set("HOME", files);
         set("TMPDIR", files);
         set("TERM", "dumb");
+        /* gl4es (libGL.so) probes the GPU from its ELF constructor by creating and then
+         * destroying its own EGL display, Pbuffer surface and context. That happens during
+         * dlopen, before Qt gets a chance to initialise, and it leaves the EGL display in a
+         * state where Qt's eglChooseConfig returns no configs -- Qt's Android platform plugin
+         * then aborts. LIBGL_NOTEST makes gl4es skip the probe and assume conservative GLES2
+         * defaults. This is the same ordering FreeCAD needed. */
+        set("LIBGL_NOTEST", "1");
 
         /* No preload of Octave's libraries on purpose. System.loadLibrary("octgui") pulls
          * Qt6Core in before QtLoader has set up the JNI environment, and Qt then aborts with

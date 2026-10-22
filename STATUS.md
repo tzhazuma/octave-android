@@ -1399,3 +1399,36 @@ mutex** 加锁，被 libc 的 FORTIFY 检查拦下并 abort。
 
 下一步应该从 FreeCAD 那份 `MainActivity` 里把生命周期相关的处理搬过来对照，
 而不是继续用极简版本。
+
+## 2026-10-22 (11)：照 FreeCAD 的两处关键配置补齐，A11Y 警告消失
+
+FreeCAD 的 `onCreate` 里有两段注释直接对应我的失败：
+
+**1. gl4es 在 ELF 构造函数里探测 GPU**
+
+> gl4es 在构造函数里创建并销毁自己的 EGL display / Pbuffer / context，
+> 那样会让 Qt 的 `eglChooseConfig` 返回不到任何配置，Qt 的 Android 插件就 abort。
+
+修法：`LIBGL_NOTEST=1`，在 Qt 加载任何库之前设好（放在 `Application.onCreate`）。
+
+**2. Qt 的无障碍桥会在 Qt 线程忙时阻塞 UI 线程**
+
+修法：`onCreate` 里 `super.onCreate` 之后把 decor view 的
+`IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS` 设上、`setAccessibilityDelegate(null)`。
+
+两处都补了，**`Qt A11Y: Unable to initialize the accessibility delegate` 的警告确实消失了**，
+解压日志也正常出现（480 ms）。
+
+**仍未解决**：
+
+```
+F libc : FORTIFY: pthread_mutex_lock called on a destroyed mutex (0x74912ea6d8)
+```
+
+约 750 ms 后 abort。可疑点：进程刚起就有人在**析构路径**上重复加锁。
+注意地址 `0x74912ea6d8` 在多次运行中**完全相同**，说明它不是 ASLR 随机后的堆地址，
+而是某个库固定偏移处的对象。
+
+已用 `logcat -b crash` 确认没有 tombstone 帧（只有 FORTIFY 一行），
+所以拿不到调用栈，下一轮需要换手段定位（例如打开 debuggerd、或从 Qt 的
+`qtMainLoopThread` 启动顺序入手）。
