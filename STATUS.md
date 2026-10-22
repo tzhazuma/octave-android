@@ -1364,3 +1364,38 @@ Abort message: 'JNI DETECTED ERROR IN APPLICATION: java_class == null'
 
 移除后：Activity 正常显示（+155ms），但进程随后**静默退出，没有任何崩溃日志**。
 下一轮要查的是 `octave-gui` 的 `main()` 是不是在某个条件下直接返回了。
+
+## 2026-10-22 (10)：环境变量修对了，但仍有 Qt 层的 FORTIFY abort
+
+**修掉的真 bug**：`OCTAVE_HOME` 指高了一层。资产布局是 `assets/oct/octave/{bin,lib,share}`，
+而我原来把 `OCTAVE_HOME` 设成 `files/octave`，实际应是 `files/octave/octave`。
+另外**完全没设 `LD_LIBRARY_PATH`** —— 控制台版是设了的（nativeLibraryDir +
+Octave 的 archlibdir），不设的话 Octave 内部 dlopen 找不到自己的库。
+
+现在 `OctaveApplication` 设的是（照抄控制台版已验证的配置）：
+
+```
+OCTAVE_HOME        = files/octave/octave
+OCTAVE_ARCHLIBDIR  = files/octave/octave/lib/octave/11.3.0
+LD_LIBRARY_PATH    = <nativeLibraryDir>:files/octave/octave/lib/octave/11.3.0
+PATH               = <nativeLibraryDir>:files/octave/octave/bin:/system/bin
+HOME / TMPDIR      = files
+```
+
+**仍存在的错误**（同一个，换了正确的环境后没变）：
+
+```
+W Qt A11Y : Unable to initialize the accessibility delegate with a null layout
+F libc    : FORTIFY: pthread_mutex_lock called on a destroyed mutex (0x74912ea6d8)
+```
+
+读法：Activity 显示（+657ms）→ 约 700ms 后窗口被销毁 → 析构路径上对一个**已销毁的
+mutex** 加锁，被 libc 的 FORTIFY 检查拦下并 abort。
+
+两帧同地址（0x74912ea6d8）说明是同一个对象被重复使用。可能的方向：
+- Qt 6.8.3 的 Android 后端在这个 ROM（OriginOS / Android 16）上的析构顺序问题
+- 我们的 `MainActivity` 过于极简（FreeCAD 那个有 665 行，处理了 Qt 的生命周期回调）
+- Octave 的主窗口在 `main()` 里创建失败后退出，触发 Qt 的拆解路径
+
+下一步应该从 FreeCAD 那份 `MainActivity` 里把生命周期相关的处理搬过来对照，
+而不是继续用极简版本。
