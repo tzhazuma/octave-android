@@ -30,22 +30,12 @@ public class OctaveApplication extends Application {
         set("TMPDIR", files);
         set("PATH", "/system/bin:/system/xbin");
         unpackOctaveData(files);
-        /* Load Octave now, with the environment already set, instead of letting QtLoader do it
-         * later. Its static constructors read OCTAVE_HOME and environ; establishing them first
-         * is the difference between a clean init and a null dereference inside dlopen. */
-        preload();
+        /* No preload here on purpose. System.loadLibrary("octgui") would pull Qt6Core in before
+         * QtLoader has established the JNI environment, and Qt then aborts with
+         * "JNI DETECTED ERROR IN APPLICATION: java_class == null". QtLoader loads the whole set
+         * in the right order; the environment above is all it needs from us. */
     }
 
-    private static void preload() {
-        for (String lib : new String[] {"atomic-shim", "octave", "octinterp", "octgui"}) {
-            try {
-                System.loadLibrary(lib);
-                android.util.Log.i("OctaveApp", "preloaded lib" + lib);
-            } catch (Throwable t) {
-                android.util.Log.e("OctaveApp", "preload failed: " + lib, t);
-            }
-        }
-    }
 
     /** Copy assets/oct/** into files/octave once, so OCTAVE_HOME points at real files. */
     private void unpackOctaveData(String files) {

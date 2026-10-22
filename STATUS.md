@@ -1322,3 +1322,45 @@ string_vector tilde_additional_suffixes = default_suffixes;
 需要确认在这个构建里它为什么不可用 —— 可能和 `-fno-threadsafe-statics`、
 或者 liboctave 与 liboctinterp 之间的静态初始化次序有关。
 这是 Octave GUI 最后一个技术障碍，且现在**根因范围已经缩到 Array 的 rep 机制**。
+
+## 2026-10-22 (9)：真正的根因 —— 我的 shim 参数顺序反了
+
+上一轮把崩溃定位到 `Array` 的 rep 机制，这一轮**反汇编**了崩溃点，得到决定性证据：
+
+```
+1120a6c: add x1, x0, #0x18          ; x1 = &rep->m_count（指针放 x1）
+1120a74: mov w0, #0x1               ; x0 = 1（要加的值放 x0）
+1120a7c: bl  __aarch64_ldadd8_acq_rel
+```
+
+**调用方是按 `(值, 指针)` 传参的，而我的 shim 写成了 `(指针, 值)`。**
+于是它把常数 `1` 当成了地址去解引用 —— 正好就是 `fault addr 0x1`。
+
+所以前面几轮认定的「Octave 静态初始化 bug」**根本不是 Octave 的问题**，
+是我自己写的兼容层的 ABI 错误。`cas` 同理，正确签名是 `(oldval, newval, ptr)`。
+
+修正 ABI 后立刻见效：
+
+```
+I OctaveApp: preloaded libatomic-shim
+I OctaveApp: preloaded liboctave        ← 之前就崩在这里
+I OctaveApp: preloaded liboctinterp
+I OctaveApp: preloaded liboctgui
+```
+
+**四个库全部加载成功，SIGSEGV 消失。**
+
+### 连锁发现：预加载本身又会破坏 Qt
+
+四个库能加载后，出现新错误：
+
+```
+Abort message: 'JNI DETECTED ERROR IN APPLICATION: java_class == null'
+```
+
+原因是 `System.loadLibrary("octgui")` 会**连带把 Qt6Core 提前拉起来**，
+抢在 QtLoader 建立 JNI 环境之前，Qt 找不到自己的 Java 类就 abort。
+既然静态初始化崩溃已经不存在了，预加载不再需要 —— 已移除，交回 QtLoader 按正确顺序加载。
+
+移除后：Activity 正常显示（+155ms），但进程随后**静默退出，没有任何崩溃日志**。
+下一轮要查的是 `octave-gui` 的 `main()` 是不是在某个条件下直接返回了。
