@@ -1,0 +1,919 @@
+########################################################################
+##
+## Copyright (C) 2005-2026 The Octave Project Developers
+##
+## See the file COPYRIGHT.md in the top-level directory of this
+## distribution or <https://octave.org/copyright/>.
+##
+## This file is part of Octave.
+##
+## Octave is free software: you can redistribute it and/or modify it
+## under the terms of the GNU General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## Octave is distributed in the hope that it will be useful, but
+## WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with Octave; see the file COPYING.  If not, see
+## <https://www.gnu.org/licenses/>.
+##
+########################################################################
+
+## -*- texinfo -*-
+## @deftypefn  {} {} pkg @var{command}
+## @deftypefnx {} {} pkg @var{command} @var{pkg_name}
+## @deftypefnx {} {} pkg @var{command} @var{pkg_name1} @var{pkg_name2} @dots{}
+## @deftypefnx {} {} pkg @var{command} @var{option1} @dots{} @var{pkg_name1} @dots{}
+## @deftypefnx {} {[@var{out1}, @dots{}] =} pkg (@var{command}, @dots{})
+## Manage or query packages (groups of add-on functions) for Octave.
+##
+## Depending on the value of @var{command} and on the number of requested
+## return arguments, @code{pkg} can be used to perform several tasks.
+## Possible values for @var{command} are:
+##
+## @table @samp
+##
+## @item search
+## Search for packages having the specified search terms in the Octave Packages
+## index.  This may require an internet connection and the cURL library.
+##
+## @example
+## pkg search foo bar baz
+## @end example
+##
+## @noindent
+## shows packages whose descriptions contain all the search terms.
+##
+## Search terms are case-insensitive and can be regular expressions as well.
+## For example,
+##
+## @example
+## pkg search "[aeiou]@{4,@}"
+## @end example
+##
+## @noindent
+## shows all packages whose descriptions have four or more consecutive vowels.
+##
+## The option @option{-all} as in
+##
+## @example
+## pkg search -all
+## @end example
+##
+## @noindent
+## shows @emph{all} packages available on the Octave Packages index (not only
+## those that can be installed with the @command{pkg} command).
+##
+## By default, the Octave Packages index is downloaded only once per Octave
+## session in order to improve performance and to reduce the load on the index
+## server during repeated searches.  An update of the index can be enforced
+## with the option @option{-refresh}:
+##
+## @example
+## pkg search -all -refresh foo
+## @end example
+##
+## If an output variable is provided, as in
+##
+## @example
+## mypackages = pkg ("search", "foo")
+## @end example
+##
+## @noindent
+## then @code{pkg search} returns only those package names matching the search
+## term(s) @emph{and} which can be installed with @code{pkg install}.
+##
+## @item install
+## Install named packages.  For example, each of the following commands:
+##
+## @example
+## @group
+## pkg install pkgname
+## pkg install 'pkgname-1.0.0.tar.gz'
+## pkg install 'https://somewebsite.org/pkgname-1.0.0.tar.gz'
+## @end group
+## @end example
+##
+## @noindent
+## might install the package @code{pkgname}.  The sequence for the resolution
+## of the arguments after @code{pkg install} is:
+##
+## @enumerate
+## @item
+## If @code{pkgname} is a local file, Octave installs it.
+##
+## @item
+## Otherwise, if @code{pkgname} resembles a URL, Octave downloads and
+## installs it.
+##
+## @item
+## Otherwise, Octave queries the Octave Packages index online for a package
+## named @code{pkgname}, and if found, downloads and installs its latest
+## version.  If the Octave Packages index cannot be reached, a locally cached
+## version of the index might be used.  The Octave Packages index is only
+## downloaded once per Octave session (unless an index refresh is requested
+## with the option @option{-refresh}).
+## @end enumerate
+##
+## Online access requires an internet connection and the cURL library.
+##
+## @noindent
+## @emph{No support}: the GNU Octave community is not responsible for any
+## installed packages.  For support or for reporting bugs, you need to contact
+## the maintainers of the installed package directly (run @code{pkg describe}
+## on the package to get information).
+##
+## The following options are accepted for @code{pkg install}:
+##
+## @table @code
+## @item -nodeps
+## Disable dependency checking.  With this option it is possible to install a
+## package even when it depends on another package which is not installed on
+## the system.  @strong{Use this option with care.}
+##
+## @item -local
+## A local installation (package available only to current user) is forced,
+## even if Octave is being run with administrative privileges.
+##
+## @item -global
+## Force a global installation (package available to all users), even if
+## Octave is not being run with administrative privileges.  The user must have
+## write access to the global package store.
+##
+## @item -verbose
+## Print the output of all commands as they are performed.
+##
+## @item -refresh
+## Force an update of the cached package database from the online index.  By
+## default, Octave tries to download the Octave Packages index only once per
+## Octave session.  This option forces refreshing the index even if it was
+## already downloaded in the current Octave session.  The option
+## @option{-refresh} applies to @code{install}, @code{search}, and
+## @code{update} commands.
+##
+## @item -forge
+## The option @option{-forge} forces an installation of a package from the
+## Octave Packages index.  It cannot be used to install packages from a URL or
+## a local file.  It implies @option{-refresh}.
+## @end table
+##
+## If the package tarball contains a @file{configure} script, it is run during
+## the installation of the package.  If it contains a @file{Makefile}, the
+## command @command{make} is used by default.  It is possible to override the
+## default command with the environment variable @env{MAKE}.  Some Octave
+## packages might require GNU @command{make} which may be present under a
+## different name such as @command{gmake}.
+##
+## @item update
+## Check installed Octave packages against the latest version on the Octave
+## Packages index and update any outdated items.  Updated packages are
+## installed either globally or locally depending on whether Octave is running
+## with elevated privileges.  This requires an internet connection and the cURL
+## library.
+##
+## Options for the install command and the names of individual packages to be
+## checked for updates may be specified as a list following the update command.
+## If the option @option{-local} or @option{-global} is specified,
+## @code{pkg update} limits the update check to the local or global installed
+## packages, and installs updates in that same context.  For example,
+##
+## Update all packages:
+##
+## @example
+## pkg update
+## @end example
+##
+## Update all local packages:
+##
+## @example
+## pkg update -local
+## @end example
+##
+## Update certain packages, ignore dependencies, max verbosity:
+##
+## @example
+## pkg update -verbose -nodeps image signal geometry
+## @end example
+##
+## @noindent
+## Updates for multiple packages are sorted alphabetically and not checked
+## for dependencies affected by installation order.  If a dependency order
+## related @code{pkg update} failure occurs, use @code{pkg update -nodeps} to
+## ignore dependencies, or @code{pkg install <package_name>} to update
+## individual packages manually.
+##
+## @item uninstall
+## Uninstall named packages.  For example,
+##
+## @example
+## pkg uninstall image
+## @end example
+##
+## @noindent
+## removes the @code{image} package from the system.  If another installed
+## package depends on the @code{image} package an error is issued.  The package
+## removal can be forced by using the @option{-nodeps} option.
+##
+## Depending on whether Octave is being run with administrative privileges
+## only global or local packages are removed by default.  See @option{-global}
+## or @option{-local} to override that default behavior.
+##
+## @item load
+## Add named packages to the path.  After loading a package it is possible to
+## use the functions provided by the package.  For example,
+##
+## @example
+## pkg load image
+## @end example
+##
+## @noindent
+## adds the @code{image} package to the path.
+##
+## Note: When loading a package, @code{pkg} automatically tries to load any
+## unloaded dependencies as well, unless the @option{-nodeps} flag has been
+## specified.  For example,
+##
+## @example
+## pkg load signal
+## @end example
+##
+## @noindent
+## adds the @code{signal} package and also tries to load its dependency: the
+## @code{control} package.  Be aware that use of the @option{-nodeps} option
+## can adversely affect package functionality.
+##
+## @item unload
+## Remove named packages from the path.  After unloading a package it is no
+## longer possible to use the functions provided by the package.  Trying to
+## unload a package that other loaded packages still depend on causes an error;
+## no packages are unloaded in this case.  A package can be forcibly unloaded
+## with the @option{-nodeps} flag, at the risk of breaking dependent packages
+## that are still loaded.
+##
+## @item list
+## Show the list of currently installed packages.  For example,
+##
+## @example
+## pkg list
+## @end example
+##
+## @noindent
+## will produce a short report with the package name, version, and installation
+## directory for each installed package.  Supply a package name to limit
+## reporting to a particular package.  For example:
+##
+## @example
+## pkg list image
+## @end example
+##
+## If a single return argument is requested then @code{pkg} returns a cell
+## array where each element is a structure with information on a single
+## package.
+##
+## @example
+## installed_packages = pkg ("list")
+## @end example
+##
+## If two output arguments are requested @code{pkg} splits the list of
+## installed packages into those which were installed by the current user
+## (local packages), and those which were installed by the system administrator
+## (global packages).
+##
+## @example
+## [user_packages, system_packages] = pkg ("list")
+## @end example
+##
+## The option @option{-forge} lists all packages available on the Octave
+## Packages index that can be installed with the @code{pkg} command.  This
+## requires an internet connection and the cURL library.  This also updates the
+## locally cached file of the Octave Packages index.  Calling
+##
+## @example
+## octave_packages = pkg ("list", "-forge")
+## @end example
+##
+## @noindent
+## is identical to calling
+##
+## @example
+## octave_packages = pkg ("search", "-refresh", "-all")
+## @end example
+##
+## @item describe
+## Show a short description of installed packages.  With the option
+## @qcode{"-verbose"} also list functions provided by the package.  For
+## example,
+##
+## @example
+## pkg describe -verbose
+## @end example
+##
+## @noindent
+## describes all installed packages and the functions they provide.
+##
+## The result can be limited to a set of packages:
+##
+## @example
+## @group
+## ## describe control and signal packages
+## pkg describe control signal
+## @end group
+## @end example
+##
+## If one output is requested a cell of structure containing the
+## description and list of functions of each package is returned as
+## output rather than printed on screen:
+##
+## @example
+## desc = pkg ("describe", "secs1d", "image")
+## @end example
+##
+## @noindent
+## If any of the requested packages is not installed, @code{pkg} returns an
+## error, unless a second output is requested:
+##
+## @example
+## [desc, flag] = pkg ("describe", "secs1d", "image")
+## @end example
+##
+## @noindent
+## @var{flag} takes one of the values @qcode{"Not installed"},
+## @qcode{"Loaded"}, or @qcode{"Not loaded"} for each of the named packages.
+##
+## @item prefix
+## Set the installation prefix directory.  For example,
+##
+## @example
+## pkg prefix ~/my_octave_packages
+## @end example
+##
+## @noindent
+## sets the installation prefix to @file{~/my_octave_packages}.
+##
+## Packages are installed in this directory.
+##
+## Giving an output argument returns the current installation prefix.
+## For example:
+##
+## @example
+## pfx = pkg ("prefix")
+## @end example
+##
+## The location in which to install the architecture dependent files can be
+## independently specified with an additional argument.  For example:
+##
+## @example
+## pkg prefix ~/my_octave_packages ~/my_arch_dep_pkgs
+## @end example
+##
+## @item local_list
+## Set the file in which to look for information on locally installed
+## packages.  Locally installed packages are those that are typically available
+## only to the current user.  For example:
+##
+## @example
+## pkg local_list ~/.octave_packages
+## @end example
+##
+## Get the current value of local_list with
+##
+## @example
+## pkg local_list
+## @end example
+##
+## @item global_list
+## Set the file in which to look for information on globally installed
+## packages.  Globally installed packages are those that are typically
+## available to all users.  For example:
+##
+## @smallexample
+## pkg global_list /usr/share/octave/site/api-v59/octave_packages
+## @end smallexample
+##
+## Get the current value of global_list with
+##
+## @example
+## pkg global_list
+## @end example
+##
+## @item build
+## Build a binary form of a package or packages.  The binary file produced
+## is itself an Octave package that can be installed normally with @code{pkg}.
+## For example:
+##
+## @example
+## pkg build builddir image-1.0.0.tar.gz @dots{}
+## @end example
+##
+## @noindent
+## where @code{builddir} is a directory where the binary packages are built.
+## The options @option{-verbose} and @option{-nodeps} are respected, while
+## all other options are ignored.
+##
+## @item rebuild
+## Rebuild the package database from the installed global and local packages.
+## This can be used in cases where the package database has been corrupted.
+##
+## @item test
+## Perform the built-in self tests contained in all functions provided by
+## the named packages.  For example:
+##
+## @example
+## pkg test image
+## @end example
+##
+## @end table
+## @seealso{ver, news}
+## @end deftypefn
+
+function [local_packages, global_packages] = pkg (varargin)
+
+  ## Installation prefix
+  persistent user_prefix = false;
+  persistent prefix = false;
+  persistent archprefix = -1;
+  persistent local_list = fullfile (user_config_dir (), "octave", ...
+                                    __octave_config_info__ ("api_version"), ...
+                                    "octave_packages");
+  persistent global_list = fullfile (__octave_config_info__ ("localapipkgdir"),
+                                     "octave_packages");
+
+  ## If user is superuser (posix) or the process has elevated rights (Windows),
+  ## set global_install to true.
+  if (ispc () && ! isunix ())
+    global_install = __is_elevated_process__ ();
+  else
+    global_install = (geteuid () == 0);
+  endif
+
+  if (! user_prefix)
+    [prefix, archprefix] = default_prefix (global_install);
+    prefix = tilde_expand (prefix);
+    archprefix = tilde_expand (archprefix);
+  endif
+
+  mlock ();
+
+  confirm_recursive_rmdir (false, "local");
+
+  ## valid actions in alphabetical order
+  available_actions = {"build", "describe", "global_list",  "install", ...
+                       "list", "load", "local_list", "prefix", "rebuild", ...
+                       "search", "test", "uninstall", "unload", "update"};
+
+  ## Parse input arguments
+  if (isempty (varargin) || ! iscellstr (varargin))
+    print_usage ();
+  endif
+  files = {};
+  deps = true;
+  action = "none";
+  verbose = false;
+  octave_forge = false;
+  want_all_packages = false;
+  force_refresh = false;
+  for i = 1:numel (varargin)
+    switch (varargin{i})
+      case "-nodeps"
+        deps = false;
+      ## TODO completely remove these warnings after some releases.
+      case "-noauto"
+        warning ("Octave:deprecated-option",
+                 ["pkg: autoload is no longer supported.  The -noauto "...
+                  "option is no longer required.\n"]);
+      case "-auto"
+        warning ("Octave:deprecated-option",
+                 ["pkg: autoload is no longer supported.  Add a "...
+                  "'pkg load ...' command to octaverc instead.\n"]);
+      case "-verbose"
+        verbose = true;
+        ## Send verbose output to pager immediately.  Change setting locally.
+        page_output_immediately (true, "local");
+      case "-refresh"
+        force_refresh = true;
+      case "-forge"
+        if (! __octave_config_info__ ("CURL_LIBS"))
+          error ("pkg: can't download from Octave Packages without the cURL library");
+        endif
+        octave_forge = true;
+        force_refresh = true;
+      case "-all"
+        if (! __octave_config_info__ ("CURL_LIBS"))
+          error ("pkg: can't download from Octave Packages without the cURL library");
+        endif
+        want_all_packages = true;
+      case "-local"
+        global_install = false;
+        if (! user_prefix)
+          [prefix, archprefix] = default_prefix (global_install);
+        endif
+      case "-global"
+        global_install = true;
+        if (! user_prefix)
+          [prefix, archprefix] = default_prefix (global_install);
+        endif
+      case available_actions
+        if (! strcmp (action, "none"))
+          error ("pkg: more than one action specified");
+        endif
+        action = varargin{i};
+      otherwise
+        files{end+1} = varargin{i};
+    endswitch
+  endfor
+
+  if (octave_forge)
+    if (strcmp (action, "install"))
+      ## Do nothing.
+    elseif (strcmp (action, "list"))
+      ## Proceed as though user has invoked "pkg search -refresh -all"
+      action = "search";
+      want_all_packages = true;
+    else
+      error ("pkg: action '%s' does not accept option '-forge'", action);
+    endif
+  endif
+
+  if (want_all_packages)
+    if (! strcmp (action, "search"))
+      error ("pkg: option '-all' is only available for action 'search'");
+    elseif (! isempty (files))
+      error ("pkg: cannot specify extra search terms with option '-all'");
+    endif
+  endif
+
+  ## Take action
+  switch (action)
+    case "list"
+      if (nargout == 1)
+        local_packages = installed_packages (local_list, global_list, files);
+      elseif (nargout > 1)
+        [local_packages, global_packages] = installed_packages (local_list,
+                                                                global_list,
+                                                                files);
+      else
+        installed_packages (local_list, global_list, files);
+      endif
+
+    case "search"
+      if (! want_all_packages && isempty (files))
+        error ("pkg: search action requires at least one search term or '-all'");
+      endif
+
+      ## Pre-load package database (respecting force_refresh flag)
+      get_validated_pkg_list (force_refresh, verbose);
+
+      if (nargout)
+        local_packages = search_packages (files, want_all_packages, verbose);
+      else
+        search_packages (files, want_all_packages, verbose);
+      endif
+
+    case "install"
+      if (isempty (files))
+        error ("pkg: install action requires at least one filename");
+      endif
+
+      if (octave_forge)
+        needs_pkg_lookup = true;
+      else
+        ## Pre-load package database only if needed for package name lookups.
+        ## Check if any files require online lookup (not local files nor URLs).
+        needs_pkg_lookup = false;
+        for file = files
+          file = char (file);
+          if (! isfile (file) && isempty (regexp (file, '^\w+://')))
+            needs_pkg_lookup = true;
+            break;
+          endif
+        endfor
+      endif
+
+      if (needs_pkg_lookup)
+        get_validated_pkg_list (force_refresh, verbose);
+      endif
+
+      local_files = {};
+      tmp_dir = tempname ();
+      unwind_protect
+
+        [success, msg] = mkdir (tmp_dir);
+        if (! success)
+          error ("pkg: failed to create temporary directory: %s", msg);
+        endif
+
+        for file = files  # process each of the inputs one at a time
+
+          file = char (file);  # convert cell to char string
+
+          ## Sequence: local file, then URL, then package_name.
+          if (! octave_forge && isfile (file))
+
+            ## Do nothing extra; "files" does not need to change.
+
+          elseif (! octave_forge && regexp (file, '^\w+://'))
+            ## looks like a URL
+
+            ## Make a temp file from the URL.
+            [~, fname, fext] = fileparts (file);
+            tmp_file = fullfile (tmp_dir, [fname fext]);
+            local_files(end+1) = {tmp_file};  # so that it gets cleaned up
+
+            ## Download the URL into the temp file we just created.
+            [~, success, msg] = urlwrite (file, tmp_file);
+            if (! success)
+              error ("pkg: failed to download '%s': %s", file, msg);
+            endif
+
+            ## Replace the URL provided with the file we just downloaded.
+            files(strcmp (files, file)) = {tmp_file};
+
+          else
+            ## either with option '-forge' or not a local file, not a URL
+            ## ==> try package name
+
+            ## Get corresponding URL and make a temp file.
+            ## FIXME: Automate filetype recognition instead of adding ".tar.gz"
+            ## manually, just in case the package author chooses zip
+            ## or any other archive format? Or will all packages always
+            ## be required to give .tar.gz?
+            [v, url, sha256_online] = get_pkg_info (file);
+            tmp_file = tempname (tmp_dir, [file "-" v "-"]);
+            tmp_file = [tmp_file, ".tar.gz"];
+            local_files(end+1) = {tmp_file};  # so that it gets cleaned up
+
+            if (verbose)
+              printf ("downloading tarball from:\n- %s\n", url);
+            endif
+
+            ## Download the URL into the temp file we just created.
+            [~, success, msg] = urlwrite (url, tmp_file);
+            if (! success)
+              error ("pkg: failed to download '%s': %s", url, msg);
+            endif
+
+            ## Check sha256 checksum, unless it is a 'dev' version
+            if (! strcmp (v, "dev"))
+              if (verbose)
+                printf ("comparing hash... ");
+              endif
+
+              sha256_local = hash ("sha256", fileread (tmp_file));
+
+              if (! strcmp (sha256_online, sha256_local))
+                if (verbose)
+                  printf ("FAILED!\n");
+                endif
+                error ("pkg: downloaded package is corrupt:\n- sha256: %s", ...
+                       sha256_local);
+              elseif (verbose)
+                printf ("verified!\n");
+              endif
+            endif
+
+            ## Replace the URL provided with the file we just downloaded.
+            files(strcmp (files, file)) = {tmp_file};
+
+          endif
+        endfor
+
+        ## make sure the PREFIX and the ARCHPREFIX directories are created
+        if (! isfolder (prefix))
+          mkdir (prefix);
+        endif
+        if (! isfolder (archprefix))
+          mkdir (archprefix);
+        endif
+
+        install (files, deps, prefix, archprefix, verbose, local_list,
+                 global_list, global_install);
+
+      unwind_protect_cleanup
+        [~] = cellfun ("unlink", local_files);
+        if (exist (tmp_dir, "file"))
+          [~] = rmdir (tmp_dir, "s");
+        endif
+      end_unwind_protect
+
+    case "uninstall"
+      if (isempty (files))
+        error ("pkg: uninstall action requires at least one package name");
+      endif
+      uninstall (files, deps, verbose, local_list, global_list, global_install);
+
+    case "load"
+      if (isempty (files))
+        error ("pkg: load action requires at least one package name");
+      endif
+      load_packages (files, deps, local_list, global_list);
+
+    case "unload"
+      if (isempty (files))
+        error ("pkg: unload action requires at least one package name");
+      endif
+      unload_packages (files, deps, local_list, global_list);
+
+    case "prefix"
+      if (isempty (files) && ! nargout)
+        printf ("Installation prefix:             %s\n", prefix);
+        printf ("Architecture dependent prefix:   %s\n", archprefix);
+      elseif (isempty (files) && nargout)
+        local_packages = prefix;
+        global_packages = archprefix;
+      elseif (numel (files) >= 1 && ischar (files{1}))
+        prefix = tilde_expand (files{1});
+        local_packages = prefix = make_absolute_filename (prefix);
+        user_prefix = true;
+        if (numel (files) >= 2 && ischar (files{2}))
+          archprefix = make_absolute_filename (tilde_expand (files{2}));
+        endif
+      else
+        error ("pkg: prefix action requires a directory input, or an output argument");
+      endif
+
+    case "local_list"
+      if (isempty (files) && ! nargout)
+        disp (local_list);
+      elseif (isempty (files) && nargout)
+        local_packages = local_list;
+      elseif (numel (files) == 1 && ! nargout && ischar (files{1}))
+        local_list = tilde_expand (files{1});
+        if (! exist (local_list, "file"))
+          try
+            ## Force file to be created
+            fclose (fopen (local_list, "wt"));
+          catch
+            error ("pkg: cannot create file %s", local_list);
+          end_try_catch
+        endif
+        local_list = canonicalize_file_name (local_list);
+      else
+        error ("pkg: specify a local_list file, or request an output argument");
+      endif
+
+    case "global_list"
+      if (isempty (files) && ! nargout)
+        disp (global_list);
+      elseif (isempty (files) && nargout)
+        local_packages = global_list;
+      elseif (numel (files) == 1 && ! nargout && ischar (files{1}))
+        global_list = files{1};
+        if (! exist (global_list, "file"))
+          try
+            ## Force file to be created
+            fclose (fopen (files{1}, "wt"));
+          catch
+            error ("pkg: cannot create file %s", global_list);
+          end_try_catch
+        endif
+        global_list = canonicalize_file_name (global_list);
+      else
+        error ("pkg: specify a global_list file, or request an output argument");
+      endif
+
+    case "rebuild"
+      if (global_install)
+        global_packages = rebuild (prefix, archprefix, global_list, files,
+                                   verbose);
+        global_packages = save_order (global_packages);
+        if (ispc)
+          ## On Windows ensure LFN paths are saved rather than 8.3 style paths
+          global_packages = standardize_paths (global_packages);
+        endif
+        global_packages = make_rel_paths (global_packages);
+        global_list_dir = fileparts (global_list);
+        if (! isempty (global_list_dir) && ! exist (global_list_dir, "dir"))
+          mkdir (global_list_dir);
+        endif
+        save (global_list, "global_packages");
+        if (nargout)
+          local_packages = global_packages;
+        endif
+      else
+        local_packages = rebuild (prefix, archprefix, local_list, files,
+                                  verbose);
+        local_packages = save_order (local_packages);
+        if (ispc)
+          local_packages = standardize_paths (local_packages);
+        endif
+        local_list_dir = fileparts (local_list);
+        if (! isempty (local_list_dir) && ! exist (local_list_dir, "dir"))
+          mkdir (local_list_dir);
+        endif
+        save (local_list, "local_packages");
+        if (! nargout)
+          clear ("local_packages");
+        endif
+      endif
+
+    case "build"
+      if (numel (files) < 2)
+        error ("pkg: build action requires build directory and at least one filename");
+      endif
+      build (files{1}, files(2:end), verbose);
+
+    case "describe"
+      ## FIXME: name of the output variables is inconsistent with their content
+      if (nargout)
+        [local_packages, global_packages] = describe (files, verbose,
+                                                      local_list, global_list);
+      else
+        describe (files, verbose, local_list, global_list);
+      endif
+
+    case "update"
+      installed_pkgs_lst = installed_packages (local_list, global_list);
+
+      ## If -global or -local, limit updates to global or local list pkgs
+      globalflag = any (strcmp (varargin, "-global"));
+      localflag = any (strcmp (varargin, "-local"));
+      if (globalflag || localflag)
+        if (globalflag && localflag)
+          error ("pkg: cannot specify both global and local options.");
+        elseif (globalflag)
+          [~, installed_pkgs_lst] = installed_packages (local_list, global_list);
+        else
+          [installed_pkgs_lst, ~] = installed_packages (local_list, global_list);
+        endif
+      else
+        installed_pkgs_lst = installed_packages (local_list, global_list);
+      endif
+
+      ## Explicit list of packages to update, rather than all packages
+      if (numel (files) > 0)
+        update_lst = {};
+        installed_names = cellfun (@(idx) idx.name, installed_pkgs_lst,
+                                   "UniformOutput", false);
+        for i = 1:numel (files)
+          idx = find (strcmp (files{i}, installed_names), 1);
+          if (isempty (idx))
+            warning ("pkg: package %s is not installed - skipping update\n",
+                     files{i});
+          else
+            update_lst = [ update_lst, installed_pkgs_lst(idx) ];
+          endif
+        endfor
+        installed_pkgs_lst = update_lst;
+      endif
+
+      ## Pre-load package database once (respecting force_refresh flag)
+      ## This prevents repeated downloads in the loop below
+      get_validated_pkg_list (force_refresh, verbose);
+
+      for i = 1:numel (installed_pkgs_lst)
+        installed_pkg_name = installed_pkgs_lst{i}.name;
+        installed_pkg_version = installed_pkgs_lst{i}.version;
+        try
+          ## Use already-loaded package database
+          online_pkg_version = get_pkg_info (installed_pkg_name, verbose);
+        catch
+          warning ("pkg: package %s not found on Octave Packages - skipping update\n",
+                   installed_pkg_name);
+          online_pkg_version = "0";
+        end_try_catch
+        if (compare_versions (online_pkg_version, installed_pkg_version, ">"))
+          ## Pass options but exclude -refresh (we already refreshed once above)
+          options_to_pass = varargin (strncmp (varargin, "-", 1));
+          options_to_pass(strcmp (options_to_pass, "-refresh")) = [];
+          feval (@pkg, "install", options_to_pass{:}, installed_pkg_name);
+        endif
+      endfor
+
+    case "test"
+      if (isempty (files))
+        error ("pkg: test action requires at least one package name");
+      endif
+      ## Make sure the requested packages are loaded
+      orig_path = path ();
+      load_packages (files, deps, local_list, global_list);
+      ## Test packages one by one
+      installed_pkgs_lst = installed_packages (local_list, global_list, files);
+      unwind_protect
+        for i = 1:numel (installed_pkgs_lst)
+          printf ("Testing functions in package '%s':\n", files{i});
+          installed_pkgs_dirs = {installed_pkgs_lst{i}.dir, ...
+                                 installed_pkgs_lst{i}.archprefix};
+          installed_pkgs_dirs = ...
+            installed_pkgs_dirs (! cellfun ('isempty', installed_pkgs_dirs));
+          ## For local installs installed_pkgs_dirs contains the same subdirs
+          installed_pkgs_dirs = unique (installed_pkgs_dirs);
+          if (! isempty (installed_pkgs_dirs))
+            ## FIXME invoke another test routine once that is available.
+            ## Until then __run_test_suite__.m will do the job fine enough
+            __run_test_suite__ ({installed_pkgs_dirs{:}}, {});
+          endif
+        endfor
+      unwind_protect_cleanup
+        ## Restore load path back to its original value before loading packages
+        path (orig_path);
+      end_unwind_protect
+
+    otherwise
+      error ("pkg: invalid action.  See 'help pkg' for available actions");
+  endswitch
+
+endfunction

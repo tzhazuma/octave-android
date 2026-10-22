@@ -1,0 +1,45 @@
+## DO NOT EDIT!  Generated automatically from quadcc.cc by Make.
+%!assert (quadcc (@sin, -pi, pi), 0, 1e-10)
+%!test
+%! warning ("off", "Octave:legacy-function", "local");
+%! assert (quadcc (inline ("sin"), -pi, pi), 0, 1e-10);
+%!assert (quadcc ("sin", -pi, pi), 0, 1e-10)
+%!assert (quadcc (@sin, -pi, 0), -2, 1e-10)
+%!assert (quadcc (@sin, 0, pi), 2, 1e-10)
+%!assert (quadcc (@(x) 1./sqrt (x), 0, 1), 2, -1e-6)
+%!assert (quadcc (@(x) 1./(sqrt (x).*(x+1)), 0, Inf), pi, -1e-6)
+%!assert (quadcc (@(x) 1./(sqrt (x).*(x+1)), 0, Inf, [0, 2e-7]), pi, -2e-7)
+%!assert (quadcc (@(x) exp (-x .^ 2), -Inf, Inf), sqrt (pi), 1e-10)
+%!assert (quadcc (@(x) exp (-x .^ 2), -Inf, 0), sqrt (pi)/2, 1e-10)
+%!function y = __nansin (x)
+%!  nan_locs = [-3*pi/4, -pi/4, 0, pi/3, pi/2, pi];
+%!  y = sin (x);
+%!  idx = min (abs (bsxfun (@minus, x(:), nan_locs)), [], 2);
+%!  y(idx < 1e-10) = NaN;
+%!endfunction
+%!test
+%! [q, err, npoints] = quadcc ("__nansin", -pi, pi, [0, 1e-6]);
+%! assert (q, 0, -1e-6);
+%! assert (err, 0, 15*eps);
+%!test
+%! assert (class (quadcc (@sin, 0, 1)), "double");
+%! assert (class (quadcc (@sin, single (0), 1)), "single");
+%! assert (class (quadcc (@sin, 0, single (1))), "single");
+%! assert (class (quadcc (@sin, single (0), single (1))), "single");
+%!test <*62412>
+%! f = @(t) -1 ./ t.^1.1;
+%! fail ("quadcc (f, 1, Inf)", "warning", "Error tolerance not met");
+%! [q, err] = quadcc (f, 1, Inf);
+%! assert (err > 1e-5);
+%!error quadcc ()
+%!error quadcc (@sin)
+%!error quadcc (@sin, 0)
+%!error <lower limit .* must be a .* scalar> (quadcc (@sin, ones (2), pi))
+%!error <lower limit .* must be a real scalar> (quadcc (@sin, -i, pi))
+%!error <upper limit .* must be a .* scalar> (quadcc (@sin, 0, ones (2)))
+%!error <upper limit .* must be a real scalar> (quadcc (@sin, 0, i))
+%!error <TOL must be a 1- or 2-element vector> (quadcc (@sin, 0, pi, {1}))
+%!error <TOL must be a 1- or 2-element vector> (quadcc (@sin, 0, pi, [1,2,3]))
+%!error <absolute tolerance must be .=0> (quadcc (@sin, 0, pi, -1))
+%!error <relative tolerance must be .=0> (quadcc (@sin, 0, pi, [1, -1]))
+%!error <SING.* must be .* real values> (quadcc (@sin, 0, pi, 1e-6, [ i ]))

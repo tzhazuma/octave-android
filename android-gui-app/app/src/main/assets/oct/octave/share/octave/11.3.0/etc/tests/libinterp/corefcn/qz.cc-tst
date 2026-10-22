@@ -1,0 +1,51 @@
+## DO NOT EDIT!  Generated automatically from qz.cc by Make.
+%!test
+%! a = [ 10  1  2;
+%!        1  2 -1;
+%!        1  1  2 ];
+%! b = reshape (1:9, 3,3);
+%! [aa, bb, q, z, v, w] = qz (a, b);
+%! assert (isreal (aa) && isreal (bb) && isreal (q) && isreal (z) ...
+%!         && isreal (v) && isreal (w));
+%! assert (istriu (aa) && istriu (bb));
+%! assert (q * q', eye(3), 1e-15);
+%! assert (z * z', eye(3), 1e-15);
+%! assert (q * a * z, aa, norm (aa) * 1e-14);
+%! assert (q * b * z, bb, norm (bb) * 1e-14);
+%! assert (a * v * diag (diag (bb)), b * v * diag (diag (aa)), 1e-13);
+%! assert (diag (diag (bb)) * w' * a, diag (diag (aa)) * w' * b, 1e-13);
+%!test
+%! A = [ -1.03428  0.24929  0.43205 -0.12860;
+%!        1.16228  0.27870  2.12954  0.69250;
+%!       -0.51524 -0.34939 -0.77820  2.13721;
+%!       -1.32941  2.11870  0.72005  1.00835 ];
+%! B = [  1.407302 -0.632956 -0.360628  0.068534;
+%!        0.149898  0.298248  0.991777  0.023652;
+%!        0.169281 -0.405205 -1.775834  1.511730;
+%!        0.717770  1.291390 -1.766607 -0.531352 ];
+%! [CAA, CBB, CQ, CZ, CV, CW] = qz (A, B, 'complex');
+%! assert (iscomplex (CAA) && iscomplex (CBB) && iscomplex (CQ) ...
+%!         && iscomplex (CZ) && iscomplex (CV) && iscomplex (CW));
+%! assert (istriu (CAA) && istriu (CBB));
+%! assert (CQ * CQ', eye(4), 1e-14);
+%! assert (CZ * CZ', eye(4), 1e-14);
+%! assert (CQ * A * CZ, CAA, norm (CAA) * 1e-14);
+%! assert (CQ * B * CZ, CBB, norm (CBB) * 1e-14);
+%! assert (A * CV * diag (diag (CBB)), B * CV * diag (diag (CAA)), 1e-13);
+%! assert (diag (diag (CBB)) * CW' * A, diag (diag (CAA)) * CW' * B, 1e-13);
+%! [AA, BB, Q, Z, V, W] = qz (A, B, 'real');
+%! assert (isreal (AA) && isreal (BB) && isreal (Q) && isreal (Z) ...
+%!         && isreal (V) && isreal (W));
+%! assert (istriu (BB));
+%! assert (Q * Q', eye(4), 1e-14);
+%! assert (Z * Z', eye(4), 1e-14);
+%! assert (Q * A * Z, AA, norm (AA) * 1e-14);
+%! assert (Q * B * Z, BB, norm (BB) * 1e-14);
+%!error <Invalid call> qz ()
+%!error <Invalid call> qz (1)
+%!error <Invalid call> qz (1,2,3,4)
+%!error <Invalid call> [r1,r2,r3,r4,r5,r6,r7] = qz (1,2)
+%!error <OPT must be a string> qz (1,2, 3)
+%!error <OPT must be 'real' or 'complex'> qz (1,2, 'foobar')
+%!warning <ignoring 'real' option with complex matrices> qz (2i, 3, 'real');
+%!warning <ignoring 'real' option with complex matrices> qz (2, 3i, 'real');

@@ -1,0 +1,13 @@
+## DO NOT EDIT!  Generated automatically from octave.cc by Make.
+%!assert (islogical (isguirunning ()))
+%!error <Invalid call> isguirunning (1)
+%!assert (islogical (__is_multi_threaded__ ()))
+%!error <Invalid call> __is_multi_threaded__ (1)
+%!assert (iscellstr (argv ()))
+%!error <Invalid call> argv (1)
+%!assert (isstruct (cmdline_options ()))
+%!error <Invalid call> cmdline_options (1)
+%!assert (ischar (program_invocation_name ()))
+%!error <Invalid call> program_invocation_name (1)
+%!assert (ischar (program_name ()))
+%!error <Invalid call> program_name (1)

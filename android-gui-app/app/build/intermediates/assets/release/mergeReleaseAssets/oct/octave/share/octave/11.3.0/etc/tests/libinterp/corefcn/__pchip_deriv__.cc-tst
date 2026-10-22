@@ -1,0 +1,28 @@
+## DO NOT EDIT!  Generated automatically from __pchip_deriv__.cc by Make.
+%!shared x, y
+%! x = 0:3;
+%! y = x.^2 + 1i * x.^3;
+%!test
+%! d_complex = __pchip_deriv__ (x, y, 2);
+%! d_real = __pchip_deriv__ (x, real (y), 2);
+%! d_imag = __pchip_deriv__ (x, imag (y), 2);
+%! assert (real (d_complex), d_real);
+%! assert (imag (d_complex), d_imag);
+%!test
+%! d_complex = __pchip_deriv__ (x.', y.');
+%! d_real = __pchip_deriv__ (x.', real (y.'));
+%! d_imag = __pchip_deriv__ (x.', imag (y.'));
+%! assert (real (d_complex), d_real);
+%! assert (imag (d_complex), d_imag);
+%!test
+%! d_complex = __pchip_deriv__ (single (x), single (y), 2);
+%! d_real = __pchip_deriv__ (single (x), real (single (y)), 2);
+%! d_imag = __pchip_deriv__ (single (x), imag (single (y)), 2);
+%! assert (real (d_complex), d_real);
+%! assert (imag (d_complex), d_imag);
+%!test
+%! d_complex = __pchip_deriv__ (single (x'), single (y'));
+%! d_real = __pchip_deriv__ (single (x'), real (single (y')));
+%! d_imag = __pchip_deriv__ (single (x'), imag (single (y')));
+%! assert (real (d_complex), d_real);
+%! assert (imag (d_complex), d_imag);

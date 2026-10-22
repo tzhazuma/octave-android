@@ -1,0 +1,679 @@
+## DO NOT EDIT!  Generated automatically from cellfun.cc by Make.
+%!function r = __f11 (x)
+%!  r = x;
+%!endfunction
+%!function __f01 (x)
+%!  ## Empty function
+%!endfunction
+%!function varargout = __f02 (out)
+%!  if (out)
+%!    varargout{1} = out;
+%!  endif
+%!endfunction
+%!test
+%! __cellfun_test_num_outputs__ = -1;
+%!
+%! function r = __subf11 (x)
+%!   __cellfun_test_num_outputs__ = nargout;
+%!   r = x;
+%! endfunction
+%!
+%! cellfun ("__subf11", {1});
+%! assert (__cellfun_test_num_outputs__, 0);
+%!
+%! __cellfun_test_num_outputs__ = -1;
+%! x = cellfun ("__subf11", {1});
+%! assert (__cellfun_test_num_outputs__, 1);
+%!test
+%! __cellfun_test_num_outputs__ = -1;
+%! function __subf01 (x)
+%!   __cellfun_test_num_outputs__ = nargout;
+%! endfunction
+%! cellfun ("__subf01", {1});
+%! assert (__cellfun_test_num_outputs__, 0);
+%!error x = cellfun (@__f01, {1, 2})
+%!error x = cellfun (@__f01, {1, 2})
+%!error x = cellfun (@__f02, {0, 2}, "uniformoutput", false)
+%!error x = cellfun (@__f02, {0, 2}, "uniformoutput", true)
+%!test
+%! assert (cellfun (@__f11, {1, 2}), [1, 2]);
+%! assert (cellfun (@__f11, {1, 2}, 'uniformoutput', false), {1, 2});
+%!test
+%! [a,b] = cellfun (@(x) x, cell (2, 0));
+%! assert (a, zeros (2, 0));
+%! assert (b, zeros (2, 0));
+%!test
+%! [a,b] = cellfun (@(x) x, cell (2, 0), "uniformoutput", false);
+%! assert (a, cell (2, 0));
+%! assert (b, cell (2, 0));
+%!function z = __cellfunerror (S, varargin)
+%!  z = S;
+%!endfunction
+%!test
+%! A = cellfun ("islogical", {true, 0.1, false, i*2});
+%! assert (A, [true, false, true, false]);
+%!test
+%! warning ('off', 'Octave:legacy-function', 'local');
+%! A = cellfun (inline ("islogical (x)", "x"), {true, 0.1, false, i*2});
+%! assert (A, [true, false, true, false]);
+%!test
+%! A = cellfun ('islogical', {true, 0.1, false, i*2});
+%! assert (A, [true, false, true, false]);
+%!test
+%! A = cellfun (@(x) islogical (x), {true, 0.1, false, i*2});
+%! assert (A, [true, false, true, false]);
+%!test
+%! A = cellfun ("isreal", {true, 0.1, {}, i*2, [], "abc"});
+%! assert (A, [true, true, false, false, true, true]);
+%!test
+%! A = cellfun ("isempty", {true, 0.1, false, i*2, [], "abc"});
+%! assert (A, [false, false, false, false, true, false]);
+%!test
+%! A = cellfun ("islogical", {true, 0.1, false, i*2, [], "abc"});
+%! assert (A, [true, false, true, false, false, false]);
+%!test
+%! A = cellfun ("isnumeric", {true, 0.1, false, i*2, [], "abc"});
+%! assert (A, [false, true, false, true, true, false]);
+%!test
+%! A = cellfun ("length", {true, 0.1, false, i*2, [], "abc"});
+%! assert (A, [1, 1, 1, 1, 0, 3]);
+%!test
+%! A = cellfun ("ndims", {[1, 2; 3, 4]; (cell (1,2,3,4))});
+%! assert (A, [2; 4]);
+%!test
+%! A = cellfun ("prodofsize", {[1, 2; 3, 4], (cell (1,2,3,4))});
+%! assert (A, [4, 24]);
+%!test
+%! A = cellfun (@(x,y,z) x + y + z, {1, 1, 1}, {2, 2, 2}, {3, 4, 5});
+%! assert (A, [6, 7, 8]);
+%!test
+%! A = cellfun (@(x,y,z) x + y + z, {1, 1, 1}, {2, 2, 2}, {3, 4, 5}, ...
+%!              "UniformOutput", false);
+%! assert (A, {6, 7, 8});
+%!test  # Two input arguments of different types
+%! A = cellfun (@(x,y) islogical (x) && ischar (y), {false, true}, {"a", 3});
+%! assert (A, [true, false]);
+%!test  # Pass another variable to the anonymous function
+%! y = true;
+%! A = cellfun (@(x) islogical (x) && y, {false, 0.3});
+%! assert (A, [true, false]);
+%!test  # Three output arguments of different type
+%! [A, B, C] = cellfun ('find', {10, 11; 0, 12}, "UniformOutput", false);
+%! assert (isequal (A, {true, true; [], true}));
+%! assert (isequal (B, {true, true; [], true}));
+%! assert (isequal (C, {10, 11; [], 12}));
+%!test
+%! A = cellfun (@(x,y) x == y, {false, true}, {true, true});
+%! assert (A, [false, true]);
+%!test
+%! A = cellfun (@(x,y) x == y, {false; true}, {true; true}, ...
+%!              "UniformOutput", true);
+%! assert (A, [false; true]);
+%!test
+%! A = cellfun (@(x) x, {false, true; false, true}, "UniformOutput", false);
+%! assert (A, {false, true; false, true});
+%!test  # Three output arguments of same type
+%! [A, B, C] = cellfun ('find', {true, false; false, true}, ...
+%!                      "UniformOutput", false);
+%! assert (isequal (A, {true, []; [], true}));
+%! assert (isequal (B, {true, []; [], true}));
+%! assert (isequal (C, {true, []; [], true}));
+%!test
+%! A = cellfun (@(x,y) cell2str (x,y), {true}, {true}, ...
+%!              "ErrorHandler", @__cellfunerror);
+%! assert (isfield (A, "identifier"), true);
+%! assert (isfield (A, "message"), true);
+%! assert (isfield (A, "index"), true);
+%! assert (isempty (A.message), false);
+%! assert (A.index, 1);
+%!test  # Overwriting setting of "UniformOutput" true
+%! A = cellfun (@(x,y) cell2str (x,y), {true}, {true}, ...
+%!              "UniformOutput", true, "ErrorHandler", @__cellfunerror);
+%! assert (isfield (A, "identifier"), true);
+%! assert (isfield (A, "message"), true);
+%! assert (isfield (A, "index"), true);
+%! assert (isempty (A.message), false);
+%! assert (A.index, 1);
+%!test
+%! A = cellfun (@(x,y) x>y, {1.1, 4.2}, {3.1, 2+3*i});
+%! assert (A, [false, true]);
+%!test
+%! A = cellfun (@(x,y) x>y, {1.1, 4.2; 2, 4}, {3.1, 2; 2, 4+2*i}, ...
+%!              "UniformOutput", true);
+%! assert (A, [false, true; false, false]);
+%!test
+%! A = cellfun (@(x,y) x:y, {1.1, 4}, {3.1, 6}, "UniformOutput", false);
+%! assert (isequal (A{1}, [1.1, 2.1, 3.1]));
+%! assert (isequal (A{2}, [4, 5, 6]));
+%!test  # Three output arguments of different type
+%! [A, B, C] = cellfun ('find', {10, 11; 0, 12}, "UniformOutput", false);
+%! assert (isequal (A, {true, true; [], true}));
+%! assert (isequal (B, {true, true; [], true}));
+%! assert (isequal (C, {10, 11; [], 12}));
+%!test
+%! A = cellfun (@(x,y) cell2str (x,y), {1.1, 4}, {3.1, 6}, ...
+%!              "ErrorHandler", @__cellfunerror);
+%! B = isfield (A(1), "message") && isfield (A(1), "index");
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!test  # Overwriting setting of "UniformOutput" true
+%! A = cellfun (@(x,y) cell2str (x,y), {1.1, 4}, {3.1, 6}, ...
+%!              "UniformOutput", true, "ErrorHandler", @__cellfunerror);
+%! B = isfield (A(1), "message") && isfield (A(1), "index");
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!error  # "UniformOutput" false should be used
+%! A = cellfun (@(x,y) x>y, {"ad", "c", "ghi"}, {"cc", "d", "fgh"});
+%!test
+%! A = cellfun (@(x,y) x>y, {"a"; "f"}, {"c"; "d"}, "UniformOutput", true);
+%! assert (A, [false; true]);
+%!test
+%! A = cellfun (@(x,y) x:y, {"a", "d"}, {"c", "f"}, "UniformOutput", false);
+%! assert (A, {"abc", "def"});
+%!test
+%! A = cellfun (@(x,y) cell2str (x,y), {"a", "d"}, {"c", "f"}, ...
+%!              "ErrorHandler", @__cellfunerror);
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!test  # Overwriting setting of "UniformOutput" true
+%! A = cellfun (@(x,y) cell2str (x,y), {"a", "d"}, {"c", "f"}, ...
+%!              "UniformOutput", true, "ErrorHandler", @__cellfunerror);
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!error
+%! vst1.a = 1.1;  vst1.b = 4.2;  vst2.a = 3.1;  vst2.b = 2;
+%! A = cellfun (@(x,y) (x.a < y.a) && (x.b > y.b), vst1, vst2);
+%!test
+%! A = cellfun (@(x,y) x{1} < y{1}, {{1.1}, {4.2}}, {{3.1}, {2}});
+%! assert (A, [1, 0], 1e-16);
+%!test
+%! A = cellfun (@(x,y) x{1} < y{1}, {{1.1}; {4.2}}, {{3.1}; {2}}, ...
+%!              "UniformOutput", true);
+%! assert (A, [1; 0], 1e-16);
+%!test
+%! A = cellfun (@(x,y) x{1} < y{1}, {{1.1}, {4.2}}, {{3.1}, {2}}, ...
+%!              "UniformOutput", false);
+%! assert (A, {true, false});
+%!test
+%! A = cellfun (@(x,y) mat2str (x,y), {{1.1}, {4.2}}, {{3.1}, {2}}, ...
+%!              "ErrorHandler", @__cellfunerror);
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!test  # Overwriting setting of "UniformOutput" true
+%! A = cellfun (@(x,y) mat2str (x,y), {{1.1}, {4.2}}, {{3.1}, {2}}, ...
+%!              "UniformOutput", true, "ErrorHandler", @__cellfunerror);
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!test
+%! a = struct ("a", 1, "b", 2);  b = struct ("a", 1, "b", 3);
+%! A = cellfun (@(x,y) (x.a == y.a) && (x.b < y.b), {a}, {b});
+%! assert (A, true);
+%!test
+%! a = struct ("a", 1, "b", 2);  b = struct ("a", 1, "b", 3);
+%! A = cellfun (@(x,y) (x.a == y.a) && (x.b < y.b) , {a}, {b}, ...
+%!              "UniformOutput", true);
+%! assert (A, true);
+%!test
+%! a = struct ("a", 1, "b", 2);  b = struct ("a", 1, "b", 3);
+%! A = cellfun (@(x,y) (x.a == y.a) && (x.b < y.b) , {a}, {b}, ...
+%!              "UniformOutput", false);
+%! assert (A, {true});
+%!test
+%! a = struct ("a", 1, "b", 2);  b = struct ("a", 1, "b", 3);
+%! A = cellfun (@(x,y) cell2str (x.a, y.a), {a}, {b}, ...
+%!              "ErrorHandler", @__cellfunerror);
+%! assert (isfield (A, "identifier"), true);
+%! assert (isfield (A, "message"), true);
+%! assert (isfield (A, "index"), true);
+%! assert (isempty (A.message), false);
+%! assert (A.index, 1);
+%!test  # Overwriting setting of "UniformOutput" true
+%! a = struct ("a", 1, "b", 2);  b = struct ("a", 1, "b", 3);
+%! A = cellfun (@(x,y) cell2str (x.a, y.a), {a}, {b}, ...
+%!              "UniformOutput", true, "ErrorHandler", @__cellfunerror);
+%! assert (isfield (A, "identifier"), true);
+%! assert (isfield (A, "message"), true);
+%! assert (isfield (A, "index"), true);
+%! assert (isempty (A.message), false);
+%! assert (A.index, 1);
+%!assert (cellfun (@sin, {0,1}), sin ([0,1]))
+%!test
+%! warning ('off', 'Octave:legacy-function', 'local');
+%! assert (cellfun (inline ("sin (x)"), {0,1}), sin ([0,1]));
+%!assert (cellfun ("sin", {0,1}), sin ([0,1]))
+%!assert (cellfun ("isempty", {1,[]}), [false,true])
+%!assert (cellfun ("islogical", {false,pi}), [true,false])
+%!assert (cellfun ("isnumeric", {false,pi,struct()}), [false,true,false])
+%!assert (cellfun ("isreal", {1i,1}), [false,true])
+%!assert (cellfun ("length", {zeros(2,2),1}), [2,1])
+%!assert (cellfun ("prodofsize", {zeros(2,2),1}), [4,1])
+%!assert (cellfun ("ndims", {zeros([2,2,2]),1}), [3,2])
+%!assert (cellfun ("isclass", {zeros([2,2,2]),"test"}, "double"), [true,false])
+%!assert (cellfun ("size", {zeros([1,2,3]),1}, 1), [1,1])
+%!assert (cellfun ("size", {zeros([1,2,3]),1}, 2), [2,1])
+%!assert (cellfun ("size", {zeros([1,2,3]),1}, 3), [3,1])
+%!assert (cellfun ('atan2', {1,1}, {1,2}), [atan2(1,1), atan2(1,2)])
+%!assert (cellfun ('atan2', {1,1}, {1,2},"UniformOutput", false),
+%!        {atan2(1,1), atan2(1,2)})
+%!assert (cellfun ('sin', {1,2;3,4}), sin ([1,2;3,4]))
+%!assert (cellfun ('atan2', {1,1;1,1}, {1,2;1,2}), atan2 ([1,1;1,1],[1,2;1,2]))
+%!error cellfun ('factorial', {-1,3})
+%!assert (cellfun ('factorial', {-1,3}, "ErrorHandler", @(x,y) NaN), [NaN,6])
+%!assert (cellfun (@(x) x(2),{[1],[1,2]}, "ErrorHandler", @(x,y) NaN), [NaN,2])
+%!test
+%! [a,b,c] = cellfun ('fileparts', {fullfile("a","b","c.d"), fullfile("e","f","g.h")}, "UniformOutput", false);
+%! assert (a, {fullfile("a","b"), fullfile("e","f")});
+%! assert (b, {"c", "g"});
+%! assert (c, {".d", ".h"});
+%!assert <*40467> (cellfun ('isreal', {1 inf NaN []}), [true, true, true, true])
+%!assert <*40467> (cellfun (@isreal, {1 inf NaN []}, "UniformOutput", false),
+%!                 {true, true, true, true})
+%!assert <*40467> (cellfun ('iscomplex', {1 inf NaN []}),
+%!                 [false, false, false, false])
+%!assert <*40467> (cellfun ('iscomplex', {1 inf NaN []}, "UniformOutput", false),
+%!                 {false, false, false, false})
+%!test <*67217>
+%! fail ("cellfun (@(x) x, {5, [1, 2]})", "all values must be scalars");
+%!test <*67217>
+%! fail ("cellfun (@(x) x, {5, true})", "all values should be of the same type");
+%!function retval = __errfcn (S, varargin)
+%!  global __errmsg;
+%!  __errmsg = S.message;
+%!  retval = NaN;
+%!endfunction
+%!test <*58411>
+%! global __errmsg;
+%! assert (cellfun ('factorial', {1, 2, -3}, "ErrorHandler", @__errfcn),
+%!         [1, 2, NaN]);
+%! assert (! isempty (__errmsg));
+%! clear -global __errmsg;
+%!function [a, b] = __counterror (x)
+%!  a = x;
+%!  if (x > 0)
+%!    b = x;
+%!  endif
+%!endfunction
+%!test <*66642>  # First call returns fewer outputs
+%! fail ("[a, b] = cellfun (@__counterror, {-1, 4})",
+%!       "function returned fewer than nargout values");
+%!test <*66642>  # Subsequent call returns fewer outputs
+%! fail ("[a, b] = cellfun (@__counterror, {1, -4})",
+%!       "function returned fewer than nargout values");
+%!test <*66642>  # Non-uniform output with one call returning fewer outputs
+%! fail ("[a, b] = cellfun (@__counterror, {1, -4}, 'UniformOutput', false)",
+%!       "function returned fewer than nargout values");
+%!test  # It's OK to return more outputs than requested
+%! a = cellfun (@__counterror, {1, -4});
+%! assert (a, [1, -4]);
+%! a = cellfun (@__counterror, {-1, 4});
+%! assert (a, [-1, 4]);
+%! cellfun (@__counterror, {-1, 4});
+%! assert (ans, [-1, 4]);
+%! cellfun (@__counterror, {1, -4});
+%! assert (ans, [1, -4]);
+%!
+%!function r = __counterror1 (x)
+%!  if (x > 0)
+%!    r = x;
+%!  endif
+%!endfunction
+%!test <*66642>
+%! fail ("cellfun (@__counterror1, {1, -2})",
+%!       "cellfun: function returned fewer than nargout values");
+%!test <*66642>
+%! fail ("cellfun (@__counterror1, {-1, 2})",
+%!       "function returned unexpected number of values");
+%!test
+%! cellfun (@__counterror1, {1, -2}, "UniformOutput", false);
+%! assert (ans, {1, []});
+%!test
+%! cellfun (@__counterror1, {-1, 2}, "UniformOutput", false);
+%! assert (ans, {[], 2});
+%!
+%!function varargout = __fvarg (n)
+%!  varargout = num2cell (n:-1:1);
+%!endfunction
+%!
+%!test <*66642>  # varargout, with number of outputs >= nargout
+%! a = cellfun (@__fvarg, {2, 1, 3});
+%! assert (a, [2,1,3]);
+%!error <Invalid call> cellfun (1)
+%!error <C must be a cell array> cellfun (@sin, [1 2 3])
+%!error <accelerated function must be called with only one argument>
+%! cellfun ('isempty', {1}, {2});
+%!error <'isclass' must be called with exactly two arg> cellfun ('isclass', {1})
+%!error <CLASS argument .* must be a string> cellfun ('isclass', {1}, 1)
+%!error <'size' must be called with exactly two arg> cellfun ('size', {1})
+%!error <K must be a positive integer> cellfun ('size', {1}, -1)
+%!error <UniformOutput value must be boolean>
+%! cellfun (@sin, {1}, 'UniformOutput', {'Cell'})
+%!error <invalid function NAME> cellfun ('foo123bar567', {1})
+%!error <NAME must be a string or function handle> cellfun ([1 2 3], {1})
+%!error <arguments must be cells> cellfun (@atan2, {1}, [1])
+%!error <dimensions mismatch> cellfun (@atan2, {1; 2}, {1, 2})
+%!error <unrecognized parameter> cellfun ('sin', {1}, "BadParam", false)
+%!error cellfun ('sin', {[]}, "UniformOuput")
+%!error cellfun ('sin', {[]}, "ErrorHandler")
+%!function r = __f11 (x)
+%!  r = x;
+%!endfunction
+%!function __f01 (x)
+%!  ## Empty function
+%!endfunction
+%!test
+%! __arrayfun_test_num_outputs__ = -1;
+%!
+%! function r = __subf11 (x)
+%!   __arrayfun_test_num_outputs__ = nargout;
+%!   r = x;
+%! endfunction
+%!
+%! arrayfun ("__subf11", {1});
+%! assert (__arrayfun_test_num_outputs__, 0);
+%!
+%! __arrayfun_test_num_outputs__ = -1;
+%! x = arrayfun ("__subf11", {1});
+%! assert (__arrayfun_test_num_outputs__, 1);
+%!test
+%! __arrayfun_test_num_outputs__ = -1;
+%!
+%! function __subf01 (x)
+%!   __arrayfun_test_num_outputs__ = nargout;
+%! endfunction
+%!
+%! arrayfun ("__subf01", {1});
+%! assert (__arrayfun_test_num_outputs__, 0);
+%!error x = arrayfun (@__f01, [1, 2])
+%!test
+%! assert (arrayfun (@__f11, [1, 2]), [1, 2]);
+%! assert (arrayfun (@__f11, [1, 2], "uniformoutput", false), {1, 2});
+%! assert (arrayfun (@__f11, {1, 2}), {1, 2});
+%! assert (arrayfun (@__f11, {1, 2}, "uniformoutput", false), {{1}, {2}});
+%!assert (arrayfun (@ones, 1, [2,3], "uniformoutput", false), {[1,1], [1,1,1]})
+%!function z = __arrayfunerror (S, varargin)
+%!  z = S;
+%!endfunction
+%!test
+%! arrayfun (@isequal, [false, true], [true, true]);  # No output argument
+%!error
+%! arrayfun (@isequal);  # One or less input arguments
+%!test
+%! A = arrayfun ("isequal", [false, true], [true, true]);
+%! assert (A, [false, true]);
+%!test
+%! warning ('off', 'Octave:legacy-function', 'local');
+%! A = arrayfun (inline ("(x == y)", "x", "y"), [false, true], [true, true]);
+%! assert (A, [false, true]);
+%!test
+%! A = arrayfun (@isequal, [false, true], [true, true]);
+%! assert (A, [false, true]);
+%!test
+%! A = arrayfun (@(x,y) isequal (x,y), [false, true], [true, true]);
+%! assert (A, [false, true]);
+%!test
+%! A = arrayfun (@(x) islogical (x), false);
+%! assert (A, true);
+%!test
+%! A = arrayfun (@(x,y,z) x + y + z, [1, 1, 1], [2, 2, 2], [3, 4, 5]);
+%! assert (A, [6, 7, 8], 1e-16);
+%!test  # Two input arguments of different types
+%! A = arrayfun (@(x,y) islogical (x) && ischar (y), false, "a");
+%! assert (A, true);
+%!test  # Pass another variable to the anonymous function
+%! y = true;
+%! A = arrayfun (@(x) islogical (x && y), false);
+%! assert (A, true);
+%!test  # Three output arguments of different type
+%! [A, B, C] = arrayfun (@find, [10, 11; 0, 12], "UniformOutput", false);
+%! assert (isequal (A, {true, true; [], true}));
+%! assert (isequal (B, {true, true; [], true}));
+%! assert (isequal (C, {10, 11; [], 12}));
+%!test
+%! A = arrayfun (@(x,y) x == y, [false, true], [true, true]);
+%! assert (A, [false, true]);
+%!test
+%! A = arrayfun (@(x,y) x == y, [false; true], [true; true], "UniformOutput", true);
+%! assert (A, [false; true]);
+%!test
+%! A = arrayfun (@(x) x, [false, true, false, true], "UniformOutput", false);
+%! assert (A, {false, true, false, true});
+%!test  # Three output arguments of same type
+%! [A, B, C] = arrayfun (@find, [true, false; false, true], "UniformOutput", false);
+%! assert (isequal (A, {true, []; [], true}));
+%! assert (isequal (B, {true, []; [], true}));
+%! assert (isequal (C, {true, []; [], true}));
+%!test
+%! A = arrayfun (@(x,y) array2str (x,y), true, true, ...
+%!               "ErrorHandler", @__arrayfunerror);
+%! assert (isfield (A, "identifier"), true);
+%! assert (isfield (A, "message"), true);
+%! assert (isfield (A, "index"), true);
+%! assert (isempty (A.message), false);
+%! assert (A.index, 1);
+%!test  # Overwriting setting of "UniformOutput" true
+%! A = arrayfun (@(x,y) array2str (x,y), true, true, "UniformOutput", true, ...
+%!               "ErrorHandler", @__arrayfunerror);
+%! assert (isfield (A, "identifier"), true);
+%! assert (isfield (A, "message"), true);
+%! assert (isfield (A, "index"), true);
+%! assert (isempty (A.message), false);
+%! assert (A.index, 1);
+%!test
+%! A = arrayfun (@(x,y) x>y, [1.1, 4.2], [3.1, 2+3*i]);
+%! assert (A, [false, true]);
+%!test
+%! A = arrayfun (@(x,y) x>y, [1.1, 4.2; 2, 4], [3.1, 2; 2, 4+2*i], "UniformOutput", true);
+%! assert (A, [false, true; false, false]);
+%!test
+%! A = arrayfun (@(x,y) x:y, [1.1, 4], [3.1, 6], "UniformOutput", false);
+%! assert (isequal (A{1}, [1.1, 2.1, 3.1]));
+%! assert (isequal (A{2}, [4, 5, 6]));
+%!test  # Three output arguments of different type
+%! [A, B, C] = arrayfun (@find, [10, 11; 0, 12], "UniformOutput", false);
+%! assert (isequal (A, {true, true; [], true}));
+%! assert (isequal (B, {true, true; [], true}));
+%! assert (isequal (C, {10, 11; [], 12}));
+%!test
+%! A = arrayfun (@(x,y) array2str (x,y), {1.1, 4}, {3.1, 6}, ...
+%!               "ErrorHandler", @__arrayfunerror);
+%! B = isfield (A(1), "message") && isfield (A(1), "index");
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!test  # Overwriting setting of "UniformOutput" true
+%! A = arrayfun (@(x,y) array2str (x,y), {1.1, 4}, {3.1, 6}, ...
+%!               "UniformOutput", true, "ErrorHandler", @__arrayfunerror);
+%! B = isfield (A(1), "message") && isfield (A(1), "index");
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!test
+%! A = arrayfun (@(x,y) x>y, ["ad", "c", "ghi"], ["cc", "d", "fgh"]);
+%! assert (A, [false, true, false, true, true, true]);
+%!test
+%! A = arrayfun (@(x,y) x>y, ["a"; "f"], ["c"; "d"], "UniformOutput", true);
+%! assert (A, [false; true]);
+%!test
+%! A = arrayfun (@(x,y) x:y, ["a", "d"], ["c", "f"], "UniformOutput", false);
+%! assert (A, {"abc", "def"});
+%!test
+%! A = arrayfun (@(x,y) cell2str (x,y), ["a", "d"], ["c", "f"], ...
+%!               "ErrorHandler", @__arrayfunerror);
+%! B = isfield (A(1), "identifier") && isfield (A(1), "message") ...
+%!     && isfield (A(1), "index");
+%! assert (B, true);
+%!test
+%! a = struct ("a", 1.1, "b", 4.2);  b = struct ("a", 3.1, "b", 2);
+%! A = arrayfun (@(x,y) (x.a < y.a) && (x.b > y.b), a, b);
+%! assert (A, true);
+%!test
+%! a = struct ("a", 1.1, "b", 4.2);  b = struct ("a", 3.1, "b", 2);
+%! A = arrayfun (@(x,y) (x.a < y.a) && (x.b > y.b), a, b, "UniformOutput", true);
+%! assert (A, true);
+%!test
+%! a = struct ("a", 1.1, "b", 4.2);  b = struct ("a", 3.1, "b", 2);
+%! A = arrayfun (@(x,y) x.a:y.a, a, b, "UniformOutput", false);
+%! assert (isequal (A, {[1.1, 2.1, 3.1]}));
+%!test
+%! A = arrayfun (@(x) mat2str (x), "a", "ErrorHandler", @__arrayfunerror);
+%! assert (isfield (A, "identifier"), true);
+%! assert (isfield (A, "message"), true);
+%! assert (isfield (A, "index"), true);
+%! assert (isempty (A.message), false);
+%! assert (A.index, 1);
+%!test  # Overwriting setting of "UniformOutput" true
+%! A = arrayfun (@(x) mat2str (x), "a", "UniformOutput", true, ...
+%!               "ErrorHandler", @__arrayfunerror);
+%! assert (isfield (A, "identifier"), true);
+%! assert (isfield (A, "message"), true);
+%! assert (isfield (A, "index"), true);
+%! assert (isempty (A.message), false);
+%! assert (A.index, 1);
+%!test
+%! A = arrayfun (@(x,y) x{1} < y{1}, {1.1, 4.2}, {3.1, 2});
+%! assert (A, [true, false]);
+%!test
+%! A = arrayfun (@(x,y) x{1} < y{1}, {1.1; 4.2}, {3.1; 2}, "UniformOutput", true);
+%! assert (A, [true; false]);
+%!test
+%! A = arrayfun (@(x,y) x{1} < y{1}, {1.1, 4.2}, {3.1, 2}, "UniformOutput", false);
+%! assert (A, {true, false});
+%!test
+%! A = arrayfun (@(x,y) num2str(x,y), {1.1, 4.2}, {3.1, 2}, "ErrorHandler", @__arrayfunerror);
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!test
+%! A = arrayfun (@(x,y) num2str (x,y), {1.1, 4.2}, {3.1, 2}, ...
+%!               "UniformOutput", true, "ErrorHandler", @__arrayfunerror);
+%! assert ([(isfield (A(1), "identifier")), (isfield (A(2), "identifier"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "message")), (isfield (A(2), "message"))],
+%!         [true, true]);
+%! assert ([(isfield (A(1), "index")), (isfield (A(2), "index"))],
+%!         [true, true]);
+%! assert ([(isempty (A(1).message)), (isempty (A(2).message))],
+%!         [false, false]);
+%! assert ([A(1).index, A(2).index], [1, 2]);
+%!test <*66642>  # First call returns fewer outputs
+%! fail ("[a, b] = arrayfun (@__counterror, [-1, 4])",
+%!       "function returned fewer than nargout values");
+%!test <*66642>  # Subsequent call returns fewer outputs
+%! fail ("[a, b] = arrayfun (@__counterror, [1, -4])",
+%!       "function returned fewer than nargout values");
+%!test <*66642>  # Non-uniform output
+%! fail ("[a, b] = arrayfun (@__counterror, [1, -4], 'UniformOutput', false)",
+%!       "function returned fewer than nargout values");
+%!test  # It's OK to return more outputs than requested
+%! a = arrayfun (@__counterror, [1, -4]);
+%! assert (a, [1, -4]);
+%! a = arrayfun (@__counterror, [-1, 4]);
+%! assert (a, [-1, 4]);
+%! arrayfun (@__counterror, [-1, 4]);
+%! assert (ans, [-1, 4]);
+%! arrayfun (@__counterror, [1, -4]);
+%! assert (ans, [1, -4]);
+%!
+%!test <*66642>
+%! fail ("arrayfun (@__counterror1, [1, -2])",
+%!       "arrayfun: function returned fewer than nargout values");
+%!test <*66642>
+%! fail ("arrayfun (@__counterror1, [-1, 2])",
+%!       "function returned unexpected number of values");
+%!test
+%! arrayfun (@__counterror1, [1,-2], "UniformOutput", false);
+%! assert (ans, {1, []});
+%!test
+%! arrayfun (@__counterror1, [-1,2], "UniformOutput", false);
+%! assert (ans, {[], 2});
+%!
+%!function varargout = __fvarg (n)
+%!  varargout = num2cell (n:-1:1);
+%!endfunction
+%!
+%!test  # varargout, with number of outputs >= nargout
+%! a = arrayfun (@__fvarg, [2, 1, 3]);
+%! assert (a, [2, 1, 3]);
+%!assert (num2cell ([1,2;3,4]), {1,2;3,4})
+%!assert (num2cell ([1,2;3,4], 1), {[1;3],[2;4]})
+%!assert (num2cell ([1,2;3,4], 2), {[1,2];[3,4]})
+%!test
+%! x = reshape (1:20, 5, 4);
+%! c = mat2cell (x, [3,2], [3,1]);
+%! assert (c, {[1,6,11;2,7,12;3,8,13],[16;17;18];[4,9,14;5,10,15],[19;20]});
+%!test
+%! x = "abcdefghij";
+%! c = mat2cell (x, 1, [0,4,2,0,4,0]);
+%! empty1by0str = resize ("", 1, 0);
+%! assert (c, {empty1by0str,"abcd","ef",empty1by0str,"ghij",empty1by0str});
+%!test <*63682>
+%! x = reshape (1:16, 4, 2, 2);
+%! c1 = mat2cell (x, [2, 2], 2, 2);
+%! c2 = mat2cell (x, [2, 2]);
+%! assert (c1, c2);
+%! assert (c1, {cat(3, [1,5;2,6], [9,13;10,14]); ...
+%!              cat(3, [3,7;4,8], [11,15;12,16])});
+%!test
+%! m = [1, 2, 3, 4; 5, 6, 7, 8; 9, 10, 11, 12];
+%! c = cellslices (m, [1, 2], [2, 3], 2);
+%! assert (c, {[1, 2; 5, 6; 9, 10], [2, 3; 6, 7; 10, 11]});

@@ -1,0 +1,23 @@
+## DO NOT EDIT!  Generated automatically from sparse-xpow.cc by Make.
+%!assert (sparse (2) .^ [3, 4], sparse ([8, 16]))
+%!assert <47775> (sparse (2i) .^ [3, 4], sparse ([-0-8i, 16]))
+%!test <*63080>
+%! Z = sparse ([]);
+%! A = sparse (zeros (0, 2));
+%! B = sparse (zeros (2, 0));
+%! assert (Z ^  1, Z);
+%! assert (Z ^  0, Z);
+%! assert (Z ^ -1, Z);
+%! assert (A ^  1, Z);
+%! assert (A ^  0, Z);
+%! assert (A ^ -1, Z);
+%! assert (B ^  1, Z);
+%! assert (B ^  0, Z);
+%! assert (B ^ -1, Z);
+%!test <*63080>
+%! A = sparse (zeros (2, 2));
+%! assert (A ^  1, A);
+%! assert (A ^  0, sparse (eye (2, 2)));
+%!test <63080>
+%! A = sparse (zeros (2, 2));
+%! assert (A ^ -1, sparse (inf (2, 2)));

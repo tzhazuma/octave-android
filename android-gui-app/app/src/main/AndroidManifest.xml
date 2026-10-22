@@ -18,6 +18,7 @@
         android:maxSdkVersion="29" />
 
     <application
+        android:name=".OctaveApplication"
         android:label="FreeCAD"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"

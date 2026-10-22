@@ -1,0 +1,22 @@
+## DO NOT EDIT!  Generated automatically from symrcm.cc by Make.
+%!test <*64718>
+%! adj = [ 0 1 1 1 1 1 0 0 0 0 0 0;
+%!         1 0 1 0 0 1 1 0 0 0 1 0;
+%!         1 1 0 1 0 0 1 1 0 0 0 0;
+%!         1 0 1 0 1 0 0 1 1 0 0 0;
+%!         1 0 0 1 0 1 0 0 1 1 0 0;
+%!         1 1 0 0 1 0 0 0 0 1 1 0;
+%!         0 1 1 0 0 0 0 1 0 0 1 1;
+%!         0 0 1 1 0 0 1 0 1 0 0 1;
+%!         0 0 0 1 1 0 0 1 0 1 0 1;
+%!         0 0 0 0 1 1 0 0 1 0 1 1;
+%!         0 1 0 0 0 1 1 0 0 1 0 1;
+%!         0 0 0 0 0 0 1 1 1 1 1 0 ];
+%! p = symrcm (adj);
+%! assert (p, [12 8 9 10 11 7 3 4 5 6 2 1]);
+%! assert (bandwidth (adj), 9);
+%! assert (bandwidth (adj(p, p)), 6);
+%!test <*64718>
+%! adj = false (5);
+%! p = symrcm (adj);
+%! assert (p, 1:5);

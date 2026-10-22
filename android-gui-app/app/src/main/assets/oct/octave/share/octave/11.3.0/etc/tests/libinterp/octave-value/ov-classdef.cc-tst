@@ -1,0 +1,6 @@
+## DO NOT EDIT!  Generated automatically from ov-classdef.cc by Make.
+%!assert (properties ("inputParser"),
+%!        {"CaseSensitive"; "FunctionName"; "KeepUnmatched"; "PartialMatching";
+%!         "StructExpand"; "Parameters"; "Results"; "Unmatched";
+%!         "UsingDefaults"});
+%!assert (1)

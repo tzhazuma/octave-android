@@ -38,69 +38,71 @@
 27-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:18:9-35
 28
 29    <application
-29-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:20:5-55:19
-30        android:extractNativeLibs="true"
-30-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:25:9-41
-31        android:icon="@mipmap/ic_launcher"
-31-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:22:9-43
-32        android:label="FreeCAD"
-32-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:21:9-32
-33        android:roundIcon="@mipmap/ic_launcher_round"
-33-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:23:9-54
-34        android:supportsRtl="true"
-34-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:24:9-35
-35        android:theme="@style/AppTheme" >
-35-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:26:9-40
-36        <activity
-36-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:28:9-54:20
-37            android:name="org.octave.gui.MainActivity"
-37-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:29:13-41
-38            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
-38-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:30:13-94
-39            android:exported="true"
-39-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:31:13-36
-40            android:launchMode="singleTask" >
-40-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:32:13-44
-41            <intent-filter>
-41-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:34:13-37:29
-42                <action android:name="android.intent.action.MAIN" />
-42-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:35:17-69
-42-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:35:25-66
-43
-44                <category android:name="android.intent.category.LAUNCHER" />
-44-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:36:17-77
-44-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:36:27-74
-45            </intent-filter>
-46
-47            <!--
-48              Qt's QtLoader reads this key and builds the library name as
-49                <value>_<abi>  ->  FreeCADCmd_arm64-v8a  ->  libFreeCADCmd_arm64-v8a.so
-50              That library must export main(); Qt calls it after setting up the
-51              JNI/Android environment that QCoreApplication requires.
-52            -->
-53            <meta-data
-53-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:45:13-88
-54                android:name="android.app.lib_name"
-54-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:45:24-59
-55                android:value="OctaveGui" />
-55-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:45:60-85
-56
-57            <!--
-58                 Arguments handed to main() as argv: only the workbench module paths.
-59                 Do NOT append a document path here. FreeCAD treats a bare argument as a
-60                 file to open, so the example .FCStd that used to be here made the app jump
-61                 straight into a document and skip the Start page.
-62            -->
-63
+29-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:20:5-56:19
+30        android:name="org.octave.gui.OctaveApplication"
+30-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:21:9-42
+31        android:extractNativeLibs="true"
+31-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:26:9-41
+32        android:icon="@mipmap/ic_launcher"
+32-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:23:9-43
+33        android:label="FreeCAD"
+33-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:22:9-32
+34        android:roundIcon="@mipmap/ic_launcher_round"
+34-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:24:9-54
+35        android:supportsRtl="true"
+35-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:25:9-35
+36        android:theme="@style/AppTheme" >
+36-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:27:9-40
+37        <activity
+37-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:29:9-55:20
+38            android:name="org.octave.gui.MainActivity"
+38-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:30:13-41
+39            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+39-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:31:13-94
+40            android:exported="true"
+40-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:32:13-36
+41            android:launchMode="singleTask" >
+41-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:33:13-44
+42            <intent-filter>
+42-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:35:13-38:29
+43                <action android:name="android.intent.action.MAIN" />
+43-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:36:17-69
+43-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:36:25-66
+44
+45                <category android:name="android.intent.category.LAUNCHER" />
+45-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:37:17-77
+45-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:37:27-74
+46            </intent-filter>
+47
+48            <!--
+49              Qt's QtLoader reads this key and builds the library name as
+50                <value>_<abi>  ->  FreeCADCmd_arm64-v8a  ->  libFreeCADCmd_arm64-v8a.so
+51              That library must export main(); Qt calls it after setting up the
+52              JNI/Android environment that QCoreApplication requires.
+53            -->
+54            <meta-data
+54-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:46:13-88
+55                android:name="android.app.lib_name"
+55-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:46:24-59
+56                android:value="OctaveGui" />
+56-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:46:60-85
+57
+58            <!--
+59                 Arguments handed to main() as argv: only the workbench module paths.
+60                 Do NOT append a document path here. FreeCAD treats a bare argument as a
+61                 file to open, so the example .FCStd that used to be here made the app jump
+62                 straight into a document and skip the Start page.
+63            -->
 64
-65            <!-- Qt's own metadata; harmless for a headless run -->
-66            <meta-data
-66-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:13-94
-67                android:name="android.app.background_running"
-67-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:24-69
-68                android:value="false" />
-68-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:70-91
-69        </activity>
-70    </application>
-71
-72</manifest>
+65
+66            <!-- Qt's own metadata; harmless for a headless run -->
+67            <meta-data
+67-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:54:13-94
+68                android:name="android.app.background_running"
+68-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:54:24-69
+69                android:value="false" />
+69-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:54:70-91
+70        </activity>
+71    </application>
+72
+73</manifest>

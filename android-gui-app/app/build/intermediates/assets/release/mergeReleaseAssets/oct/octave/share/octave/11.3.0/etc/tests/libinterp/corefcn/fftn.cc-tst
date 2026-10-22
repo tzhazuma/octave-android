@@ -1,0 +1,13 @@
+## DO NOT EDIT!  Generated automatically from fftn.cc by Make.
+%!testif HAVE_FFTW <*65414>
+%! sz = size (fftn (ones (2, 0, 3)));
+%! assert (sz, [2, 0, 3]);
+%!testif HAVE_FFTW <*65414>
+%! sz = size (fftn (ones (5, 4, 3), [2, 0, 3]));
+%! assert (sz, [2, 0, 3]);
+%!testif HAVE_FFTW <*65414>
+%! sz = size (ifftn (ones (2, 0, 3)));
+%! assert (sz, [2, 0, 3]);
+%!testif HAVE_FFTW <*65414>
+%! sz = size (ifftn (ones (5, 4, 3), [2, 0, 3]));
+%! assert (sz, [2, 0, 3]);

@@ -1,0 +1,56 @@
+## DO NOT EDIT!  Generated automatically from perms.cc by Make.
+%!assert (rows (perms (1:6)), factorial (6))
+%!assert (perms (pi), pi)
+%!assert (perms ([e, pi]), [pi, e; e, pi])
+%!assert (perms ([pi, e]), [e, pi; pi, e])
+%!assert (perms ([1 2 3]), [3 2 1; 3 1 2; 2 3 1; 2 1 3; 1 3 2; 1 2 3])
+%!assert (sortrows (perms (1:5)), sortrows (perms ([2 5 4 1 3]')))
+%!assert (perms ("abc"), char ("cba", "cab", "bca", "bac", "acb", "abc"))
+%!assert (sortrows (perms ("fobar")), unique (perms ("fobar"), "rows"))
+%!assert (unique (perms (1:5)(:))', 1:5)
+%!assert (perms (int8 (1:4)), int8 (perms (1:4)))
+%!assert (sortrows (perms ("abb", "unique")), ["abb"; "bab"; "bba"])
+%!assert (size (perms ([1 1 1 1 2 2 2 3 3], "unique")), [1260 9])
+%!assert (size (perms (int8([1 1 1 1 1 2 2 2 2 3 3 3]), "unique")), [27720 12])
+%!assert <*67115> (sortrows (perms ([1 1 2 2], "unique")), [1 1 2 2; 1 2 1 2; 1 2 2 1; 2 1 1 2; 2 1 2 1; 2 2 1 1])
+%!assert <*67115> (sortrows (perms ([1 2 1 2], "unique")), [1 1 2 2; 1 2 1 2; 1 2 2 1; 2 1 1 2; 2 1 2 1; 2 2 1 1])
+%!assert <*67115> (sortrows (perms ([1 2 2 1], "unique")), [1 1 2 2; 1 2 1 2; 1 2 2 1; 2 1 1 2; 2 1 2 1; 2 2 1 1])
+%!assert <*67115> (sortrows (perms ([2 1 1 2], "unique")), [1 1 2 2; 1 2 1 2; 1 2 2 1; 2 1 1 2; 2 1 2 1; 2 2 1 1])
+%!assert <*67115> (sortrows (perms ([2 1 2 1], "unique")), [1 1 2 2; 1 2 1 2; 1 2 2 1; 2 1 1 2; 2 1 2 1; 2 2 1 1])
+%!assert <*67115> (sortrows (perms ([2 2 1 1], "unique")), [1 1 2 2; 1 2 1 2; 1 2 2 1; 2 1 1 2; 2 1 2 1; 2 2 1 1])
+%!assert <*52431> (perms ({1}), {1})
+%!assert <*52431> (perms ({0.1, "foo"}), {"foo", 0.1; 0.1, "foo"})
+%!assert <*52431> (perms ({"foo", 0.1}), {0.1, "foo"; "foo", 0.1})
+%!assert <*52431> (perms ({"foo"; 0.1}), {0.1, "foo"; "foo", 0.1})
+%!assert <*52431> (perms ({0.1; "foo"}), {"foo", 0.1; 0.1, "foo"})
+%!assert <*52431> (perms ({"foo", "bar"}), {"bar", "foo"; "foo", "bar"})
+%!assert <*52431> (perms ({"bar", "foo"}), {"foo", "bar"; "bar", "foo"})
+%!
+%!assert <*52431> (perms (struct ()), struct ())
+%!assert <*52431> (perms (struct ("foo", {1, 2})),
+%!                struct ("foo", {2, 1; 1, 2}))
+%!assert <*52431> (perms (struct ("foo", {1, 2}, "bar", {3, 4})),
+%!                struct ("foo", {2, 1; 1, 2}, "bar", {4, 3; 3, 4}))
+%!assert <*52431> (perms (logical ([1 0])), logical ([0 1; 1 0]))
+%!assert <*52431> (perms (logical ([0 1])), logical ([1 0; 0 1]))
+%!assert <*52431> (perms (logical ([0 1 0])),
+%!                logical ([0 1 0; 0 0 1; 1 0 0; 1 0 0; 0 0 1; 0 1 0]))
+%!assert <*52431> (perms (logical ([0 1 1])),
+%!                logical ([1 1 0; 1 0 1; 1 1 0; 1 0 1; 0 1 1; 0 1 1]))
+%!assert <*52432> (perms ([]), reshape ([], 1, 0))
+%!assert <*52432> (perms (single ([])), reshape (single ([]), 1, 0))
+%!assert <*52432> (perms (int8 ([])), reshape (int8 ([]), 1, 0))
+%!assert <*52432> (perms ({}), cell (1, 0))
+%!test <*52432>
+%! s = struct ();
+%! s(1) = [];
+%! assert (perms (reshape (s, 0, 0)), reshape (s, 1, 0));
+%! assert (perms (reshape (s, 0, 1)), reshape (s, 1, 0));
+%!assert <*63965> (perms ({"foo"; "foo"}, "unique"), {"foo", "foo"})
+%!assert <*63965> (perms ({"foo", "foo", "bar"}, "unique"), ...
+%!                        {"bar", "foo", "foo";
+%!                         "foo", "bar", "foo";
+%!                         "foo", "foo", "bar"})
+%!error <Invalid call> perms ()
+%!error <option must be the string "unique"> perms (1:5, "foobar")
+%!error <option must be the string "unique"> perms (1:5, {"foo"})

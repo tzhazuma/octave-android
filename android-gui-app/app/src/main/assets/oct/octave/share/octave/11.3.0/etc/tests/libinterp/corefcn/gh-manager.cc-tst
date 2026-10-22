@@ -1,0 +1,51 @@
+## DO NOT EDIT!  Generated automatically from gh-manager.cc by Make.
+%!function cb (h, ~)
+%! setappdata (gcbf (), "cb_exec", [getappdata(gcbf (), "cb_exec") h]);
+%! drawnow ();
+%! setappdata (gcbf (), "cb_exec", [getappdata(gcbf (), "cb_exec") h]);
+%!endfunction
+%!
+%!testif HAVE_OPENGL, HAVE_QT; have_window_system () && any (strcmp ("qt", available_graphics_toolkits ()))
+%! hf = figure ("visible", "off", "resizefcn", @cb);
+%! graphics_toolkit (hf, "qt");
+%! unwind_protect
+%!   ## Default
+%!   hui1 = uicontrol ("parent", hf, "interruptible", "on", "callback", @cb);
+%!   hui2 = uicontrol ("parent", hf, "busyaction", "queue", "callback", @cb);
+%!   hui3 = uicontrol ("parent", hf, "busyaction", "queue", "callback", @cb);
+%!   __go_post_callback__ (hui1, "callback");
+%!   __go_post_callback__ (hui2, "callback");
+%!   __go_post_callback__ (hui3, "callback");
+%!
+%!   assert (getappdata (hf, "cb_exec"), []);
+%!   drawnow ();
+%!   assert (getappdata (hf, "cb_exec"), [hui1 hui2 hui3 hui3 hui2 hui1]);
+%!
+%!   ## Interruptible off
+%!   setappdata (hf, "cb_exec", []);
+%!   set (hui1, "interruptible", "off");
+%!   __go_post_callback__ (hui1, "callback");
+%!   __go_post_callback__ (hui2, "callback");
+%!   __go_post_callback__ (hui3, "callback");
+%!   drawnow ();
+%!   assert (getappdata (hf, "cb_exec"), [hui1 hui1 hui2 hui3 hui3 hui2]);
+%!
+%!   ## "resizefcn" callback interrupts regardless of interruptible property
+%!   setappdata (hf, "cb_exec", []);
+%!   __go_post_callback__ (hui1, "callback");
+%!   __go_post_callback__ (hf, "resizefcn");
+%!   drawnow ();
+%!   assert (getappdata (hf, "cb_exec"), [hui1 hf hf hui1]);
+%!
+%!   ## test "busyaction" "cancel"
+%!   setappdata (hf, "cb_exec", []);
+%!   set (hui2, "busyaction", "cancel");
+%!   __go_post_callback__ (hui1, "callback");
+%!   __go_post_callback__ (hui2, "callback");
+%!   __go_post_callback__ (hui3, "callback");
+%!   __go_post_callback__ (hf, "resizefcn");
+%!   drawnow ();
+%!   assert (getappdata (hf, "cb_exec"), [hui1 hf hui3 hui3 hf hui1]);
+%! unwind_protect_cleanup
+%!   close (hf)
+%! end_unwind_protect

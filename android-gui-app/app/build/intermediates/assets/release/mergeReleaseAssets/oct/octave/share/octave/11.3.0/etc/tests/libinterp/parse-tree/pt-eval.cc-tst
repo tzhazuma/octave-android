@@ -1,0 +1,111 @@
+## DO NOT EDIT!  Generated automatically from pt-eval.cc by Make.
+%!test
+%! x = {".'", "transpose";
+%!      ".*", "times";
+%!      "./", "rdivide";
+%!      ".^", "power";
+%!      ".\\", "ldivide";
+%!      "<=", "le";
+%!      "==", "eq";
+%!      ">=", "ge";
+%!      "!=", "ne";
+%!      "~=", "ne";
+%!      "~", "not";
+%!      "!", "not";
+%!      "\'", "ctranspose";
+%!      "+", "plus";
+%!      "-", "minus";
+%!      "*", "mtimes";
+%!      "/", "mrdivide";
+%!      "^", "mpower";
+%!      "\\", "mldivide";
+%!      "<", "lt";
+%!      ">", "gt";
+%!      "&", "and";
+%!      "|", "or"};
+%! for i = 1:rows (x)
+%!   assert (functions (str2func (x{i,1})).function, x{i,2});
+%! endfor
+%!test <*58830>
+%! fail ("__undef_sym__ (end)",
+%!       "invalid use of 'end': may only be used to index existing value");
+%!test <*58953>
+%! x = 1:10;
+%! assert (x(end), 10);
+%! assert (x(minus (end, 1)), 9);
+%! assert (x(minus (minus (end, 1), 1)), 8);
+%!test
+%! orig_val = max_recursion_depth ();
+%! old_val = max_recursion_depth (2*orig_val);
+%! assert (orig_val, old_val);
+%! assert (max_recursion_depth (), 2*orig_val);
+%! max_recursion_depth (orig_val);
+%! assert (max_recursion_depth (), orig_val);
+%!error max_recursion_depth (1, 2)
+%!test
+%! orig_val = silent_functions ();
+%! old_val = silent_functions (! orig_val);
+%! assert (orig_val, old_val);
+%! assert (silent_functions (), ! orig_val);
+%! silent_functions (orig_val);
+%! assert (silent_functions (), orig_val);
+%!error silent_functions (1, 2)
+%!shared orig_val, old_val
+%! orig_val = string_fill_char ();
+%! old_val  = string_fill_char ("X");
+%!test
+%! assert (orig_val, old_val);
+%! assert (string_fill_char (), "X");
+%! assert (["these"; "are"; "strings"], ["theseXX"; "areXXXX"; "strings"]);
+%! string_fill_char (orig_val);
+%! assert (string_fill_char (), orig_val);
+%!assert ( [ [], {1} ], {1} )
+%!error string_fill_char (1, 2)
+%!error echo ([])
+%!error echo (0)
+%!error echo ("")
+%!error echo ("Octave")
+%!error echo ("off", "invalid")
+%!error echo ("on", "invalid")
+%!error echo ("on", "all", "all")
+%!function name = __iname1__ (arg1, arg2, arg3)
+%!  name = inputname (1);
+%!endfunction
+%!function name = __iname1_ID__ (arg1, arg2, arg3)
+%!  name = inputname (1, false);
+%!endfunction
+%!function name = __iname2__ (arg1, arg2, arg3)
+%!  name = inputname (2);
+%!endfunction
+%!function names = __iname3__ (arg1, arg2, arg3)
+%!  names = cell (1, 3);
+%!  for i = 1:3
+%!    names{i} = inputname (i);
+%!  endfor
+%!endfunction
+%!test
+%! assert (__iname1__ ('xvar'), "");
+%! xvar = 1;
+%! assert (__iname1__ (xvar), "xvar");
+%!test
+%! xvar = 1;  yvar = 2;
+%! assert (__iname2__ (xvar), "");
+%! assert (__iname2__ (xvar, yvar), "yvar");
+%!test
+%! xvar = 1;  yvar = 2;
+%! assert (__iname3__ (xvar), {"xvar", "", ""});
+%! assert (__iname3__ (xvar, yvar), {"xvar", "yvar", ""});
+%! assert (__iname3__ (xvar, 3, yvar), {"xvar", "", "yvar"});
+%!test
+%! assert (__iname1__ (1.0), "");
+%! x = 1;
+%! assert (__iname1__ (x / 2), "");
+%! assert (__iname1__ (Inf), "");
+%!test
+%! assert (__iname1_ID__ (1.0), "1.0");
+%! x = 1;
+%! assert (__iname1_ID__ (x / 2), "x / 2");
+%! assert (__iname1_ID__ (Inf), "Inf");
+%!error <Invalid call> inputname ()
+%!error <N must be a scalar> inputname (ones (2,2))
+%!error <N must be a scalar index> inputname (-1)

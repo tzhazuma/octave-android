@@ -1,0 +1,11 @@
+## DO NOT EDIT!  Generated automatically from __lin_interpn__.cc by Make.
+%!test <*61907>
+%! x1 = 1:3;
+%! x2 = 1:4;
+%! v = repmat(1:4, 3, 1) + 1i * repmat((1:3)', 1, 4);
+%! [XI2, XI1] = meshgrid(1.5:3.5, 1.5:3.5);
+%! vi_complex = __lin_interpn__ (x1, x2, v, XI1, XI2);
+%! vi_real = __lin_interpn__ (x1, x2, real (v), XI1, XI2);
+%! vi_imag = __lin_interpn__ (x1, x2, imag (v), XI1, XI2);
+%! assert (real (vi_complex), vi_real);
+%! assert (imag (vi_complex), vi_imag);

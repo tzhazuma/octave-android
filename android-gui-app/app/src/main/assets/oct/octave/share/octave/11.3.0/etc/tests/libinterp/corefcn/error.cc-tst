@@ -1,0 +1,96 @@
+## DO NOT EDIT!  Generated automatically from error.cc by Make.
+%!error <error message 1>
+%! error ('error message 1');
+%!error <error message 2>
+%! error ('my:error_id_2', 'error message 2');
+%!error id=my:error_id_3
+%! error ('my:error_id_3', 'error message 3');
+%!error <error message 4>
+%! serr.message = 'error message 4';
+%! serr.identifier = 'my:error_id_4';
+%! error (serr);
+%!error id=my:error_id_5
+%! serr.message = 'error message 5';
+%! serr.identifier = 'my:error_id_5';
+%! error (serr);
+%!error <error message 6>
+%! serr.identifier = 'my:error_id_6';
+%! serr.message = 'error message 6';
+%! serr.stack = struct ('file', 'myfile', 'name', 'myfcn', 'line', 0);
+%! error (serr);
+%!error id=my:error_id_7
+%! serr.identifier = 'my:error_id_7';
+%! serr.message = 'error message 7';
+%! serr.stack = struct ('file', 'myfile', 'name', 'myfcn', 'line', 0, ...
+%!                      'column', 0);
+%! error (serr);
+%!error <Invalid call> error ()
+%!error <ERRSTRUCT must be a scalar structure>
+%! serr(1).message = 'msg1';
+%! serr(1).identifier = 'id1';
+%! serr(2).message = 'msg2';
+%! serr(2).identifier = 'id2';
+%! error (serr);
+%!error <ERRSTRUCT must have field 'message'>
+%! serr.identifier = 'id';
+%! error (serr);
+%!error <MESSAGE must be a string>
+%! serr.message = {1};
+%! error (serr);
+%!error <ERRSTRUCT must have field 'identifier'>
+%! serr.message = 'msg';
+%! error (serr);
+%!error <IDENTIFIER must be a string>
+%! serr.message = 'msg';
+%! serr.identifier = {1};
+%! error (serr);
+%!error <STACK must be a structure>
+%! serr.message = 'msg';
+%! serr.identifier = 'id';
+%! serr.stack = 5;
+%! error (serr);
+%!error <STACK struct must contain the fields 'file'>
+%! serr.message = 'msg';
+%! serr.identifier = 'id';
+%! serr.stack = struct ('name', 'myfcn', 'line', 0);
+%! error (serr);
+%!error <STACK struct must contain the fields .* 'name'>
+%! serr.message = 'msg';
+%! serr.identifier = 'id';
+%! serr.stack = struct ('file', 'myfile', 'line', 0);
+%! error (serr);
+%!error <STACK struct must contain the fields .* 'line'>
+%! serr.message = 'msg';
+%! serr.identifier = 'id';
+%! serr.stack = struct ('file', 'myfile', 'name', 'myfcn');
+%! error (serr);
+%!error <MESSAGE must be a string> error ({1});
+%!test <*51997>
+%! id = "Octave:logical-conversion";
+%! current = warning ("query", id);
+%! current_all = warning ();
+%! previous = warning (current_all);
+%! assert (previous, current_all);
+%! previous = warning (current);
+%! assert (previous, current);
+%! previous = warning (current.state, id);
+%! assert (previous, current);
+%!test <*57290>
+%! warning ("oN", "Octave:test-57290-ID");
+%! warnst = warning ("QUery", "Octave:test-57290-ID");
+%! assert (warnst.state, "on");
+%! assert (warnst.identifier, "Octave:test-57290-ID");
+%! warning ("OFF", "Octave:test-57290-ID");
+%! warnst = warning ("QUery", "ALL");
+%! idx = strcmp ({warnst.identifier}, "Octave:test-57290-ID");
+%! assert (warnst(idx).state, "off");
+%!error <cannot specify "all" warning ID> warning ("error")
+%!test
+%! lasterror ("reset");
+%! x = lasterror ();
+%! assert (x.identifier, "");
+%! assert (x.message, "");
+%! assert (isempty (x.stack));
+%! lasterror (x);
+%! y = lasterror ();
+%! assert (y, x);

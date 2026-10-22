@@ -1251,3 +1251,39 @@ shim 定义: __divsc3 ✅  __powisf2 ✅  __aarch64_cas8_acq ✅  __aarch64_ldad
 **卡点**：133 MB 的 APK 已经构建好，但设备掉线了（`10.20.101.184:38559` 与
 `192.168.0.108:44213` 两条传输都是 offline），装不上去。
 设备回来后第一件事就是安装并看 GUI 是否真的起来。
+
+## 2026-10-22 (7)：Octave GUI 首次真正装上并启动 —— 卡在静态初始化
+
+设备回来后立刻装了。**第一版直接装不上**：APK 里没有 Octave 的数据文件，而
+`OCTAVE_HOME` 也没设，静态构造函数解引用空路径就崩。
+
+补齐后（APK 191 MB，含 75 MB 的 `assets/oct`）：
+
+- `OctaveApplication`（在 Activity 之前运行）用 `Os.setenv` 设好
+  `OCTAVE_HOME` / `OCTAVE_EXEC_PREFIX` / `HOME` / `TMPDIR` / `PATH`
+- 首次启动把 `assets/oct` 递归解压到 `files/octave`（**496 ms**，有 marker）
+
+然后崩溃变成了一个**非常具体、可复现**的位置：
+
+```
+Fatal signal 11 (SIGSEGV), fault addr 0x1
+#00 libatomic-shim.so   (__aarch64_ldadd8_acq_rel+4)
+#01 liboctave.so        (string_vector::string_vector(char const* const*)+92)
+#02 liboctave.so
+#03 linker64            (call_constructors)
+```
+
+**读法**：崩溃发生在 `dlopen` 期间、liboctave 的**静态构造函数**里。
+`string_vector(char const* const*)` 是「用 NULL 结尾的 C 字符串数组构造」的那个重载
+（`argv` / `environ` 用的就是它），它在 +92 处对一个引用计数做原子自增，
+而那个指针的值是 0x1 —— 典型的**静态初始化顺序问题**：被引用的静态对象还没构造好。
+
+关键判断：**这不是 shim 的错**。shim 只是崩溃落点（因为符号被它提供），
+即使换成内联原子，同一个 0x1 也照样会被解引用。
+
+为什么控制台版不崩、GUI 版崩：控制台版是正常 `execve` 起的可执行文件，
+`argv` / `environ` 在静态初始化之前就绪；而 Qt 的 `QtLoader` 是 **dlopen** 我们的
+`libOctaveGui_arm64-v8a.so`，静态构造在 `main()` 之前跑，此时 Octave 假设的环境还没建立。
+
+下一步（明确）：给 Octave 的静态初始化打补丁，让依赖 `argv`/`environ` 的静态对象
+延迟构造（或在 dlopen 前由 Java 侧把环境完全铺好）。这是最后一个技术障碍。

@@ -1,0 +1,83 @@
+## DO NOT EDIT!  Generated automatically from pow2.cc by Make.
+%!test
+%! fcns = {@double, @single, @complex};
+%! x = [3, 0, -3];
+%! v = [8, 1, .125];
+%! for i = 1:numel (fcns)
+%!   fcn = fcns{i};
+%!   assert (pow2 (fcn (x)), fcn (v), sqrt (eps));
+%! endfor
+%!test
+%! fcns = {@double, @single, @complex, @sparse};
+%! x = [3, 1, -3];
+%! v = [8, 2, .125];
+%! for i = 1:numel (fcns)
+%!   fcn = fcns{i};
+%!   assert (pow2 (fcn (x)), fcn (v), sqrt (eps));
+%! endfor
+%!test
+%! fcns = {@double, @single, @complex, @sparse};
+%! x = [1, 1+1i, 1i];
+%! for i = 1:numel (fcns)
+%!   fcn = fcns{i};
+%!   assert (pow2 (fcn (x)), fcn (2) .^ fcn (x), sqrt (eps));
+%! endfor
+%!test
+%! fcns = {@double, @single, @complex, @sparse};
+%! f = [2 2];
+%! e = [2 2];
+%! z = [8 8];
+%! warning ("off", "Octave:pow2:imaginary-ignored", "local");
+%! for i = 1:numel (fcns)
+%!   fcn = fcns{i};
+%!   assert (pow2 (fcn (f), fcn (e)), real (fcn (z)));
+%! endfor
+%!test
+%! f = 2;
+%! e = [2, 2.1, 2.2, 2.4, 2.5, 2.8];
+%! z = 8 .* ones (1, length (e));
+%! assert (pow2 (f, e), z);
+%!test
+%! f = [1+1i, 1];
+%! e = 2;
+%! z = [4, 4];
+%! warning ("off", "Octave:pow2:imaginary-ignored", "local");
+%! assert (pow2 (f, e), z);
+%!test
+%! f = 1;
+%! e = [1+1i, 1];
+%! z = [2, 2];
+%! warning ("off", "Octave:pow2:imaginary-ignored", "local");
+%! assert (pow2 (f, e), z);
+%!test
+%! f = [1/2, pi/4, -3/4, 1/2, 1-eps()/2, 1/2];
+%! e = [1, 2, 2, -51, 1024, -1021];
+%! z = [1, pi, -3, eps(), realmax(), realmin()];
+%! assert (pow2 (f, e), z);
+%!assert (pow2 (sparse (0), ones  (3)), sparse (3, 3))
+%!assert (pow2 (sparse (1), ones  (3)), 2 .* sparse (ones (3)))
+%!assert (pow2 (sparse (1), speye (3)), sparse (ones (3) + eye (3)))
+%!assert (pow2 (sparse (3, 3), ones (3)), sparse (3, 3))
+%!assert (pow2 (speye (3), ones (3)), 2 .* speye (3))
+%!assert (pow2 (speye (3), 1),        2 .* speye (3))
+%!test
+%! f = speye (3);
+%! e = sparse (3, 3);
+%! e(1,1) = 1;
+%! e(1,3) = 1;
+%! z = f;
+%! z(1,1) = 2;
+%! assert (pow2 (f, e), z);
+%!test
+%! ## FIXME: `N = 1e5` would be a better test, but `assert` fills-up somehow.
+%! N = 1e3;
+%! assert (pow2 (speye  (N), sparse (N,N)), speye (N));
+%! assert (pow2 (sparse (0), speye  (N)),   sparse(N,N));
+%!error <Invalid call> pow2 ()
+%!error <Invalid call> pow2 (1,2,3)
+%!error <wrong type argument> pow2 (int8 (1))
+%!error <wrong type argument> pow2 (2, int8 (1))
+%!warning <imaginary part is ignored> pow2 (i, 2);
+%!warning <imaginary part is ignored> pow2 (2, i);
+%!error <pow2: nonconformant arguments> pow2 ([1,2], [3,4,5])
+%!error <pow2: nonconformant arguments> pow2 (sparse ([1,2]), sparse ([3,4,5]))

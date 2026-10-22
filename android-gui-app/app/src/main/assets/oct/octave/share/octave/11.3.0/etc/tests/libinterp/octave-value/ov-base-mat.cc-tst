@@ -1,0 +1,4 @@
+## DO NOT EDIT!  Generated automatically from ov-base-mat.cc by Make.
+%!test
+%! a = [1, 2; 3, 4];
+%! assert (a(), a);

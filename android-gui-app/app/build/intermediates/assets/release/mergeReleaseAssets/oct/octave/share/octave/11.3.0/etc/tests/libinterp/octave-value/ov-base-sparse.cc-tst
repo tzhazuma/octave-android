@@ -1,0 +1,14 @@
+## DO NOT EDIT!  Generated automatically from ov-base-sparse.cc by Make.
+%!test <64696>
+%! A = B = sparse (1, 2);
+%! assert (nnz (A), 0);
+%! assert (nnz (B), 0);
+%! txt_file = [tempname(), ".dat"];
+%! unwind_protect
+%!   save ("-text", txt_file, "A", "B");
+%!   s = load (txt_file);
+%! unwind_protect_cleanup
+%!   delete ([txt_file, '*']);
+%! end_unwind_protect
+%! assert (s.A, A);
+%! assert (s.B, B);

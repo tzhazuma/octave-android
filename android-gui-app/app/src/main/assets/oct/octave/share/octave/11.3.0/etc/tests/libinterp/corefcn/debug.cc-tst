@@ -1,0 +1,38 @@
+## DO NOT EDIT!  Generated automatically from debug.cc by Make.
+%!test
+%! if (isguirunning ())
+%!   orig_show_dbg = __event_manager_gui_preference__ ("editor/show_dbg_file",
+%!                                                     "false");
+%! endif
+%! unwind_protect
+%!   dbclear all;   # Clear out breakpoints before test
+%!   dbstop @ftp/dir;
+%!   dbstop @audioplayer/set 75;
+%!   dbstop quantile>__quantile__;
+%!   dbstop ls;
+%!   dbstop in inputParser at addOptional;
+%!   dbstop in inputParser at 286;
+%!   s = dbstatus ();
+%!   dbclear all;
+%!   ## For Matlab compatibility, the following name should be:
+%!   ## audioplayer.set>setproperty
+%!   assert (s(1).name, "@audioplayer/set>setproperty");
+%!   ## For Matlab compatibility, the following name should be:
+%!   ## ftp.dir
+%!   assert (s(2).name, "@ftp/dir");
+%!   assert (s(2).file(end-10:end), [filesep "@ftp" filesep "dir.m"]);
+%!   ## For Matlab compatibility, the following two names should be:
+%!   ## inputParser.inputParser>inputParser.addOptional
+%!   assert (s(3).name, "@inputParser/addOptional");
+%!   assert (s(3).line, 280);
+%!   assert (s(4).name, "@inputParser/addOptional");
+%!   assert (s(4).line, 286);
+%!   assert (s(5).name, "ls");
+%!   assert (s(6).name, "quantile>__quantile__");
+%!   s = dbstatus ();
+%!   assert (isempty (s));
+%! unwind_protect_cleanup
+%!   if (isguirunning ())
+%!     __event_manager_gui_preference__ ("editor/show_dbg_file", orig_show_dbg);
+%!   endif
+%! end_unwind_protect
