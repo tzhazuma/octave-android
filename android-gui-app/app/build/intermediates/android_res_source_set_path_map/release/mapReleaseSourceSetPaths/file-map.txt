@@ -1,7 +1,0 @@
-org.octave.gui.app-pngs-0 /Users/azuma/octave-android/android-gui-app/app/build/generated/res/pngs/release
-org.octave.gui.app-updated_navigation_xml-1 /Users/azuma/octave-android/android-gui-app/app/build/generated/updated_navigation_xml/release
-org.octave.gui.app-packageReleaseResources-2 /Users/azuma/octave-android/android-gui-app/app/build/intermediates/incremental/release/packageReleaseResources/merged.dir
-org.octave.gui.app-packageReleaseResources-3 /Users/azuma/octave-android/android-gui-app/app/build/intermediates/incremental/release/packageReleaseResources/stripped.dir
-org.octave.gui.app-release-4 /Users/azuma/octave-android/android-gui-app/app/build/intermediates/merged_res/release/mergeReleaseResources
-org.octave.gui.app-main-5 /Users/azuma/octave-android/android-gui-app/app/src/main/res
-org.octave.gui.app-release-6 /Users/azuma/octave-android/android-gui-app/app/src/release/res

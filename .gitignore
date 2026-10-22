@@ -66,3 +66,9 @@ android-app/.gradle/
 *.apk
 # Build outputs and probe objects: reproducible, and they made one commit enormous.
 build/
+
+# Build outputs were committed by mistake; they are large and machine-specific.
+android-app/app/build/
+android-gui-app/app/build/
+android-gui-app/.gradle/
+android-app/.gradle/
