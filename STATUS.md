@@ -1287,3 +1287,38 @@ Fatal signal 11 (SIGSEGV), fault addr 0x1
 
 下一步（明确）：给 Octave 的静态初始化打补丁，让依赖 `argv`/`environ` 的静态对象
 延迟构造（或在 dlopen 前由 Java 侧把环境完全铺好）。这是最后一个技术障碍。
+
+## 2026-10-22 (8)：静态初始化崩溃的根因逐层剥开
+
+用 `llvm-addr2line` 把崩溃地址解析成符号，一步步定位：
+
+```
+0x1120a04  _GLOBAL__sub_I_file-ops.cc          ← file-ops.cc 的静态初始化器
+0x1150be0  string_vector::string_vector(char const* const*)
+```
+
+`file-ops.cc` 里有这两个全局量，在加载时就从 C 字符串数组构造：
+
+```cpp
+static const char *default_prefixes[] = { " ~", "\t~", ":~", nullptr };
+string_vector tilde_additional_prefixes = default_prefixes;
+string_vector tilde_additional_suffixes = default_suffixes;
+```
+
+**第一个补丁**：改成默认构造、首次使用时再填默认值（因为只有 file-ops.cc 自己用到）。
+崩溃位置**确实变了** —— 从 `string_vector(char const* const*)` 移到了同一初始化器里的
+另一句（`0x1120a7c`）。
+
+**这说明**：那一处修好了，但**底层问题更深** —— 现在崩在 `string_vector()` 默认构造里，
+也就是 `Array<T>` 的 `nil_rep()` / 引用计数机制在静态初始化期间本身就不可用。
+换句话说，**Octave 的 `Array` 静态机制在 Android 的 dlopen 静态初始化阶段是坏的**，
+和具体哪个全局量无关。
+
+顺带修掉一个自己引入的问题：辅助函数 `init_tilde_defaults` 是内部链接符号
+（`_ZN6octaveL19init_tilde_defaultsEv`），跨对象引用解析失败，报
+`cannot locate symbol`。已改成**内联**到两个使用点，不再引入符号。
+
+**下一轮的方向**：`Array<T>::nil_rep()` 用的是函数内静态（本该线程安全、首次使用才构造），
+需要确认在这个构建里它为什么不可用 —— 可能和 `-fno-threadsafe-statics`、
+或者 liboctave 与 liboctinterp 之间的静态初始化次序有关。
+这是 Octave GUI 最后一个技术障碍，且现在**根因范围已经缩到 Array 的 rep 机制**。
