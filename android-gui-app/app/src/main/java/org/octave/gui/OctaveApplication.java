@@ -51,6 +51,9 @@ public class OctaveApplication extends Application {
          * then aborts. LIBGL_NOTEST makes gl4es skip the probe and assume conservative GLES2
          * defaults. This is the same ordering FreeCAD needed. */
         set("LIBGL_NOTEST", "1");
+        // Diagnostic: let Qt report how far it gets. Remove once the startup path is clean.
+        set("QT_DEBUG_PLUGINS", "1");
+        set("QT_LOGGING_RULES", "qt.core.*=true;qt.qpa.*=true");
 
         /* No preload of Octave's libraries on purpose. System.loadLibrary("octgui") pulls
          * Qt6Core in before QtLoader has set up the JNI environment, and Qt then aborts with

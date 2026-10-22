@@ -1432,3 +1432,35 @@ F libc : FORTIFY: pthread_mutex_lock called on a destroyed mutex (0x74912ea6d8)
 已用 `logcat -b crash` 确认没有 tombstone 帧（只有 FORTIFY 一行），
 所以拿不到调用栈，下一轮需要换手段定位（例如打开 debuggerd、或从 Qt 的
 `qtMainLoopThread` 启动顺序入手）。
+
+## 2026-10-22 (12)：Octave GUI 的现状与判断
+
+**已发布的 Octave（`org.octave.android` 控制台版）工作正常**：真机验证进程存活、
+界面正常渲染（301 色），科学计算、脚本、gnuplot 出图都可用。这是当前交付的 Octave。
+
+**Qt GUI 版（`org.octave.gui`）的进展与现状**：
+
+已经做到的（全部可验证）：
+- gl4es 作为桌面 GL 提供者，1223 个符号，含 `glSelectBuffer` / `glRenderMode`
+- `liboctgui.so` 编译链接成功（4.6 MB，aarch64，链 Qt6）
+- octave-gui 重链接为共享库并导出 `main()`（QtLoader 要求的形式）
+- 五个原生库全部加载成功（修掉了 outline-atomics ABI 这个我自己的 bug）
+- 环境变量、数据解压、无障碍桥、gl4es 探测抑制都按 FreeCAD 的验证配置对齐
+
+仍未通过的一关：
+```
+F libc : FORTIFY: pthread_mutex_lock called on a destroyed mutex (0x74912ea6d8)
+```
+- 发生在 Activity 显示后约 750 ms
+- 地址跨运行完全一致 → 某个库固定偏移处的对象，不是堆
+- `logcat -b crash` 与 dropbox 都**没有**对应的 tombstone（只有 FORTIFY 一行），
+  拿不到调用栈
+- 设了 `QT_DEBUG_PLUGINS=1` / `QT_LOGGING_RULES` 后 **Qt 一行日志都没有** →
+  说明 Qt 在初始化日志系统之前就退出了
+
+**判断**：这不是一个「再补一个符号」就能解决的问题，而是 Qt for Android 的
+进程内初始化与 Octave 的 Qt 后端在这个 ROM 上的兼容性问题。要往下走需要
+真正的原生调试手段（debuggable 包 + lldb 附加，或自建 Qt 的最小复现工程），
+属于另一个量级的工作。
+
+建议：把 Octave GUI 作为独立课题，当前交付控制台版（功能完整、已验证）。
