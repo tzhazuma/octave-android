@@ -91,3 +91,68 @@ scripts/      reproducible build + device-test scripts
 spike/        the gate experiments (Fortran, BLAS, LAPACK) with their sources
 logs/         selected build logs
 ```
+
+---
+
+## The Qt GUI: how it starts, and why it took so long
+
+The GUI is the real thing — `octave-gui`'s `main` linked as a shared object
+(`libOctaveGui_arm64-v8a.so`), loaded by QtLoader, hosted by a `QtActivity`. On device it comes
+up with the Command Window, File Browser, Workspace, Command History and Documentation panels
+and a live `octave:1>` prompt.
+
+Getting there meant finding two bugs in series, and the second was invisible until the first was
+fixed.
+
+### 1. It was running in CLI mode
+
+`cmdline_options` initialises `m_gui` to `false`, and the real `octave` launcher always inserts
+`--gui` before exec'ing `octave-gui`. QtLoader calls our `main` with `argc == 1`, so
+`start_gui_p()` was false, `base_qobject` took the headless path, stdin hit EOF and `execute()`
+returned after 164 ms.
+
+Instrumenting `main` before and after each step made this obvious:
+
+```
+main ENTER ... argc 1
+qt_application::execute RETURN 0     (164 ms)
+main RETURN 0
+620 ms later, on a different thread: F libc: FORTIFY: pthread_mutex_lock called on a destroyed mutex
+```
+
+**That abort was never the cause.** It happens in Qt's teardown *after* `main()` returns, which
+is why there was no tombstone, why `logcat -b crash` was empty, and why setting
+`QT_DEBUG_PLUGINS`/`QT_LOGGING_RULES` produced nothing — the process was already on its way out.
+The fix is one manifest line:
+
+```xml
+<meta-data android:name="android.app.arguments" android:value="--gui"/>
+```
+
+### 2. It asked for desktop OpenGL on a GLES-only platform
+
+With GUI mode on, `base_qobject` unconditionally requested a desktop compatibility profile
+(`QSurfaceFormat` with `RenderableType=OpenGL`, `CompatibilityProfile`, `DeprecatedFunctions`,
+`libgui/src/octave-qobject.cc`). Android's EGL cannot provide that, so Qt died in
+`QOpenGLContext::makeCurrent → QRhi::create → QMessageLogger::fatal` and aborted the Qt thread.
+
+The message was not visible because Octave installs a Qt message handler that swallows it. Set
+`OCTAVE_SHOW_GUI_MESSAGES=1` to see it. The block is now guarded with `! defined (Q_OS_ANDROID)`;
+Octave's own plotting entry points still get GL through gl4es.
+
+The patch is saved as `patches/octave-android-gles-surface-format.patch` because `src/` is a
+build checkout and is not tracked.
+
+### Rebuilding liboctgui
+
+A full `make` in `src/octave-11.3.0` drags in ~1080 objects through stale dependencies. The
+recipe in `evidence/gui-startup-2026-10-23/README.md` rebuilds the single `octave-qobject.cc`
+object and relinks, which takes seconds.
+
+### Known rough edges
+
+* Normal-exit teardown is untested; if Octave quits via `main()` returning, the Qt teardown that
+  produced the FORTIFY message may still be hit.
+* Startup logs `/system/xbin/gnuplot: Permission denied`. gnuplot ships as `libgnuplot.so` in
+  `nativeLibraryDir`; the GUI's plotting path still looks on `PATH`.
+* The window renders as a narrow letterboxed column. That is layout, not function.
