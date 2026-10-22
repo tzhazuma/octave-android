@@ -38,7 +38,7 @@
 27-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:18:9-35
 28
 29    <application
-29-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:20:5-56:19
+29-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:20:5-63:19
 30        android:name="org.octave.gui.OctaveApplication"
 30-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:21:9-42
 31        android:extractNativeLibs="true"
@@ -54,7 +54,7 @@
 36        android:theme="@style/AppTheme" >
 36-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:27:9-40
 37        <activity
-37-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:29:9-55:20
+37-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:29:9-62:20
 38            android:name="org.octave.gui.MainActivity"
 38-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:30:13-41
 39            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
@@ -88,21 +88,35 @@
 56-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:46:60-85
 57
 58            <!--
-59                 Arguments handed to main() as argv: only the workbench module paths.
-60                 Do NOT append a document path here. FreeCAD treats a bare argument as a
-61                 file to open, so the example .FCStd that used to be here made the app jump
-62                 straight into a document and skip the Start page.
-63            -->
-64
-65
-66            <!-- Qt's own metadata; harmless for a headless run -->
-67            <meta-data
-67-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:54:13-94
-68                android:name="android.app.background_running"
-68-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:54:24-69
-69                android:value="false" />
-69-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:54:70-91
-70        </activity>
-71    </application>
-72
-73</manifest>
+59                 octave-gui is a GUI program only when it is told so: the real
+60                 "octave" launcher always inserts the gui option before exec'ing
+61                 it (src/main.cc).  Without this, Octave's cmdline_options
+62                 leaves m_gui = false, runs the CLI inside QApplication, hits
+63                 EOF on stdin and exits in ~160 ms.
+64            -->
+65            <meta-data
+65-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:13-85
+66                android:name="android.app.arguments"
+66-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:24-60
+67                android:value="--gui" />
+67-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:61-82
+68
+69            <!--
+70                 Arguments handed to main() as argv: only the workbench module paths.
+71                 Do NOT append a document path here. FreeCAD treats a bare argument as a
+72                 file to open, so the example .FCStd that used to be here made the app jump
+73                 straight into a document and skip the Start page.
+74            -->
+75
+76
+77            <!-- Qt's own metadata; harmless for a headless run -->
+78            <meta-data
+78-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:61:13-94
+79                android:name="android.app.background_running"
+79-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:61:24-69
+80                android:value="false" />
+80-->/Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:61:70-91
+81        </activity>
+82    </application>
+83
+84</manifest>

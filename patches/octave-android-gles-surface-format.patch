@@ -1,0 +1,18 @@
+--- a/libgui/src/octave-qobject.cc
++++ b/libgui/src/octave-qobject.cc
+@@ -231,7 +231,14 @@
+ 
+   // Make sure Qt picks a full OpenGL context (including deprecated
+   // functions, see bug #67974)
+-#if QT_VERSION >= QT_VERSION_CHECK(5, 4, 0)
++  //
++  // Android is the exception: its EGL implementation only provides
++  // OpenGL ES, and requesting a desktop OpenGL (compatibility profile)
++  // context makes Qt's QEGLPlatformContext fail with "Failed to create
++  // context"/"eglMakeCurrent failed" and abort inside QRhi when the first
++  // window is composed.  Leave Qt on its GLES default there; the desktop
++  // GL entry points Octave's plot renderer needs are supplied by gl4es.
++#if QT_VERSION >= QT_VERSION_CHECK(5, 4, 0) && ! defined (Q_OS_ANDROID)
+   QSurfaceFormat fmt;
+   fmt.setRenderableType (QSurfaceFormat::OpenGL);
+   fmt.setProfile (QSurfaceFormat::CompatibilityProfile);

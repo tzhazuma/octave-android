@@ -1464,3 +1464,61 @@ F libc : FORTIFY: pthread_mutex_lock called on a destroyed mutex (0x74912ea6d8)
 属于另一个量级的工作。
 
 建议：把 Octave GUI 作为独立课题，当前交付控制台版（功能完整、已验证）。
+
+## 2026-10-23：Octave GUI 成功启动 —— 两个串联的 bug
+
+真机确认：Command Window 出现完整 banner 和 `octave:1>` 提示符，
+File Browser / Workspace / Command History / Documentation 面板齐全，
+进程存活 60s+，`FORTIFY` 计数为 0。
+
+### 根因一：Octave 在跑 CLI 模式，不是 GUI
+
+`cmdline_options` 里 `m_gui` 默认是 **false**（src/octave.cc:150）。
+真正的 `octave` 启动器在 exec 之前总会插入 `--gui`（src/main.cc:426-427）。
+但 QtLoader 调用我们的 `main` 时 **argc=1**，于是 `start_gui_p()` 为假，
+base_qobject 走无头/CLI 分支，stdin 遇到 EOF，`execute()` 在 164 ms 后就返回 0。
+
+探针日志证据：
+
+```
+main ENTER ... argc 1
+qt_application::execute RETURN 0     (164 ms)
+main RETURN 0
+620 ms later, 另一个线程: F libc: FORTIFY: pthread_mutex_lock called on a destroyed mutex
+```
+
+**那条 FORTIFY abort 是 main() 返回后 Qt/Android 的析构路径**，从来不是启动失败的原因 ——
+这也解释了为什么没有 tombstone、Qt 日志也一片空白。
+
+修法：manifest 里加
+
+```xml
+<meta-data android:name="android.app.arguments" android:value="--gui"/>
+```
+
+### 根因二：Octave 强制要求桌面 OpenGL 兼容配置
+
+`base_qobject` 无条件请求 `QSurfaceFormat::setRenderableType(OpenGL)` +
+`CompatibilityProfile` + `DeprecatedFunctions`（libgui/src/octave-qobject.cc:234-240）。
+Android 的 EGL 只有 GLES，于是 `QOpenGLContext::makeCurrent` 失败 →
+`QRhi::create` → `QMessageLogger::fatal`，在 qtMainLoopThread 里 SIGABRT。
+
+那段致命文本之前看不见，是因为 Octave 装了**吞掉消息的 Qt message handler**
+（除非设 `OCTAVE_SHOW_GUI_MESSAGES`）。
+
+修法：把那一段用 `&& ! defined (Q_OS_ANDROID)` 保护起来，重编 liboctgui、重链接。
+Octave 自己的 LOGO/绘图 GL 入口仍然可以走 gl4es。
+
+### 残留问题
+
+- 正常退出路径可能仍会走那个 FORTIFY 析构（未测，设备被其它任务占用）
+- 启动时打印 `/system/xbin/gnuplot: Permission denied` —— 绘图后端路径，不影响启动
+- 界面渲染成窄列（竖屏 letterbox），是布局问题不是功能问题
+
+### 文件
+
+- `android-gui-app/app/src/main/AndroidManifest.xml`：`android.app.arguments=--gui`
+- `src/octave-11.3.0/libgui/src/octave-qobject.cc`：`Q_OS_ANDROID` 保护
+  （`src/` 被 gitignore，补丁存为 `patches/octave-android-gles-surface-format.patch`）
+- `android-gui-app/app/src/main/java/org/octave/gui/OctaveApplication.java`：
+  设 `OCTAVE_SHOW_GUI_MESSAGES=1`，qFatal 不再被吞

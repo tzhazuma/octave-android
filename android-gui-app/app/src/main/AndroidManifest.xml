@@ -45,6 +45,13 @@
             -->
             <meta-data android:name="android.app.lib_name" android:value="OctaveGui" />
 
+            <!-- octave-gui is a GUI program only when it is told so: the real
+                 "octave" launcher always inserts the gui option before exec'ing
+                 it (src/main.cc).  Without this, Octave's cmdline_options
+                 leaves m_gui = false, runs the CLI inside QApplication, hits
+                 EOF on stdin and exits in ~160 ms. -->
+            <meta-data android:name="android.app.arguments" android:value="--gui" />
+
             <!-- Arguments handed to main() as argv: only the workbench module paths.
                  Do NOT append a document path here. FreeCAD treats a bare argument as a
                  file to open, so the example .FCStd that used to be here made the app jump

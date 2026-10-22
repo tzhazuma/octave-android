@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:2:1-57:12
-INJECTED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:2:1-57:12
-INJECTED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:2:1-57:12
-INJECTED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:2:1-57:12
+ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:2:1-64:12
+INJECTED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:2:1-64:12
+INJECTED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:2:1-64:12
+INJECTED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:2:1-64:12
 	package
 		INJECTED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml
 	android:versionName
@@ -29,7 +29,7 @@ ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManif
 	android:name
 		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:17:22-78
 application
-ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:20:5-56:19
+ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:20:5-63:19
 	android:extractNativeLibs
 		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:26:9-41
 	android:supportsRtl
@@ -45,7 +45,7 @@ ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManif
 	android:name
 		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:21:9-42
 activity#org.octave.gui.MainActivity
-ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:29:9-55:20
+ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:29:9-62:20
 	android:launchMode
 		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:33:13-44
 	android:exported
@@ -70,12 +70,18 @@ ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManif
 		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:46:60-85
 	android:name
 		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:46:24-59
-meta-data#android.app.background_running
-ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:54:13-94
+meta-data#android.app.arguments
+ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:13-85
 	android:value
-		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:54:70-91
+		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:61-82
 	android:name
-		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:54:24-69
+		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:53:24-60
+meta-data#android.app.background_running
+ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:61:13-94
+	android:value
+		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:61:70-91
+	android:name
+		ADDED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml:61:24-69
 uses-sdk
 INJECTED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/azuma/octave-android/android-gui-app/app/src/main/AndroidManifest.xml
