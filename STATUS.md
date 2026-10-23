@@ -1853,3 +1853,20 @@ cp src/octave-11.3.0/libgui/.libs/liboctgui.so android-gui-app/jniLibs/arm64-v8a
 点那个 Editor 标签目前没有切换到编辑器视图（面板内容变空白）。
 所以「标签页能被创建」已经验证，「编辑器界面可用」还没有。
 接下来要查 Qt dock widget 在窄屏上的 tab 切换与 sizing。
+
+## 2026-10-23：横屏下 Editor 标签完整显示，但点击不切换
+
+竖屏时底部标签被截断成 `Ed...`；横屏（3096×2064）下窗口更宽，标签完整显示为 **Editor**，
+说明 dock 确实创建成功、标题也正确。
+
+但点它**不切换** —— 面板内容仍是 Command Window，两次不同坐标的点击结果相同（截图逐字节一致）。
+同一个面板里点 Documentation 是能切换的（第 6 轮验证过），所以不是"dock 标签完全不可点"。
+
+所以现在的状态是：**dock 存在、标签存在、但点击无效果**，最可能是该 dock 的内容 widget
+处于隐藏状态，或者 Qt 因为内容为空而忽略了这次激活。
+
+下一步方向（按可能性排序）：
+1. 查 `file_editor` 的 `QTabWidget` 里是否真的有 file_editor_tab，以及它的尺寸是否为 0
+2. 查 `octave_dock_widget::activate()` 里的 `m_no_focus` 是否被置位（置位时会直接 return，
+   不执行 setVisible/raise）
+3. 若都不成立，用 Octave 的设置项强制显示编辑器 dock
