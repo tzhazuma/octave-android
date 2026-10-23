@@ -1539,3 +1539,18 @@ Octave 自己的 LOGO/绘图 GL 入口仍然可以走 gl4es。
 不会出现 —— 它只在 `main()` 主动返回时才会触发，而现在的启动路径不会返回。
 
 结论：**这不是待修的问题，而是一个不可达路径**。如果将来加了「退出」菜单项，需要重新检查。
+
+## 2026-10-23：文件对话框按键的诊断
+
+工具栏有四个按钮（新建 / 打开 / 保存 / 撤销），但点「打开」和「保存」**都没有任何反应** ——
+不弹对话框、不报错、界面无变化。logcat 里也只有 IME 的隐藏事件，没有任何 Qt 文件对话框的记录。
+
+命令行是正常的：在 Command Window 里输入 `disp(42)` 得到 `42`，提示符从 `octave:1>` 走到
+`octave:2>`。所以问题不在输入通路，而在 `QFileDialog` 这一层。
+
+下一步方向（尚未实施）：
+- Octave 的 `MainWindow` 调 `QFileDialog::getOpenFileName`，Android 上 Qt 的对话框走
+  `QPlatformDialogHelper`；这个后端在 Qt for Android 里可能是空实现，于是对话框既不显示也不报错。
+- 可行的替代：把工具栏动作改成不依赖 `QFileDialog` 的实现 —— 例如用 Android 的 SAF 选择器
+  （`ACTION_OPEN_DOCUMENT`）通过 JNI 回调路径，或者干脆在 GUI 里内置一个基于
+  `QFileSystemModel` 的简易选择器（File Browser 面板已经在用这个模型）。
