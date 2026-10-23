@@ -50,6 +50,7 @@ public class OctaveApplication extends Application {
          * state where Qt's eglChooseConfig returns no configs -- Qt's Android platform plugin
          * then aborts. LIBGL_NOTEST makes gl4es skip the probe and assume conservative GLES2
          * defaults. This is the same ordering FreeCAD needed. */
+        writeGuiDefaults(files);
         set("LIBGL_NOTEST", "1");
         // Octave's base_qobject installs a no-op Qt message handler unless this is
         // set, which silently swallows qFatal() text (including the EGL/OpenGL
@@ -101,5 +102,49 @@ public class OctaveApplication extends Application {
 
     private static void set(String key, String value) {
         try { Os.setenv(key, value, true); } catch (Throwable ignored) { }
+    }
+
+    /**
+     * Seed the GUI's settings before Qt starts.
+     *
+     * <p>Two compiled-in defaults do not survive contact with Android, and neither can be changed
+     * without rebuilding libgui, which is why they are written here instead:
+     *
+     * <ul>
+     *   <li>{@code customFileEditor} defaults to {@code "emacs +%l %f"}.
+     *       {@code external_editor_interface::external_editor()} reads that key without consulting
+     *       {@code useCustomFileEditor}, so New and Open always try to launch emacs and fail with
+     *       "Could not start custom file editor" instead of opening Octave's own editor. An empty
+     *       value makes {@code call_custom_editor()} return true and fall through.</li>
+     *   <li>{@code global_skip_welcome_wizard} defaults to false, so a fresh install stops on a
+     *       modal first-run wizard whose buttons are hard to reach on a phone.</li>
+     * </ul>
+     *
+     * <p>Octave's own log names this path: "The configuration file is stored in
+     * /data/user/0/org.octave.gui/files/.config/octave/octave-gui.ini". An existing file is left
+     * alone so real preferences are never overwritten.
+     */
+    private static void writeGuiDefaults (String files)
+    {
+        java.io.File dir = new java.io.File (files, ".config/octave");
+        java.io.File ini = new java.io.File (dir, "octave-gui.ini");
+        if (ini.isFile ())
+            return;
+        try
+        {
+            if (! dir.isDirectory () && ! dir.mkdirs ())
+                return;
+            String body = "[General]\n"
+                    + "global_skip_welcome_wizard=true\n"
+                    + "customFileEditor=\n";
+            try (java.io.FileOutputStream w = new java.io.FileOutputStream (ini))
+            {
+                w.write (body.getBytes (java.nio.charset.StandardCharsets.UTF_8));
+            }
+        }
+        catch (java.io.IOException e)
+        {
+            Log.i ("OctaveGui", "could not seed octave-gui.ini: " + e);
+        }
     }
 }

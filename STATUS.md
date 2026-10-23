@@ -1635,3 +1635,52 @@ global_custom_editor ("customFileEditor", QVariant ("emacs +%l %f"));
 
 源码已改，但 `build/gui-vanilla` 的 CMake 树在之前的磁盘清理里被删了，
 需要重新 configure + 编译 libgui 才能产出新 APK。这是下一步。
+
+## 2026-10-23：用 Java 预写设置，绕开需要重编的默认值
+
+### 配置文件的真实路径（Octave 自己说的）
+
+首次运行时 Octave 弹出向导，里面直接写了路径：
+
+```
+The configuration file is stored in
+/data/user/0/org.octave.gui/files/.config/octave/octave-gui.ini
+```
+
+所以 `HOME=files` 时设置就在 `files/.config/octave/octave-gui.ini`，QSettings 的 INI 格式，
+未分组键落在 `[General]`。
+
+### 两个要覆盖的默认值
+
+| 键 | 编译进 libgui 的默认值 | 在 Android 上的后果 |
+|---|---|---|
+| `customFileEditor` | `emacs +%l %f` | 新建/打开都去启动 emacs，失败弹「Could not start custom file editor」 |
+| `global_skip_welcome_wizard` | `false` | 首次运行停在模态向导，手机上按钮不好点 |
+
+`external_editor_interface::external_editor()` 只读 `customFileEditor`，**不看
+`useCustomFileEditor` 这个开关**，所以那个默认值一定会生效。空值时 `call_custom_editor()`
+返回 true，Octave 回落到内置编辑器。
+
+### 实现
+
+`OctaveApplication.writeGuiDefaults()` 在 Qt 启动前写这个 INI（文件已存在就跳过，
+不覆盖用户设置）。真机验证：清空数据、重装、启动后文件内容是
+
+```
+[General]
+customFileEditor=
+global_skip_welcome_wizard=true
+icon_fallbacks=:/icons/tango/scalable/, :/icons/cursors/
+```
+
+（第三行是 Octave 自己补的。）点「新建」不再出现 emacs 错误。
+
+### 仍未解决
+
+按下「新建」后**内置编辑器面板没有出现**，底部标签栏仍然只有
+Command Window / Documentation / Variable Editor，没有 Editor 标签。
+也就是说 emacs 这一层已经绕过了，但编辑器窗口本身没建起来。
+
+下一步要查 `file_editor` 的构造：configure 时 QScintilla 是关闭的
+（"the editor falls back to a plain text widget without it"），这条回落路径在 Android 上
+可能没有正确创建 dock widget。
