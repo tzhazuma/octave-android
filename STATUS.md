@@ -1522,3 +1522,20 @@ Octave 自己的 LOGO/绘图 GL 入口仍然可以走 gl4es。
   （`src/` 被 gitignore，补丁存为 `patches/octave-android-gles-surface-format.patch`）
 - `android-gui-app/app/src/main/java/org/octave/gui/OctaveApplication.java`：
   设 `OCTAVE_SHOW_GUI_MESSAGES=1`，qFatal 不再被吞
+
+## 2026-10-23：退出路径与旋转稳定性
+
+之前担心「正常退出会走到产生 FORTIFY 的 Qt 析构路径」。实测下来这个路径**在 Android 上不可达**：
+
+| 操作 | 结果 |
+|---|---|
+| Ctrl+Q（`input keycombination 113 45`） | 无反应，pid 不变 |
+| 返回键 | Activity 停在前台，不退出 |
+| 旋转屏幕 | pid 不变（2990），无崩溃 |
+| 全程 `logcat \| grep -c FORTIFY` | **0** |
+
+原因很直接：Octave 的安卓界面没有「退出」入口，Android 也没有给 Qt 应用传 Ctrl+Q 的通道，
+而从最近任务里划掉是直接杀进程（不经过 Qt 析构）。所以那条 FORTIFY 警告在实际使用中
+不会出现 —— 它只在 `main()` 主动返回时才会触发，而现在的启动路径不会返回。
+
+结论：**这不是待修的问题，而是一个不可达路径**。如果将来加了「退出」菜单项，需要重新检查。
