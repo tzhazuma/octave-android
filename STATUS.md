@@ -1684,3 +1684,62 @@ Command Window / Documentation / Variable Editor，没有 Editor 标签。
 下一步要查 `file_editor` 的构造：configure 时 QScintilla 是关闭的
 （"the editor falls back to a plain text widget without it"），这条回落路径在 Android 上
 可能没有正确创建 dock widget。
+
+## 2026-10-23：编辑器标签不出现的根因（已定位，修复需重编 libgui）
+
+### 代码路径
+
+`file_editor::request_new_file()` 的第一句：
+
+```cpp
+if (call_custom_editor ())
+  return;                                  // ← 只要认为「外部编辑器已处理」，就直接返回
+
+file_editor_tab *fileEditorTab = make_file_editor_tab (m_ced);
+add_file_editor_tab (fileEditorTab, "");
+```
+
+而 `call_custom_editor()`：
+
+```cpp
+QString editor = external_editor ();
+if (editor.isEmpty ())
+  return true;                             // ← 空值也算「已处理」
+...
+bool started_ok = QProcess::startDetached (editor, arguments);
+...
+return started_ok;
+```
+
+### 两种配置都走不通
+
+| `customFileEditor` | `call_custom_editor()` | 结果 |
+|---|---|---|
+| 空 | 返回 **true** | 直接 return，**标签页永远不建** |
+| `emacs +%l %f`（默认） | Android 上 `startDetached` 找不到 emacs，但**返回 true**（fork 成功、程序随后失败） | 同样直接 return |
+
+所以无论怎么配，「新建」都不会创建标签页。之前偶尔看到的 emacs 报错弹窗，是 `startDetached`
+返回 false 的那次分支，属于另一种情况。
+
+### 我上一轮的错误
+
+我把 `customFileEditor` 改成空值并说「emacs 问题解决了」—— 实际上那只让 New **更彻底地**
+变成无操作。已把该改动撤掉，只保留 `global_skip_welcome_wizard`（这个是真的有用）。
+
+### 正确的修复（待重编）
+
+在 Octave 源码里让 Android 完全跳过外部编辑器分支：
+
+```cpp
+#if ! defined (Q_OS_ANDROID)
+  if (call_custom_editor ())
+    return;
+#endif
+```
+
+`request_open_file()` 里有同构的一句，要一起改。
+
+### 为什么还没做
+
+`build/gui-vanilla` 的 CMake 树在磁盘清理时被删，`libgui/Makefile` 也不在，无法单对象重编。
+需要重跑 `scripts/octave-configure-gui.sh` 生成构建树，再编译 libgui —— 这是一个长任务。

@@ -134,9 +134,18 @@ public class OctaveApplication extends Application {
         {
             if (! dir.isDirectory () && ! dir.mkdirs ())
                 return;
+            // Only the wizard key here. Do NOT blank customFileEditor: with an empty value
+            // file_editor::request_new_file() sees call_custom_editor() == true and returns
+            // before it ever creates a tab, so New silently does nothing:
+            //
+            //   if (call_custom_editor ()) return;   // true when no editor is configured
+            //   make_file_editor_tab (m_ced); ...
+            //
+            // A wrong editor name is actually the less harmful state, because a failed launch
+            // returns false and the code continues. The real defect is that no editor tab
+            // appears even then, which points at the QScintilla-less tab path, not at this key.
             String body = "[General]\n"
-                    + "global_skip_welcome_wizard=true\n"
-                    + "customFileEditor=\n";
+                    + "global_skip_welcome_wizard=true\n";
             try (java.io.FileOutputStream w = new java.io.FileOutputStream (ini))
             {
                 w.write (body.getBytes (java.nio.charset.StandardCharsets.UTF_8));
