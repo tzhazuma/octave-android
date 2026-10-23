@@ -1768,3 +1768,53 @@ return started_ok;
 configure 时用的是 `--without-qscintilla`，注释写的是"the editor falls back to a plain text
 widget without it"——但这条回落路径可能没有真正创建出可显示的 widget。
 需要检查 `file_editor_tab` 在无 QScintilla 时的构造，以及 editor dock widget 是否被显示。
+
+## 2026-10-23：编出了 QScintilla，编辑器代码终于被编进去
+
+### 关键发现：整个编辑器实现原本被编译掉了
+
+`libgui/src/m-editor/file-editor.cc` 里：
+
+```
+30:  #if defined (HAVE_QSCINTILLA)
+...
+598:   file_editor::request_new_file (const QString& commands)   ← 在这里面
+611:  #endif
+```
+
+`config.log` 里 `AMCOND_HAVE_QSCINTILLA_TRUE='#'`（被注释掉），也就是 **QScintilla 是关的，
+`request_new_file` 根本没被编译**。而 `main-window.cc` 用字符串版 `SIGNAL/SLOT` 宏连接，
+**链接期不会报缺符号，运行期连接静默失败** —— 这就是「点了什么都没发生」的完整机制。
+之前几轮所有 settings 层面的尝试都不可能修好它。
+
+### 给 Android 编 QScintilla
+
+```sh
+curl -O .../QScintilla_src-2.14.1.tar.gz
+cd src
+export ANDROID_NDK_ROOT=$NDK ANDROID_ABI=arm64-v8a ANDROID_PLATFORM=android-24
+$QT_ANDROID/bin/qmake -spec android-clang
+make -j8        # → libqscintilla2_qt6.so (3.3 MB), 零错误
+```
+
+安装到 `prefix/arm64-v8a/qsci/{lib,include}`，然后用 `--with-qscintilla` 重新配置
+（把 `-I$P/qsci/include` 加进 CPPFLAGS、`-L$P/qsci/lib -lqscintilla2_qt6` 加进 QT_LIBS）：
+
+```
+checking for the QScintilla library for Qt 6... -lqscintilla2_qt6
+CONFIGURE_RC=0
+```
+
+`make libgui/liboctgui.la -j8` → EXIT=0，零错误。这次 `request_new_file` 真的被编进去了。
+
+### 一个之前误判的点
+
+APK 里的 `libOctaveGui_arm64-v8a.so` 是 **44536 字节**，而构建产物是 61096 —— 一度以为
+gradle 没打包。实际是 **gradle 会 strip 原生库**，所以 md5 和大小都对不上是正常的。
+判断 APK 是否更新应看时间戳，不该比 md5。
+
+### 仍未解决
+
+装上带 QScintilla 的包、清数据、点「新建」—— **标签页依然没有出现**。
+logcat 里没有 QScintilla 加载错误。所以问题在编辑器 dock 的显示逻辑，不在编译/链接。
+下一步查 `file_editor` 的 dock widget 在 Android 上是否被 show、尺寸是否为 0。
