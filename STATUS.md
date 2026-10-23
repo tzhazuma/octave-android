@@ -1554,3 +1554,31 @@ Octave 自己的 LOGO/绘图 GL 入口仍然可以走 gl4es。
 - 可行的替代：把工具栏动作改成不依赖 `QFileDialog` 的实现 —— 例如用 Android 的 SAF 选择器
   （`ACTION_OPEN_DOCUMENT`）通过 JNI 回调路径，或者干脆在 GUI 里内置一个基于
   `QFileSystemModel` 的简易选择器（File Browser 面板已经在用这个模型）。
+
+## 2026-10-23：工具栏按键全部无响应的真正原因 —— 触摸事件没到 Qt
+
+之前以为只是 `QFileDialog` 的问题，逐个测下来结论不同。
+
+### 实测
+
+| 操作 | 结果 |
+|---|---|
+| 点「打开」「保存」「新建」 | **全都没有任何反应**，不只是文件对话框 |
+| `input text 'disp(7)'` + Enter | ✅ 输出 `7`，提示符 `octave:2>` → `octave:3>` |
+| 点击命令窗口后 `dumpsys input_method` | `mInputShown=false` —— 点击**没有让控件获得焦点** |
+
+所以键盘事件（走 `input text` / `input keyevent`）能到达 Qt，**触摸事件不能**。
+工具栏按钮之所以「点了没反应」，是因为点击根本没被 Qt 收到，而不是对话框弹不出来。
+
+### 代码层面确认对话框本身是对的
+
+`libgui/src/m-editor/file-editor-tab.cc:2598` 用 `QFileDialog` + `DontUseNativeDialog`，
+第 2644 行是 `fileDialog.exec()`（模态）。也就是说只要动作被触发，Qt 自己的对话框就会执行 ——
+它是纯 Qt 控件，不依赖 Android 的原生对话框后端。
+
+### 下一步
+
+真正要修的是**触摸事件的投递**。FreeCAD 那边遇到过类似现象（`Touch event received for
+non-existing window`），说明 Qt for Android 的触摸路由在移植应用里容易出问题。
+方向：检查 Qt 的 `QAndroidPlatformIntegration` 是否把 MotionEvent 转成 QTouchEvent 后
+投递到了正确的 window，以及 Octave 的顶层窗口是否被识别为「非 Qt 窗口」。
