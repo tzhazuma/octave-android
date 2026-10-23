@@ -25,6 +25,44 @@ public class MainActivity extends QtActivity {
     }
 
     /**
+     * Give the GUI a way out.
+     *
+     * <p>Octave's desktop UI has File &gt; Exit, but on a phone the menu bar is not reachable and
+     * Android gives the app no quit affordance at all -- Back does nothing, and Ctrl+Q needs a
+     * keyboard. Without this the only way to stop Octave is to swipe it out of recents, which
+     * kills the process without letting it shut down.
+     *
+     * <p>Back now asks first, then finishes the task. The confirmation matters: Back is also how
+     * people dismiss the on-screen keyboard.
+     */
+    /**
+     * QtActivity consumes the Back key before onBackPressed() is ever reached -- Qt turns it into
+     * a key event for the Qt app -- so the dialog has to be triggered one level lower, before the
+     * activity gets a chance to swallow it.
+     */
+    @Override
+    public boolean dispatchKeyEvent(android.view.KeyEvent event) {
+        if (event.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK
+                && event.getAction() == android.view.KeyEvent.ACTION_UP) {
+            askToQuit();
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    private void askToQuit() {
+        new android.app.AlertDialog.Builder(this)
+                .setTitle("退出 Octave？")
+                .setMessage("未保存的脚本会丢失。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("退出", (d, w) -> {
+                    Log.i(TAG, "exit requested from the back button");
+                    finishAffinity();
+                })
+                .show();
+    }
+
+    /**
      * Stop Android's accessibility framework from calling into Qt's virtual view tree.
      *
      * <p>Qt's {@code AccessibilityDelegate} does a synchronous {@code QMetaObject::invokeMethod}

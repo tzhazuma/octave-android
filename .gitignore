@@ -72,3 +72,9 @@ android-app/app/build/
 android-gui-app/app/build/
 android-gui-app/.gradle/
 android-app/.gradle/
+
+# Gradle caches: build state, not source.
+.gradle/
+**/.gradle/
+build/
+**/build/
