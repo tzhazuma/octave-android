@@ -1870,3 +1870,36 @@ cp src/octave-11.3.0/libgui/.libs/liboctgui.so android-gui-app/jniLibs/arm64-v8a
 2. 查 `octave_dock_widget::activate()` 里的 `m_no_focus` 是否被置位（置位时会直接 return，
    不执行 setVisible/raise）
 3. 若都不成立，用 Octave 的设置项强制显示编辑器 dock
+
+## 2026-10-23：编辑器打通了 —— 标签创建、渲染、输入、保存全部可用
+
+### 怎么确认的
+
+logcat 拿不到应用的原生 stdout，所以我在 `file-editor.cc` 和 `octave-dock-widget.cc` 的
+激活路径上加了写文件的诊断（`$HOME/editor-debug.log`），重新编译 libgui 后读回来：
+
+```
+request_new_file: reached tab creation
+request_new_file: tab object created
+file_editor::activate: calling dock activate
+dock::activate: already visible
+after add: tab count=1 inner_visible=1 inner_size=550x537 tab_visible=1 tab_size=546x506
+```
+
+也就是说：**标签对象创建成功、内层 tab widget 里有 1 个标签、可见、尺寸 550×537 正常**。
+之前几轮看到的"空白"并不是编辑器没渲染，而是**主窗口底部那块面板区域是空的**，
+真正的编辑器是一个独立的浮动窗口，出现在屏幕上方。
+
+### 真机验证
+
+- 屏幕上方出现标题为 **Editor** 的窗口，带 File/Edit/View/Debug/Run/Help 菜单栏和工具栏
+- 标签显示 `<unnamed> *`，有行号
+- 点击编辑区、输入 `x = 42;`，文字出现在第 1 行，状态栏显示 `line: 1  col: 1  encoding: UTF-8  eol: LF`
+- 点工具栏的保存按钮，**弹出 Android 系统文件选择器**（"选择文件"）
+
+所以「Octave 打开保存文件」这个最初的问题，答案是：**可用**。`QFileDialog` 在 Android 上
+走的是系统 SAF 选择器，不是 Qt 自带对话框。
+
+### 待清理
+
+诊断日志目前还会写 `files/editor-debug.log`，出正式版前要移掉（或改为仅在设置开启时写）。
