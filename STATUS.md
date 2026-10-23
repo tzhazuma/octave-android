@@ -1743,3 +1743,28 @@ return started_ok;
 
 `build/gui-vanilla` 的 CMake 树在磁盘清理时被删，`libgui/Makefile` 也不在，无法单对象重编。
 需要重跑 `scripts/octave-configure-gui.sh` 生成构建树，再编译 libgui —— 这是一个长任务。
+
+## 2026-10-23：libgui 已重建，external-editor 分支已隔离，但标签页仍未出现
+
+### 做了什么
+
+1. 重跑 `scripts/octave-configure-gui.sh` → `CONFIGURE_RC=0`
+2. 应用源码补丁：`request_new_file()` 里的 `call_custom_editor()` 早退分支用
+   `#if ! defined (Q_OS_ANDROID)` 包起来（`request_open_file()` 那条不用改，
+   它前面已经有 `global_use_custom_editor` 开关保护，默认 false）
+3. `make libgui/liboctgui.la -j8` → 成功，零错误
+4. `scripts/gui-shared-link.sh --deploy` → 新 .so 部署到 `android-gui-app/jniLibs/arm64-v8a/`
+5. 重建 APK（注意：gradle 一开始没重新打包，APK 时间戳停在 14:29 而库是 14:43，
+   要删掉 `app/build/outputs/apk/debug/app-debug.apk` 才会真正重打）
+
+### 结果
+
+点「新建」**不再尝试启动 emacs**（守卫生效），但**编辑器标签页仍然没有出现**，
+底部标签栏还是只有 Command Window / Documentation / Variable Editor。
+
+### 下一个可疑点
+
+`make_file_editor_tab (m_ced)` 和 `add_file_editor_tab (fileEditorTab, "")` 之后没有可见结果。
+configure 时用的是 `--without-qscintilla`，注释写的是"the editor falls back to a plain text
+widget without it"——但这条回落路径可能没有真正创建出可显示的 widget。
+需要检查 `file_editor_tab` 在无 QScintilla 时的构造，以及 editor dock widget 是否被显示。
