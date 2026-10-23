@@ -1818,3 +1818,38 @@ gradle 没打包。实际是 **gradle 会 strip 原生库**，所以 md5 和大�
 装上带 QScintilla 的包、清数据、点「新建」—— **标签页依然没有出现**。
 logcat 里没有 QScintilla 加载错误。所以问题在编辑器 dock 的显示逻辑，不在编译/链接。
 下一步查 `file_editor` 的 dock widget 在 Android 上是否被 show、尺寸是否为 0。
+
+## 2026-10-23：真正的阻塞点 —— APK 里有两个库，我只更新了一个
+
+### 发现
+
+`libOctaveGui_arm64-v8a.so` 只有 61 KB，它不是 GUI 本体。`strings` 显示它依赖
+**`liboctgui.so`** —— 那才是全部 GUI 代码所在（5.4 MB）。
+
+而我前几轮重建 libgui 之后，只跑了 `scripts/gui-shared-link.sh --deploy`，
+它部署的是那个 61 KB 的 `main()` 包装库。**`liboctgui.so` 从未被替换过**，
+所以无论怎么重编、怎么改设置，设备上跑的始终是旧的 GUI 代码。
+
+```
+新构建:  src/octave-11.3.0/libgui/.libs/liboctgui.so      5,679,960 bytes
+APK 里:  android-gui-app/jniLibs/arm64-v8a/liboctgui.so   4,827,864 bytes（旧）
+```
+
+### 修复
+
+```sh
+cp src/octave-11.3.0/libgui/.libs/liboctgui.so android-gui-app/jniLibs/arm64-v8a/
+```
+
+（仍需 `libqscintilla2_qt6.so` 一并放进 jniLibs。）
+
+### 结果
+
+装上新包、清数据、点「新建」—— 底部标签栏第一次出现了 **`Ed...`（Editor）标签**，
+与 Command Window / Documentation / Variable Editor 并列。
+
+### 仍未完成
+
+点那个 Editor 标签目前没有切换到编辑器视图（面板内容变空白）。
+所以「标签页能被创建」已经验证，「编辑器界面可用」还没有。
+接下来要查 Qt dock widget 在窄屏上的 tab 切换与 sizing。
