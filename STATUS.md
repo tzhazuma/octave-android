@@ -1903,3 +1903,35 @@ after add: tab count=1 inner_visible=1 inner_size=550x537 tab_visible=1 tab_size
 ### 待清理
 
 诊断日志目前还会写 `files/editor-debug.log`，出正式版前要移掉（或改为仅在设置开启时写）。
+
+## 2026-10-23：编辑器最终方案 —— 独立 dock，不再与命令窗口 tab 合并
+
+### 三种布局的实际结果
+
+| 方案 | 结果 |
+|---|---|
+| `tabifyDockWidget (m_command_window, m_editor_window)`（上游默认） | dock 标签在窄屏上**失效** —— 点击不切换。诊断日志证明标签本身存在、可见、尺寸 550×537 正常 |
+| `setFloating (true)` | 能渲染能输入，但浮动窗口位置/尺寸不受控（`resize()` 在 show 之前无效，`showNormal()` 之后设几何也只成功一半），实际显示成右上角一小块 |
+| **不 tabify，独立 dock** ✅ | 编辑器停靠在下方，菜单栏、工具栏、`<unnamed> *` 标签、`line: 1 col: 1 encoding: UTF-8 eol: LF` 状态栏全部正常 |
+
+最终采用第三种：
+
+```cpp
+#if defined (HAVE_QSCINTILLA)
+  addDockWidget (Qt::RightDockWidgetArea, m_editor_window);
+#  if ! defined (Q_OS_ANDROID)
+  tabifyDockWidget (m_command_window, m_editor_window);
+#  endif
+#endif
+```
+
+### 顺带清理
+
+诊断用的 `editor-debug-log.h` 和所有 `editor_debug_log()` 调用都已移除。
+移除时我用正则误删了 `file-editor.cc` 的尾部（该文件 3082 行只剩 619 行），
+因为 `src/` 不在 git 里无法 checkout —— 从官方 `octave-11.3.0.tar.gz` 重新取出该文件，
+只重新应用 Android 守卫后恢复正常。
+
+### release
+
+`Octave-GUI-0.2.0-android-arm64.apk`（194 MB）已上传，真机验证编辑器可用。
