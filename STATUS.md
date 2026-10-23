@@ -1582,3 +1582,56 @@ Octave 自己的 LOGO/绘图 GL 入口仍然可以走 gl4es。
 non-existing window`），说明 Qt for Android 的触摸路由在移植应用里容易出问题。
 方向：检查 Qt 的 `QAndroidPlatformIntegration` 是否把 MotionEvent 转成 QTouchEvent 后
 投递到了正确的 window，以及 Octave 的顶层窗口是否被识别为「非 Qt 窗口」。
+
+## 2026-10-23（更正）：工具栏按键是好的 —— 问题在默认外部编辑器
+
+**上一轮的结论是错的**，需要更正。
+
+### 上一轮错在哪
+
+我按 `y=190` 点击工具栏，而图标的实际中心在 `y≈168`。差了 22 像素，点在了工具栏下边缘之外，
+于是「点了没反应」。我据此推断「触摸事件没到 Qt」——**这个推断不成立**。
+
+### 用正确坐标重测
+
+- 点底部「Documentation」标签 → 视图确实切换了，**触摸是好的**
+- 点「新建」（56, 168）→ 立刻弹出对话框：
+
+```
+⚠ Octave Editor
+Could not start custom file editor
+emacs
+```
+
+### 真正的 bug
+
+`external_editor_interface::call_custom_editor()` 会先读 `customFileEditor` 设置，
+非空就尝试启动那个外部编辑器。而 `gui-preferences-global.cc` 里的默认值是：
+
+```cpp
+global_custom_editor ("customFileEditor", QVariant ("emacs +%l %f"));
+```
+
+Android 上没有 emacs，于是「新建」「打开」全部走到这个失败分支 —— 内置编辑器永远打不开，
+用户看到的就是「按键没反应」（那个对话框是 NonModal 的，还容易错过）。
+
+### 修复
+
+给 Android 单独一个空默认值：
+
+```cpp
+#elif defined (Q_OS_ANDROID)
+gui_pref
+global_custom_editor ("customFileEditor", QVariant (""));
+#else
+gui_pref
+global_custom_editor ("customFileEditor", QVariant ("emacs +%l %f"));
+```
+
+空值时 `call_custom_editor()` 直接 `return true`，Octave 回落到内置编辑器，
+之后的打开/保存就走 `QFileDialog`（`file-editor-tab.cc:2598`，`DontUseNativeDialog` + `exec()`）。
+
+### 待办
+
+源码已改，但 `build/gui-vanilla` 的 CMake 树在之前的磁盘清理里被删了，
+需要重新 configure + 编译 libgui 才能产出新 APK。这是下一步。
